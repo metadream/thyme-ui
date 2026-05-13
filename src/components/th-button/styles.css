@@ -20,7 +20,9 @@
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
     user-select: none;
     -webkit-user-select: none;
     outline: none;
@@ -91,8 +93,8 @@
 }
 
 .th-button__spinner {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     animation: th-spin 0.8s linear infinite;
     color: currentColor;
 }

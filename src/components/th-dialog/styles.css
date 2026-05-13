@@ -1,0 +1,106 @@
+:host {
+    display: contents;
+    --th-primary: #3730a3;
+}
+
+.th-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.th-dialog-overlay--open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.th-dialog {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.th-dialog__title {
+    padding: 20px 20px 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #1f2937;
+}
+
+.th-dialog__body {
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #6b7280;
+    text-align: center;
+}
+
+.th-dialog__body:only-child {
+    padding: 24px 20px;
+}
+
+.th-dialog__footer {
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    min-height: 0;
+}
+
+.th-dialog__footer[hidden] {
+    display: none;
+}
+
+.th-dialog__footer > slot {
+    display: flex;
+    flex: 1;
+}
+
+::slotted(button) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--th-primary, #007aff);
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    position: relative;
+    height: 42px;
+    border-right: 1px solid #e5e7eb;
+}
+
+::slotted(button:last-child) {
+    border-right: none;
+}
+
+::slotted(button:hover) {
+    background: color-mix(in srgb, var(--th-primary, #007aff) 8%, transparent);
+}
+
+::slotted(button:active) {
+    background: color-mix(in srgb, var(--th-primary, #007aff) 15%, transparent);
+}
+
+::slotted(button:focus-visible) {
+    background: color-mix(in srgb, var(--th-primary, #007aff) 12%, transparent);
+}

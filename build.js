@@ -37,7 +37,7 @@ for (const file of ['utils.js', 'Component.js']) {
     parts.push(stripModuleSyntax(read(path.join(SRC, 'core', file))));
 }
 
-for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select']) {
+for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select', 'th-dialog']) {
     const jsPath = path.join(SRC, 'components', name, 'index.js');
     if (fs.existsSync(jsPath)) {
         let js = read(jsPath);
