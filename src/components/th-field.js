@@ -1,4 +1,5 @@
 import { Component } from '../core/Component.js';
+import { locale } from '../core/locale.js';
 import fieldCss from '../styles/th-field.css';
 
 const TEXTAREA = 'textarea';
@@ -42,7 +43,7 @@ export class ThField extends Component {
                 <slot>
                     <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
                 </slot>
-                ${isDate ? `<button class="th-field__date-btn" part="date-btn" type="button" tabindex="-1" aria-label="选择日期">
+                ${isDate ? `<button class="th-field__date-btn" part="date-btn" type="button" tabindex="-1" aria-label="${locale.translate('datepicker.aria')}">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -69,7 +70,7 @@ export class ThField extends Component {
                     </button>
                 </div>
                 <div class="th-field__cal-weekdays">
-                    <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+                    ${locale.translate('weekday.labels').map(d => `<span>${d}</span>`).join('')}
                 </div>
                 <div class="th-field__cal-grid"></div>
             </div>` : ''}

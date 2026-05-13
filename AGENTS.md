@@ -11,6 +11,7 @@ src/
   core/             # 基类与工具函数
     Component.js    # 组件基类（所有组件继承它）
     utils.js        # 工具函数（涟漪效果等）
+    locale.js       # 国际化/多语言
     form.js         # 表单数据序列化工具
     http.js         # HTTP 请求封装
   components/       # 组件文件（扁平结构）

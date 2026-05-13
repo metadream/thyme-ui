@@ -1,7 +1,7 @@
 export const ripple = (container, event) => {
-    const el = document.createElement('span');
-    el.className = 'th-ripple';
-    el.setAttribute('aria-hidden', 'true');
+    const el = document.createElement("span");
+    el.className = "th-ripple";
+    el.setAttribute("aria-hidden", "true");
 
     const rect = container.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
@@ -22,5 +22,5 @@ export const ripple = (container, event) => {
 
     container.appendChild(el);
 
-    el.addEventListener('animationend', () => el.remove());
+    el.addEventListener("animationend", () => el.remove());
 };

@@ -6,6 +6,7 @@ import { ThSelect } from './components/th-select.js';
 import { ThDialog } from './components/th-dialog.js';
 import { methods } from './core/http.js';
 import { getJsonData, setJsonData } from './core/form.js';
+import { locale } from './core/locale.js';
 
 customElements.define('th-button', ThButton);
 customElements.define('th-field', ThField);
@@ -18,3 +19,7 @@ self.Thyme = {
     form: { getJsonData, setJsonData },
     http: methods,
 };
+Object.defineProperty(self.Thyme, 'locale', {
+    get() { return locale.current; },
+    set(v) { locale.setLang(v); },
+});
