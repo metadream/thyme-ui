@@ -1,5 +1,5 @@
-import { Component } from '../../core/Component.js';
-import dialogCss from './styles.css';
+import { Component } from '../core/Component.js';
+import dialogCss from '../styles/th-dialog.css';
 
 export class ThDialog extends Component {
     static get _observedAttrs() {
@@ -96,8 +96,4 @@ export class ThDialog extends Component {
     close() {
         this.removeAttribute('open');
     }
-}
-
-if (!customElements.get('th-dialog')) {
-    customElements.define('th-dialog', ThDialog);
 }

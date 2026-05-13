@@ -11,10 +11,23 @@ src/
   core/             # 基类与工具函数
     Component.js    # 组件基类（所有组件继承它）
     utils.js        # 工具函数（涟漪效果等）
-  components/       # 每个组件独立目录
-    th-xxx/
-      index.js      # 组件实现
-      styles.css    # 组件样式
+    form.js         # 表单数据序列化工具
+    http.js         # HTTP 请求封装
+  components/       # 组件文件（扁平结构）
+    th-button.js    # 按钮组件
+    th-field.js     # 表单字段组件（含日期选择器）
+    th-switch.js    # 开关组件
+    th-check.js     # 复选框/单选框组件
+    th-select.js    # 下拉选择器组件
+    th-dialog.js    # 对话框组件
+  styles/           # 组件样式（CSS 文件）
+    th-button.css
+    th-field.css
+    th-switch.css
+    th-check.css
+    th-select.css
+    th-dialog.css
+  main.js           # 统一注册所有组件 + Thyme 命名空间
 build.js            # 构建脚本（CSS 内联 + import/export 剥离 + 压缩）
 dist/
   thyme@<version>.js  # 单文件产出
@@ -22,11 +35,13 @@ dist/
 
 ## 组件规范
 - 所有组件以 `th-` 前缀命名，使用 `customElements.define` 注册
-- 每个组件独立目录，含 `index.js` + `styles.css`
+- 每个组件独立文件，直接位于 `src/components/` 下，命名 `th-xxx.js`
 - 继承 `Component` 基类，实现 `_template()`、`_init()`、`_attrChanged()` 等钩子
 - 使用 Shadow DOM 隔离样式
-- 样式通过 `import xxxCss from './styles.css'` 引入（每个组件使用唯一变量名避免冲突），构建时自动内联
+- 样式通过 `import xxxCss from '../styles/th-xxx.css'` 引入（每个组件使用唯一变量名避免冲突），构建时自动内联
 - `static get __css__()` 返回 css，基类 `_render()` 将其注入 `<style>`
+- `customElements.define` 统一在 `src/main.js` 中完成，每个组件文件不包含注册代码
+- `self.Thyme` 命名空间暴露工具方法：`Thyme.form.getJsonData`、`Thyme.http.get/post/put/patch/del`
 
 ## th-button 组件
 

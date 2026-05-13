@@ -1,5 +1,5 @@
-import { Component } from '../../core/Component.js';
-import fieldCss from './styles.css';
+import { Component } from '../core/Component.js';
+import fieldCss from '../styles/th-field.css';
 
 const TEXTAREA = 'textarea';
 
@@ -389,8 +389,4 @@ export class ThField extends Component {
             this.removeAttribute('error');
         }
     }
-}
-
-if (!customElements.get('th-field')) {
-    customElements.define('th-field', ThField);
 }

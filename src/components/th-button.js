@@ -1,6 +1,6 @@
-import { Component } from '../../core/Component.js';
-import { ripple } from '../../core/utils.js';
-import btnCss from './styles.css';
+import { Component } from '../core/Component.js';
+import { ripple } from '../core/utils.js';
+import btnCss from '../styles/th-button.css';
 
 export class ThButton extends Component {
     static get __css__() {
@@ -153,8 +153,4 @@ export class ThButton extends Component {
             }
         });
     }
-}
-
-if (!customElements.get('th-button')) {
-    customElements.define('th-button', ThButton);
 }

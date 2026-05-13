@@ -46,18 +46,23 @@ const stripModuleSyntax = (code) =>
 
 const parts = [];
 
-for (const file of ['utils.js', 'form.js', 'Component.js']) {
+for (const file of ['utils.js', 'form.js', 'http.js', 'Component.js']) {
     parts.push(stripModuleSyntax(read(path.join(SRC, 'core', file))));
 }
 
 for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select', 'th-dialog']) {
-    const jsPath = path.join(SRC, 'components', name, 'index.js');
+    const jsPath = path.join(SRC, 'components', `${name}.js`);
     if (fs.existsSync(jsPath)) {
         let js = read(jsPath);
         js = resolveCssImports(js, jsPath);
         js = stripModuleSyntax(js);
         parts.push(js);
     }
+}
+
+const mainPath = path.join(SRC, 'main.js');
+if (fs.existsSync(mainPath)) {
+    parts.push(stripModuleSyntax(read(mainPath)));
 }
 
 (async () => {

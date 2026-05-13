@@ -1,5 +1,5 @@
-import { Component } from '../../core/Component.js';
-import checkCss from './styles.css';
+import { Component } from '../core/Component.js';
+import checkCss from '../styles/th-check.css';
 
 export class ThCheck extends Component {
     static get _observedAttrs() {
@@ -92,8 +92,4 @@ export class ThCheck extends Component {
             if (el !== this) el.checked = false;
         });
     }
-}
-
-if (!customElements.get('th-check')) {
-    customElements.define('th-check', ThCheck);
 }

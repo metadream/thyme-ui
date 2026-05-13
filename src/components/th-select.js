@@ -1,5 +1,5 @@
-import { Component } from '../../core/Component.js';
-import selectCss from './styles.css';
+import { Component } from '../core/Component.js';
+import selectCss from '../styles/th-select.css';
 
 export class ThSelect extends Component {
     static get _observedAttrs() {
@@ -241,8 +241,4 @@ export class ThSelect extends Component {
             bubbles: true,
         }));
     }
-}
-
-if (!customElements.get('th-select')) {
-    customElements.define('th-select', ThSelect);
 }

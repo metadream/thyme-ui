@@ -1,5 +1,5 @@
-import { Component } from '../../core/Component.js';
-import switchCss from './styles.css';
+import { Component } from '../core/Component.js';
+import switchCss from '../styles/th-switch.css';
 
 export class ThSwitch extends Component {
     static get _observedAttrs() {
@@ -59,8 +59,4 @@ export class ThSwitch extends Component {
             bubbles: true,
         }));
     }
-}
-
-if (!customElements.get('th-switch')) {
-    customElements.define('th-switch', ThSwitch);
 }
