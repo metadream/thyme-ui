@@ -132,15 +132,49 @@
 
     <hr style="margin:48px 0">
 
+    <h1>th-switch</h1>
+
+    <section>
+        <h2>Basic</h2>
+        <div class="row">
+            <th-switch checked></th-switch>
+            <th-switch></th-switch>
+        </div>
+    </section>
+
+    <section>
+        <h2>Disabled</h2>
+        <div class="row">
+            <th-switch checked disabled></th-switch>
+            <th-switch disabled></th-switch>
+        </div>
+    </section>
+
+    <section>
+        <h2>Toggle event</h2>
+        <div class="row">
+            <th-switch id="switch-demo"></th-switch>
+            <span id="switch-status" style="font-size:14px;color:#666">Off</span>
+        </div>
+        <script>
+            document.getElementById('switch-demo').addEventListener('change', function (e) {
+                document.getElementById('switch-status').textContent = e.detail.checked ? 'On' : 'Off';
+            });
+        </script>
+    </section>
+
+    <hr style="margin:48px 0">
+
     <h1>Shared color (--th-primary)</h1>
     <section>
-        <p style="color:#666;font-size:14px">Set once on parent, applies to both th-button and th-field:</p>
+        <p style="color:#666;font-size:14px">Set once on parent, applies to all components:</p>
         <div class="col" style="--th-primary:#7c3aed;max-width:360px">
             <div class="row">
                 <th-button variant="tonal">Purple</th-button>
                 <th-button variant="outlined">Purple</th-button>
+                <th-switch checked></th-switch>
             </div>
-            <th-field label="Purple input" value="Shared theme" style="margin-top:8px"></th-field>
+            <th-field label="Purple input" value="Shared theme"></th-field>
         </div>
     </section>
 </body>
