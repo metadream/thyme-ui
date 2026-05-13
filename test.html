@@ -165,6 +165,48 @@
 
     <hr style="margin:48px 0">
 
+    <h1>th-check</h1>
+
+    <section>
+        <h2>Checkbox</h2>
+        <div class="row">
+            <th-check checked>Checked</th-check>
+            <th-check>Unchecked</th-check>
+        </div>
+    </section>
+
+    <section>
+        <h2>Radio group</h2>
+        <div class="row">
+            <th-check type="radio" name="demo" value="1" checked>Option 1</th-check>
+            <th-check type="radio" name="demo" value="2">Option 2</th-check>
+            <th-check type="radio" name="demo" value="3">Option 3</th-check>
+        </div>
+    </section>
+
+    <section>
+        <h2>Disabled</h2>
+        <div class="row">
+            <th-check checked disabled>Checked disabled</th-check>
+            <th-check disabled>Unchecked disabled</th-check>
+        </div>
+    </section>
+
+    <section>
+        <h2>Change event</h2>
+        <div class="row">
+            <th-check id="check-demo">Toggle me</th-check>
+            <span id="check-status" style="font-size:14px;color:#666">unchecked</span>
+        </div>
+        <script>
+            document.getElementById('check-demo').addEventListener('change', function (e) {
+                document.getElementById('check-status').textContent = e.detail.checked ? 'checked' : 'unchecked';
+            });
+        </script>
+    </section>
+
+    <hr style="margin:48px 0">
+
     <h1>Shared color (--th-primary)</h1>
     <section>
         <p style="color:#666;font-size:14px">Set once on parent, applies to all components:</p>
@@ -173,6 +215,7 @@
                 <th-button variant="tonal">Purple</th-button>
                 <th-button variant="outlined">Purple</th-button>
                 <th-switch checked></th-switch>
+                <th-check checked>Purple</th-check>
             </div>
             <th-field label="Purple input" value="Shared theme"></th-field>
         </div>

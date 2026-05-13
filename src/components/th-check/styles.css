@@ -1,0 +1,86 @@
+:host {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    height: 38px;
+    --th-primary: #3730a3;
+}
+
+.th-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+}
+
+.th-check--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.th-check__indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #d1d5db;
+    background: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.th-check:hover .th-check__indicator {
+    border-color: color-mix(in srgb, var(--th-primary) 50%, transparent);
+}
+
+.th-check--checked .th-check__indicator {
+    background: var(--th-primary);
+    border-color: var(--th-primary);
+}
+
+.th-check__indicator::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    margin-top: -2px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-sizing: border-box;
+}
+
+.th-check--checked .th-check__indicator::after {
+    opacity: 1;
+}
+
+.th-check--radio .th-check__indicator {
+    border-radius: 50%;
+}
+
+.th-check--radio .th-check__indicator::after {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    transform: none;
+}
+
+.th-check:focus-visible .th-check__indicator {
+    outline: 2px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
+    outline-offset: 2px;
+}
+
+.th-check__label {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111827;
+}

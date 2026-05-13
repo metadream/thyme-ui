@@ -120,10 +120,47 @@ dist/
 </div>
 ```
 
+## th-check 组件
+
+### 功能
+- 多选（checkbox）与单选（radio）切换开关
+- 自定义勾选/圆点指示器，动画过渡
+- 同名 radio 自动互斥
+- 支持无障碍访问（`role="checkbox"` / `role="radio"` + `aria-checked` + 键盘操作）
+
+### 支持的属性
+- `type` — `checkbox`（默认）| `radio`
+- `checked` — boolean，选中状态
+- `disabled` — boolean，禁用交互
+- `name` — radio 组名（同名自动互斥）
+- `value` — 关联值
+
+### 事件
+- `change` — 切换时触发，`event.detail.checked` + `event.detail.value`
+
+### 示例
+```html
+<!-- 多选 -->
+<th-check checked>选项 A</th-check>
+<th-check>选项 B</th-check>
+
+<!-- 单选组 -->
+<th-check type="radio" name="group" value="1" checked>选项 1</th-check>
+<th-check type="radio" name="group" value="2">选项 2</th-check>
+<th-check type="radio" name="group" value="3">选项 3</th-check>
+
+<!-- 禁用 -->
+<th-check disabled>不可选</th-check>
+
+<div style="--th-primary:#7c3aed">
+    <th-check checked>紫色主题</th-check>
+</div>
+```
+
 ## 全局通用规则
 - `--th-primary`、`border-radius` 是所有组件共用的 CSS 变量/BEM 惯例
 - 所有单行（单行）组件的高度保持一致，为 `38px`（含 border）
-  - 当前：th-button、th-field（非 textarea）、th-switch 均按此值对齐
+  - 当前：th-button、th-field（非 textarea）、th-switch、th-check 均按此值对齐
 
 ## 构建命令
 ```bash
