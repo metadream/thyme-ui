@@ -53,5 +53,4 @@ export class Component extends HTMLElement {
     }
 
     $(sel) { return this._shadow.querySelector(sel); }
-    $$(sel) { return this._shadow.querySelectorAll(sel); }
 }

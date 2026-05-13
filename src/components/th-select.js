@@ -42,7 +42,6 @@ export class ThSelect extends Component {
         this._select = this.$('.th-select');
         this._valueEl = this.$('.th-select__value');
         this._trigger = this.$('.th-select__trigger');
-        this._panel = this.$('.th-select__panel');
         this._optionsContainer = this.$('.th-select__options');
         this._isOpen = false;
         this._selectedValue = '';
