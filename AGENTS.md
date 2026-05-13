@@ -157,10 +157,57 @@ dist/
 </div>
 ```
 
+## th-select 组件
+
+### 功能
+- 自定义下拉选择器，类似原生 `<select>`，样式与 th-field 一致
+- 选项通过 `<option>` 子元素定义
+- 支持键盘导航（上下箭头、Enter 选中、Escape 关闭）
+- 支持无障碍访问（`role="combobox"` + `aria-expanded` + `aria-haspopup`）
+
+### 支持的属性
+- `label` — 可选标签文字（左侧 label 栏，与 th-field 风格一致）
+- `value` — 当前选中值
+- `placeholder` — 无选中值时显示的占位文字
+- `disabled` — 禁用交互
+- `name`、`required`
+
+### 事件
+- `change` — 选中项变化时触发，`event.detail.value` + `event.detail.text`
+
+### 示例
+```html
+<!-- 基本用法 -->
+<th-select placeholder="请选择城市">
+    <option value="bj">北京</option>
+    <option value="sh">上海</option>
+    <option value="gz">广州</option>
+</th-select>
+
+<!-- 带标签 -->
+<th-select label="城市" value="sh">
+    <option value="bj">北京</option>
+    <option value="sh">上海</option>
+    <option value="gz">广州</option>
+</th-select>
+
+<!-- 禁用 -->
+<th-select disabled>
+    <option value="1">不可选</option>
+</th-select>
+
+<div style="--th-primary:#7c3aed">
+    <th-select label="主题色" value="2">
+        <option value="1">选项一</option>
+        <option value="2">选项二</option>
+    </th-select>
+</div>
+```
+
 ## 全局通用规则
 - `--th-primary`、`border-radius` 是所有组件共用的 CSS 变量/BEM 惯例
 - 所有单行（单行）组件的高度保持一致，为 `38px`（含 border）
-  - 当前：th-button、th-field（非 textarea）、th-switch、th-check 均按此值对齐
+  - 当前：th-button、th-field（非 textarea）、th-switch、th-check、th-select 均按此值对齐
 
 ## 构建命令
 ```bash

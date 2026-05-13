@@ -207,6 +207,61 @@
 
     <hr style="margin:48px 0">
 
+    <h1>th-select</h1>
+
+    <section>
+        <h2>Basic</h2>
+        <div class="col">
+            <th-select placeholder="Choose a city">
+                <option value="bj">Beijing</option>
+                <option value="sh">Shanghai</option>
+                <option value="gz">Guangzhou</option>
+                <option value="sz">Shenzhen</option>
+            </th-select>
+        </div>
+    </section>
+
+    <section>
+        <h2>With label & value</h2>
+        <div class="col">
+            <th-select label="City" value="sh">
+                <option value="bj">Beijing</option>
+                <option value="sh">Shanghai</option>
+                <option value="gz">Guangzhou</option>
+                <option value="sz">Shenzhen</option>
+            </th-select>
+        </div>
+    </section>
+
+    <section>
+        <h2>Disabled</h2>
+        <div class="col">
+            <th-select disabled>
+                <option value="1">Cannot select</option>
+                <option value="2">Disabled</option>
+            </th-select>
+        </div>
+    </section>
+
+    <section>
+        <h2>Change event</h2>
+        <div class="col">
+            <th-select id="select-demo" placeholder="Pick something">
+                <option value="a">Option A</option>
+                <option value="b">Option B</option>
+                <option value="c">Option C</option>
+            </th-select>
+            <p id="select-status" style="font-size:14px;color:#666;margin:0">selected: (none)</p>
+        </div>
+        <script>
+            document.getElementById('select-demo').addEventListener('change', function (e) {
+                document.getElementById('select-status').textContent = 'selected: ' + e.detail.value + ' (' + e.detail.text + ')';
+            });
+        </script>
+    </section>
+
+    <hr style="margin:48px 0">
+
     <h1>Shared color (--th-primary)</h1>
     <section>
         <p style="color:#666;font-size:14px">Set once on parent, applies to all components:</p>
@@ -218,6 +273,10 @@
                 <th-check checked>Purple</th-check>
             </div>
             <th-field label="Purple input" value="Shared theme"></th-field>
+            <th-select label="Choose" value="2">
+                <option value="1">Option one</option>
+                <option value="2">Option two</option>
+            </th-select>
         </div>
     </section>
 </body>
