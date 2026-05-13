@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thyme UI — Docs</title>
+<script src="../dist/thyme@0.1.0.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{display:flex;min-height:100vh;font-family:system-ui,sans-serif;color:#1f2937;line-height:1.6}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+
+/* nav */
+nav{width:220px;border-right:1px solid #e5e7eb;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;background:#fff}
+nav .brand{padding:0 20px 16px;font-size:18px;font-weight:700;letter-spacing:-.3px;border-bottom:1px solid #e5e7eb;margin-bottom:8px}
+nav .grp{padding:12px 20px 4px;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+nav a{display:block;padding:6px 20px;color:#4b5563;text-decoration:none;font-size:13px;border-left:2px solid transparent}
+nav a:hover{background:#f9fafb;color:#111827}
+nav a.active{border-left-color:var(--th-primary,#2563eb);color:var(--th-primary,#2563eb);font-weight:600;background:#f0f7ff}
+
+/* main */
+main{flex:1;padding:40px 48px 80px;max-width:960px;min-width:0}
+h1{font-size:26px;margin-bottom:8px;letter-spacing:-.3px}
+h1+p{color:#6b7280;font-size:14px;margin-bottom:32px}
+h2{font-size:18px;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid #e5e7eb}
+h3{font-size:14px;margin:24px 0 10px;color:#374151;font-weight:600}
+
+/* demo live */
+.demo{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:8px;background:#fafafa}
+.demo.col{flex-direction:column;align-items:stretch}
+.demo.row{flex-direction:row;align-items:center}
+
+pre.code{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;font-size:13px;overflow-x:auto;margin-bottom:24px;tab-size:2}
+pre.code code{font-family:'SF Mono','Menlo','Consolas',monospace;color:#374151;white-space:pre}
+
+.desc{font-size:13px;color:#6b7280;margin:-4px 0 12px}
+
+/* utility demo rows */
+.util-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:#fafafa;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:6px;font-size:14px}
+.util-row .label{color:#6b7280;font-size:12px;min-width:80px}
+.util-row .val{font-weight:600;font-family:'SF Mono',monospace;font-size:13px}
+.util-row button{cursor:pointer}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand">Thyme UI</div>
+  <div class="grp">Components</div>
+  <a href="#button">th-button</a>
+  <a href="#field">th-field</a>
+  <a href="#switch">th-switch</a>
+  <a href="#check">th-check</a>
+  <a href="#select">th-select</a>
+  <a href="#dialog">th-dialog</a>
+  <a href="#toast">th-toast</a>
+  <div class="grp">Global API</div>
+  <a href="#alert-confirm">alert / confirm</a>
+  <a href="#toast-api">toast methods</a>
+  <a href="#locale">locale</a>
+  <a href="#form">form</a>
+  <a href="#http">http</a>
+  <div class="grp">Utilities</div>
+  <a href="#utils-overview">overview</a>
+  <a href="#utils-delay">delay</a>
+  <a href="#utils-nanoid">nanoId</a>
+  <a href="#utils-format-date">formatDate</a>
+  <a href="#utils-format-money">formatMoney</a>
+  <a href="#utils-format-bytes">formatBytes</a>
+  <a href="#utils-format-seconds">formatSeconds</a>
+  <a href="#utils-parse-duration">parseDuration</a>
+  <a href="#utils-datauri">toDataURI</a>
+  <a href="#utils-stringify">stringify</a>
+</nav>
+
+<!-- ======================================================================== -->
+<main>
+
+<h1>Thyme UI</h1>
+<p>Native Web Component UI library · zero dependencies</p>
+
+<!-- ============================== BUTTON ================================== -->
+<section id="button">
+<h2>th-button</h2>
+
+<h3>Variants</h3>
+<template class="demo">
+  <th-button variant="tonal">Tonal</th-button>
+  <th-button variant="outlined">Outlined</th-button>
+</template>
+
+<h3>States</h3>
+<template class="demo">
+  <th-button disabled>Disabled</th-button>
+  <th-button loading>Loading</th-button>
+</template>
+
+<h3>Link mode</h3>
+<template class="demo">
+  <th-button href="https://example.com" target="_blank">Link</th-button>
+  <th-button href="https://example.com" variant="outlined" target="_blank">Outlined Link</th-button>
+</template>
+
+<h3>Custom color</h3>
+<template class="demo" style="--th-primary:#b91c1c">
+  <th-button variant="tonal">Red</th-button>
+  <th-button variant="outlined">Red Outlined</th-button>
+</template>
+
+<h3>Loading on click</h3>
+<div class="demo">
+  <th-button id="btn-load-demo">Click to load</th-button>
+</div>
+<pre class="code"><code>&lt;th-button id="btn-load-demo"&gt;Click to load&lt;/th-button&gt;
+&lt;script&gt;
+  btn.addEventListener('click', function () {
+    this.setAttribute('loading', '');
+    setTimeout(() =&gt; this.removeAttribute('loading'), 2000);
+  });
+&lt;/script&gt;</code></pre>
+</section>
+
+<!-- ============================== FIELD =================================== -->
+<section id="field">
+<h2>th-field</h2>
+
+<h3>Input types</h3>
+<template class="demo col">
+  <th-field label="Name" placeholder="Enter your name"></th-field>
+  <th-field label="Email" type="email" placeholder="name@example.com"></th-field>
+  <th-field label="Password" type="password" placeholder="········"></th-field>
+  <th-field label="Number" type="number" min="0" max="100"></th-field>
+</template>
+
+<h3>Date picker</h3>
+<div class="demo col">
+  <th-field id="date-demo" label="Date picker" type="date" value="2026-05-13"></th-field>
+  <p id="date-status" style="font-size:14px;color:#666;margin:0">selected: 2026-05-13</p>
+</div>
+<pre class="code"><code>&lt;th-field label="Date picker" type="date"&gt;&lt;/th-field&gt;
+&lt;script&gt;
+  field.addEventListener('change', () =&gt; {
+    console.log(field.value);
+  });
+&lt;/script&gt;</code></pre>
+
+<h3>Textarea</h3>
+<template class="demo col">
+  <th-field label="Bio" type="textarea" rows="4" placeholder="Tell us about yourself"></th-field>
+</template>
+
+<h3>Validation</h3>
+<template class="demo col">
+  <th-field label="Required" required placeholder="Required field"></th-field>
+  <th-field label="Min length 4" minlength="4" placeholder="At least 4 chars"></th-field>
+  <th-field label="Pattern (3 digits)" pattern="[0-9]{3}" placeholder="123"></th-field>
+</template>
+
+<h3>Custom error</h3>
+<div class="demo col">
+  <th-field id="custom-err" label="Custom error"></th-field>
+  <div style="display:flex;gap:8px">
+    <th-button id="btn-set-err">Set error</th-button>
+    <th-button id="btn-clr-err" variant="outlined">Clear</th-button>
+  </div>
+</div>
+<pre class="code"><code>field.setCustomValidity('Custom error message');
+field.setCustomValidity('');  // clear</code></pre>
+
+<h3>Disabled &amp; Readonly</h3>
+<template class="demo col">
+  <th-field label="Disabled" value="Can't edit" disabled></th-field>
+  <th-field label="Readonly" value="Can't change" readonly></th-field>
+</template>
+
+<h3>Value binding</h3>
+<div class="demo col">
+  <th-field id="bound-field" label="Type here"></th-field>
+  <p style="font-size:14px;color:#666">Value: <span id="value-display">(empty)</span></p>
+</div>
+<pre class="code"><code>field.addEventListener('input', () =&gt; {
+  display.textContent = field.value;
+});</code></pre>
+
+<h3>Custom content (slot)</h3>
+<template class="demo col">
+  <th-field label="Gender">
+    <label style="display:flex;align-items:center;gap:6px;padding:4px 0 8px">
+      <input type="radio" name="gender" value="male" checked> Male
+    </label>
+    <label style="display:flex;align-items:center;gap:6px;padding:4px 0 8px">
+      <input type="radio" name="gender" value="female"> Female
+    </label>
+  </th-field>
+</template>
+</section>
+
+<!-- ============================== SWITCH ================================== -->
+<section id="switch">
+<h2>th-switch</h2>
+
+<h3>Basic</h3>
+<template class="demo">
+  <th-switch checked></th-switch>
+  <th-switch></th-switch>
+</template>
+
+<h3>Disabled</h3>
+<template class="demo">
+  <th-switch checked disabled></th-switch>
+  <th-switch disabled></th-switch>
+</template>
+
+<h3>Toggle event</h3>
+<div class="demo">
+  <th-switch id="switch-demo"></th-switch>
+  <span id="switch-status" style="font-size:14px;color:#666">Off</span>
+</div>
+<pre class="code"><code>switchEl.addEventListener('change', function (e) {
+  status.textContent = e.detail.checked ? 'On' : 'Off';
+});</code></pre>
+</section>
+
+<!-- ============================== CHECK =================================== -->
+<section id="check">
+<h2>th-check</h2>
+
+<h3>Checkbox</h3>
+<template class="demo">
+  <th-check checked>Checked</th-check>
+  <th-check>Unchecked</th-check>
+</template>
+
+<h3>Radio group</h3>
+<template class="demo">
+  <th-check type="radio" name="demo" value="1" checked>Option 1</th-check>
+  <th-check type="radio" name="demo" value="2">Option 2</th-check>
+  <th-check type="radio" name="demo" value="3">Option 3</th-check>
+</template>
+
+<h3>Disabled</h3>
+<template class="demo">
+  <th-check checked disabled>Checked disabled</th-check>
+  <th-check disabled>Unchecked disabled</th-check>
+</template>
+
+<h3>Change event</h3>
+<div class="demo">
+  <th-check id="check-demo">Toggle me</th-check>
+  <span id="check-status" style="font-size:14px;color:#666">unchecked</span>
+</div>
+<pre class="code"><code>checkEl.addEventListener('change', function (e) {
+  status.textContent = e.detail.checked ? 'checked' : 'unchecked';
+});</code></pre>
+</section>
+
+<!-- ============================== SELECT ================================== -->
+<section id="select">
+<h2>th-select</h2>
+
+<h3>Basic</h3>
+<template class="demo col">
+  <th-select placeholder="Choose a city">
+    <option value="bj">Beijing</option>
+    <option value="sh">Shanghai</option>
+    <option value="gz">Guangzhou</option>
+  </th-select>
+</template>
+
+<h3>With label &amp; value</h3>
+<template class="demo col">
+  <th-select label="City" value="sh">
+    <option value="bj">Beijing</option>
+    <option value="sh">Shanghai</option>
+    <option value="gz">Guangzhou</option>
+  </th-select>
+</template>
+
+<h3>Disabled</h3>
+<template class="demo col">
+  <th-select disabled>
+    <option value="1">Cannot select</option>
+    <option value="2">Disabled</option>
+  </th-select>
+</template>
+
+<h3>Change event</h3>
+<div class="demo col">
+  <th-select id="select-demo" placeholder="Pick something">
+    <option value="a">Option A</option>
+    <option value="b">Option B</option>
+    <option value="c">Option C</option>
+  </th-select>
+  <p id="select-status" style="font-size:14px;color:#666;margin:0">selected: (none)</p>
+</div>
+<pre class="code"><code>selectEl.addEventListener('change', function (e) {
+  status.textContent = 'selected: ' + e.detail.value;
+});</code></pre>
+</section>
+
+<!-- ============================== DIALOG ================================== -->
+<section id="dialog">
+<h2>th-dialog</h2>
+
+<h3>Basic alert</h3>
+<div class="demo">
+  <th-button id="dlg-basic-btn">Show dialog</th-button>
+</div>
+<pre class="code"><code>&lt;th-dialog id="dlg" title="提示"&gt;
+  &lt;p&gt;操作已成功完成。&lt;/p&gt;
+  &lt;button slot="footer"&gt;好&lt;/button&gt;
+&lt;/th-dialog&gt;</code></pre>
+
+<h3>Confirm (two buttons)</h3>
+<div class="demo">
+  <th-button id="dlg-confirm-btn" variant="outlined">Show confirm</th-button>
+</div>
+<pre class="code"><code>&lt;th-dialog id="dlg" title="确认删除"&gt;
+  &lt;p&gt;确定要删除吗？&lt;/p&gt;
+  &lt;button slot="footer" id="cancel"&gt;取消&lt;/button&gt;
+  &lt;button slot="footer" id="ok"&gt;删除&lt;/button&gt;
+&lt;/th-dialog&gt;</code></pre>
+
+<h3>No title</h3>
+<div class="demo">
+  <th-button id="dlg-notitle-btn">No title dialog</th-button>
+</div>
+
+<h3>Non-closable (ESC disabled)</h3>
+<div class="demo">
+  <th-button id="dlg-noclose-btn">Non-closable</th-button>
+</div>
+
+<!-- dialogs defined here -->
+<th-dialog id="dlg-basic" title="提示"><p>操作已成功完成。</p><button slot="footer">好</button></th-dialog>
+<th-dialog id="dlg-confirm" title="确认删除"><p>此操作不可撤销，确定要删除吗？</p><button slot="footer" id="dlg-cancel">取消</button><button slot="footer" id="dlg-ok" style="font-weight:600">删除</button></th-dialog>
+<th-dialog id="dlg-notitle"><p>这是一个没有标题栏的对话框。</p><button slot="footer">知道了</button></th-dialog>
+<th-dialog id="dlg-noclose" title="重要" closable="false"><p>按 ESC 无法关闭，必须点击按钮。</p><button slot="footer" id="dlg-noclose-ok">我知道了</button></th-dialog>
+
+<h3>Shared color</h3>
+<div class="demo" style="--th-primary:#7c3aed">
+  <th-button id="dlg-color-btn">Purple dialog</th-button>
+</div>
+<th-dialog id="dlg-color" title="紫色主题"><p>按钮颜色跟随父元素的 --th-primary。</p><button slot="footer" id="dlg-color-cancel">取消</button><button slot="footer" id="dlg-color-ok">确认</button></th-dialog>
+</section>
+
+<!-- ============================== TOAST COMPONENT ======================== -->
+<section id="toast">
+<h2>th-toast</h2>
+<p class="desc">Standalone toast component with slide-in animation, auto-dismiss, click-to-dismiss.</p>
+
+<h3>Attributes</h3>
+<pre class="code"><code>&lt;th-toast type="info|warn|error|success" duration="3"&gt;message&lt;/th-toast&gt;</code></pre>
+</section>
+
+<!-- ============================== ALERT / CONFIRM ======================== -->
+<section id="alert-confirm">
+<h2>Thyme.alert / Thyme.confirm</h2>
+<p class="desc">Programmatic dialog via <code>Thyme.alert(message, title?)</code> and <code>Thyme.confirm(message, title?)</code> — returns a Promise.</p>
+
+<div class="demo">
+  <th-button id="alert-basic">Alert message</th-button>
+  <th-button id="alert-title" variant="outlined">With title</th-button>
+  <th-button id="confirm-basic" variant="outlined">Confirm</th-button>
+  <span id="confirm-result" style="font-size:14px;color:#666">result: (none)</span>
+</div>
+<pre class="code"><code>// One button — auto-resolves on click
+Thyme.alert('Operation completed.', 'Success');
+
+// Two buttons — returns Promise&lt;boolean&gt;
+Thyme.confirm('Are you sure?', 'Confirm').then(result =&gt; {
+  // true = OK clicked, false = Cancel clicked
+});</code></pre>
+</section>
+
+<!-- ============================== TOAST API =============================== -->
+<section id="toast-api">
+<h2>Thyme.info / .warn / .error / .success</h2>
+<p class="desc">Programmatic toasts. Second parameter is custom duration in seconds (default 3).</p>
+
+<div class="demo">
+  <th-button id="t-info">info</th-button>
+  <th-button id="t-warn" variant="outlined">warn</th-button>
+  <th-button id="t-error" variant="outlined">error</th-button>
+  <th-button id="t-success" variant="outlined">success</th-button>
+  <th-button id="t-5s" variant="outlined">5 seconds</th-button>
+  <th-button id="t-1s" variant="outlined">1 second</th-button>
+</div>
+<pre class="code"><code>Thyme.info('Welcome!');
+Thyme.warn('Be careful');
+Thyme.error('Failed');
+Thyme.success('Done!');
+Thyme.warn('Custom duration', 5);  // 5 seconds</code></pre>
+</section>
+
+<!-- ============================== LOCALE ================================== -->
+<section id="locale">
+<h2>Thyme.locale</h2>
+<p class="desc">Toggle between <code>'en'</code> and <code>'zh'</code>. Affects date picker, alert/confirm buttons, and internally via <code>locale.translate(key)</code>.</p>
+
+<div class="demo">
+  <th-button id="locale-btn">Switch to 中文</th-button>
+  <span id="locale-status" style="font-size:14px;color:#666">Current: en</span>
+</div>
+<pre class="code"><code>// Get
+console.log(Thyme.locale);  // 'en' | 'zh'
+
+// Set
+Thyme.locale = 'zh';</code></pre>
+</section>
+
+<!-- ============================== FORM ==================================== -->
+<section id="form">
+<h2>Thyme.form</h2>
+<p class="desc">Serialize form data to/from JSON objects. Handles all <code>[name]</code> elements including radio, checkbox, select.</p>
+
+<pre class="code"><code>const data = Thyme.form.getJsonData(formElement);
+// { name: "Marco", age: "30", interests: ["js", "css"] }
+
+Thyme.form.setJsonData(formElement, { name: "Test", age: "25" });</code></pre>
+</section>
+
+<!-- ============================== HTTP ==================================== -->
+<section id="http">
+<h2>Thyme.http</h2>
+<p class="desc">Lightweight HTTP client with auto Content-Type detection. Methods available under <code>Thyme.http</code>.</p>
+
+<pre class="code"><code>// GET
+const data = await Thyme.http.get('/api/users');
+
+// POST — auto Content-Type: application/json for objects
+const res = await Thyme.http.post('/api/users', { name: 'Marco' });
+
+// PUT, PATCH, DELETE — same signature
+Thyme.http.put('/api/users/1', { name: 'Updated' });
+Thyme.http.patch('/api/users/1', { age: 31 });
+Thyme.http.delete('/api/users/1');
+
+// Optional headers
+Thyme.http.get('/api/data', { 'X-Custom': 'value' });</code></pre>
+
+<h3>Content-Type auto-detection</h3>
+<pre class="code"><code>// object → application/json
+// string  → text/plain
+// FormData / Blob / ArrayBuffer → no Content-Type set (browser sets it with boundary for FormData)</code></pre>
+</section>
+
+<!-- ============================== UTILS =================================== -->
+<section id="utils-overview">
+<h2>Utilities</h2>
+<p class="desc">All utility functions are available as globals after loading <code>thyme@0.1.0.js</code>. No prefix required.</p>
+</section>
+
+<section id="utils-delay">
+<h3>delay(ms)</h3>
+<p class="desc">Promise-based setTimeout — <code>await delay(1000)</code> waits 1 second.</p>
+<div class="util-row">
+  <span class="label">Demo</span>
+  <th-button id="delay-btn">Wait 1s</th-button>
+  <span id="delay-result" class="val"></span>
+</div>
+<pre class="code"><code>import { delay } from 'thyme/utils';  // source
+// or: global delay() after build
+
+await delay(1000);
+console.log('1 second later');</code></pre>
+</section>
+
+<section id="utils-nanoid">
+<h3>nanoId(size = 24)</h3>
+<p class="desc">URL-safe unique ID generator (A-Za-z0-9, no <code>-</code> <code>_</code>).</p>
+<div class="util-row">
+  <span class="label">Result</span>
+  <span id="nanoid-result" class="val"><script>document.write(nanoId())</script></span>
+</div>
+<pre class="code"><code>nanoId();      // e.g. "Xa3Rt9Kf2LmNpQwZbY7VcJ1"
+nanoId(12);    // custom length</code></pre>
+</section>
+
+<section id="utils-format-date">
+<h3>formatDate(date, pattern, utc?)</h3>
+<p class="desc">Format a Date object with custom pattern. Supports yyyy/yy/MM/M/dd/d/hh/h/mm/m/ss/s/SSS/S.</p>
+<div class="util-row">
+  <span class="label"><code>yyyy-MM-dd</code></span>
+  <span class="val"><script>document.write(formatDate(new Date(), 'yyyy-MM-dd'))</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>yyyy/MM/dd hh:mm</code></span>
+  <span class="val"><script>document.write(formatDate(new Date(), 'yyyy/MM/dd hh:mm'))</script></span>
+</div>
+<pre class="code"><code>formatDate(new Date(), 'yyyy-MM-dd');       // 2026-05-13
+formatDate(new Date(), 'yyyy/MM/dd hh:mm'); // 2026/05/13 14:30
+formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
+</section>
+
+<section id="utils-format-money">
+<h3>formatMoney(number)</h3>
+<p class="desc">Format as currency with 2 decimal places and thousand separators.</p>
+<div class="util-row">
+  <span class="label"><code>1234567.89</code></span>
+  <span class="val"><script>document.write(formatMoney(1234567.89))</script></span>
+</div>
+<pre class="code"><code>formatMoney(1234567.89);  // "1,234,567.89"</code></pre>
+</section>
+
+<section id="utils-format-bytes">
+<h3>formatBytes(bytes)</h3>
+<p class="desc">Human-readable byte sizes (B, KiB, MiB, GiB, TiB...).</p>
+<div class="util-row">
+  <span class="label"><code>0</code></span>
+  <span class="val"><script>document.write(formatBytes(0))</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>1024</code></span>
+  <span class="val"><script>document.write(formatBytes(1024))</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>1048576</code></span>
+  <span class="val"><script>document.write(formatBytes(1048576))</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>1073741824</code></span>
+  <span class="val"><script>document.write(formatBytes(1073741824))</script></span>
+</div>
+<pre class="code"><code>formatBytes(1024);          // "1 KiB"
+formatBytes(1048576);       // "1 MiB"
+formatBytes(1073741824);    // "1 GiB"</code></pre>
+</section>
+
+<section id="utils-format-seconds">
+<h3>formatSeconds(seconds)</h3>
+<p class="desc">Format seconds to compact <code>d h m s</code> string.</p>
+<div class="util-row">
+  <span class="label"><code>3661</code></span>
+  <span class="val"><script>document.write(formatSeconds(3661))</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>90061</code></span>
+  <span class="val"><script>document.write(formatSeconds(90061))</script></span>
+</div>
+<pre class="code"><code>formatSeconds(3661);   // "1h 1m 1s"
+formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
+</section>
+
+<section id="utils-parse-duration">
+<h3>parseDuration(string)</h3>
+<p class="desc">Parse <code>HH:mm:ss.SSS</code> to milliseconds.</p>
+<div class="util-row">
+  <span class="label"><code>01:30:00</code></span>
+  <span class="val"><script>document.write(parseDuration('01:30:00') + 'ms')</script></span>
+</div>
+<div class="util-row">
+  <span class="label"><code>00:05:30.500</code></span>
+  <span class="val"><script>document.write(parseDuration('00:05:30.500') + 'ms')</script></span>
+</div>
+<pre class="code"><code>parseDuration('01:30:00');      // 5400000 (1.5 hours)
+parseDuration('00:05:30.500');  // 330500</code></pre>
+</section>
+
+<section id="utils-datauri">
+<h3>toDataURI(svgString)</h3>
+<p class="desc">Convert SVG string to base64 data URI for use in <code>&lt;img src&gt;</code> or CSS <code>background-image</code>.</p>
+<div class="util-row">
+  <span class="label">Demo</span>
+  <img id="datauri-img" style="width:48px;height:48px" alt="SVG preview">
+</div>
+<pre class="code"><code>const svg = '&lt;svg xmlns="http://www.w3.org/2000/svg" ...&gt;&lt;/svg&gt;';
+const uri = toDataURI(svg);
+img.src = uri;</code></pre>
+</section>
+
+<section id="utils-stringify">
+<h3>stringify(params)</h3>
+<p class="desc">Convert an object to URL query string. Keys and values are URI-encoded.</p>
+<div class="util-row">
+  <span class="label">Input</span>
+  <span class="val">{ q: "hello world", page: 1 }</span>
+</div>
+<div class="util-row">
+  <span class="label">Output</span>
+  <span class="val"><script>document.write(stringify({q:"hello world",page:1}))</script></span>
+</div>
+<pre class="code"><code>stringify({ q: "hello world", page: 1 });
+// "q=hello%20world&page=1"</code></pre>
+</section>
+
+</main>
+
+<!-- ============================== SCRIPTS ================================= -->
+<script>
+/* ---- demo template rendering ---- */
+document.querySelectorAll('template.demo').forEach(tpl => {
+  var raw = tpl.innerHTML.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
+  var esc = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  var style = tpl.getAttribute('style') || '';
+  var cls = tpl.className.replace('demo','').trim() || 'row';
+
+  var demo = document.createElement('div');
+  demo.className = 'demo ' + cls;
+  if (style) demo.setAttribute('style', style);
+  demo.innerHTML = raw;
+
+  var pre = document.createElement('pre');
+  pre.className = 'code';
+  pre.innerHTML = '<code>' + esc + '</code>';
+
+  tpl.insertAdjacentElement('afterend', pre);
+  pre.insertAdjacentElement('beforebegin', demo);
+  tpl.remove();
+});
+
+/* ---- nav scroll spy ---- */
+(function() {
+  var links = document.querySelectorAll('#nav a[href^="#"]');
+  var sections = [];
+  links.forEach(function(a) {
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) sections.push({ el: el, a: a });
+  });
+  function update() {
+    var scrollY = window.scrollY + 100;
+    var active = null;
+    sections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY) active = s.a;
+    });
+    links.forEach(function(a) { a.classList.remove('active'); });
+    if (active) active.classList.add('active');
+  }
+  window.addEventListener('scroll', update);
+  update();
+})();
+
+/* ---- button loading demo ---- */
+document.getElementById('btn-load-demo').addEventListener('click', function () {
+  this.setAttribute('loading', '');
+  setTimeout(function() { this.removeAttribute('loading'); }.bind(this), 2000);
+});
+
+/* ---- date demo ---- */
+(function() {
+  var df = document.getElementById('date-demo');
+  var ds = document.getElementById('date-status');
+  df.addEventListener('change', function () {
+    ds.textContent = 'selected: ' + (df.value || '(none)');
+  });
+})();
+
+/* ---- custom error demo ---- */
+(function() {
+  var err = document.getElementById('custom-err');
+  document.getElementById('btn-set-err').addEventListener('click', function () {
+    err.setCustomValidity('自定义错误信息');
+  });
+  document.getElementById('btn-clr-err').addEventListener('click', function () {
+    err.setCustomValidity('');
+  });
+})();
+
+/* ---- value binding ---- */
+(function() {
+  var field = document.getElementById('bound-field');
+  var display = document.getElementById('value-display');
+  field.addEventListener('input', function () {
+    display.textContent = field.value || '(empty)';
+  });
+})();
+
+/* ---- switch demo ---- */
+document.getElementById('switch-demo').addEventListener('change', function (e) {
+  document.getElementById('switch-status').textContent = e.detail.checked ? 'On' : 'Off';
+});
+
+/* ---- check demo ---- */
+document.getElementById('check-demo').addEventListener('change', function (e) {
+  document.getElementById('check-status').textContent = e.detail.checked ? 'checked' : 'unchecked';
+});
+
+/* ---- select demo ---- */
+document.getElementById('select-demo').addEventListener('change', function (e) {
+  document.getElementById('select-status').textContent = 'selected: ' + e.detail.value + ' (' + e.detail.text + ')';
+});
+
+/* ---- dialog demos ---- */
+(function() {
+  function setup(btnId, dlgId) {
+    document.getElementById(btnId).addEventListener('click', function () {
+      document.getElementById(dlgId).open();
+    });
+  }
+  setup('dlg-basic-btn', 'dlg-basic');
+  setup('dlg-confirm-btn', 'dlg-confirm');
+  setup('dlg-notitle-btn', 'dlg-notitle');
+  setup('dlg-noclose-btn', 'dlg-noclose');
+  setup('dlg-color-btn', 'dlg-color');
+
+  document.getElementById('dlg-cancel').addEventListener('click', function () {
+    document.getElementById('dlg-confirm').close();
+  });
+  document.getElementById('dlg-ok').addEventListener('click', function () {
+    document.getElementById('dlg-confirm').close();
+    Thyme.alert('已删除');
+  });
+  document.getElementById('dlg-noclose-ok').addEventListener('click', function () {
+    document.getElementById('dlg-noclose').close();
+  });
+  document.getElementById('dlg-color-cancel').addEventListener('click', function () {
+    document.getElementById('dlg-color').close();
+  });
+  document.getElementById('dlg-color-ok').addEventListener('click', function () {
+    document.getElementById('dlg-color').close();
+  });
+  document.getElementById('dlg-basic').querySelector('button').addEventListener('click', function () {
+    document.getElementById('dlg-basic').close();
+  });
+  document.getElementById('dlg-notitle').querySelector('button').addEventListener('click', function () {
+    document.getElementById('dlg-notitle').close();
+  });
+})();
+
+/* ---- alert / confirm ---- */
+document.getElementById('alert-basic').addEventListener('click', function () {
+  Thyme.alert('Operation completed successfully.');
+});
+document.getElementById('alert-title').addEventListener('click', function () {
+  Thyme.alert('Your changes have been saved.', 'Saved');
+});
+document.getElementById('confirm-basic').addEventListener('click', function () {
+  Thyme.confirm('Are you sure you want to proceed?', 'Confirm').then(function (result) {
+    document.getElementById('confirm-result').textContent = 'result: ' + (result ? 'confirmed' : 'cancelled');
+  });
+});
+
+/* ---- toasts ---- */
+document.getElementById('t-info').addEventListener('click', function () { Thyme.info('Welcome to Thyme UI'); });
+document.getElementById('t-warn').addEventListener('click', function () { Thyme.warn('This action may have consequences'); });
+document.getElementById('t-error').addEventListener('click', function () { Thyme.error('Failed to save changes'); });
+document.getElementById('t-success').addEventListener('click', function () { Thyme.success('Changes saved successfully'); });
+document.getElementById('t-5s').addEventListener('click', function () { Thyme.warn('5 seconds toast', 5); });
+document.getElementById('t-1s').addEventListener('click', function () { Thyme.info('Quick!', 1); });
+
+/* ---- locale ---- */
+(function() {
+  var label = document.getElementById('locale-status');
+  var btn = document.getElementById('locale-btn');
+  btn.addEventListener('click', function () {
+    var next = Thyme.locale === 'en' ? 'zh' : 'en';
+    Thyme.locale = next;
+    label.textContent = 'Current: ' + next;
+    btn.textContent = next === 'en' ? 'Switch to 中文' : 'Switch to English';
+  });
+})();
+
+/* ---- dataURI demo ---- */
+(function() {
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#374151"/><circle cx="24" cy="24" r="10" fill="#fff"/></svg>';
+  document.getElementById('datauri-img').src = toDataURI(svg);
+})();
+
+/* ---- delay demo ---- */
+document.getElementById('delay-btn').addEventListener('click', async function () {
+  var r = document.getElementById('delay-result');
+  r.textContent = 'waiting...';
+  await delay(1000);
+  r.textContent = 'done!';
+});
+</script>
+</body>
+</html>
