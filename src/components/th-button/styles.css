@@ -1,0 +1,123 @@
+:host {
+    display: inline-flex;
+    vertical-align: middle;
+    --th-primary: #3730a3;
+}
+
+.th-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 22px;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+    outline: none;
+    height: 38px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.th-button:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
+    outline-offset: 2px;
+}
+
+.th-button--tonal {
+    background: color-mix(in srgb, var(--th-primary) 15%, #fff);
+    color: var(--th-primary);
+}
+
+.th-button--tonal:hover {
+    background: color-mix(in srgb, var(--th-primary) 25%, #fff);
+}
+
+.th-button--tonal:active {
+    background: color-mix(in srgb, var(--th-primary) 40%, #fff);
+}
+
+.th-button--outlined {
+    background: transparent;
+    color: var(--th-primary);
+    border-color: color-mix(in srgb, var(--th-primary) 60%, transparent);
+}
+
+.th-button--outlined:hover {
+    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
+}
+
+.th-button--outlined:active {
+    background: color-mix(in srgb, var(--th-primary) 16%, transparent);
+}
+
+.th-button[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.th-button__content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+.th-button__loader {
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+}
+
+.th-button--loading .th-button__content {
+    opacity: 0;
+}
+
+.th-button--loading .th-button__loader {
+    display: flex;
+}
+
+.th-button__spinner {
+    width: 20px;
+    height: 20px;
+    animation: th-spin 0.8s linear infinite;
+    color: currentColor;
+}
+
+@keyframes th-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.th-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--th-primary) 25%, transparent);
+    pointer-events: none;
+    animation: th-ripple-expand 0.6s ease-out forwards;
+}
+
+@keyframes th-ripple-expand {
+    from {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}

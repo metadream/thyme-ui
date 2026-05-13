@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thyme UI Demo</title>
+    <script src="dist/thyme-ui.js"></script>
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 40px; max-width: 800px; }
+        section { margin-bottom: 40px; }
+        h2 { font-size: 16px; margin-bottom: 16px; color: #555; }
+        .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .col { display: flex; flex-direction: column; gap: 12px; max-width: 360px; }
+    </style>
+</head>
+<body>
+    <h1>th-button</h1>
+
+    <section>
+        <h2>Variants</h2>
+        <div class="row">
+            <th-button variant="tonal">Tonal</th-button>
+            <th-button variant="outlined">Outlined</th-button>
+        </div>
+    </section>
+
+    <section>
+        <h2>States</h2>
+        <div class="row">
+            <th-button disabled>Disabled</th-button>
+            <th-button loading>Loading</th-button>
+            <th-button id="load-btn">Click to Load</th-button>
+        </div>
+        <script>
+            document.getElementById('load-btn').addEventListener('click', function () {
+                this.setAttribute('loading', '');
+                setTimeout(() => this.removeAttribute('loading'), 2000);
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Link mode</h2>
+        <div class="row">
+            <th-button href="https://example.com" target="_blank">Link</th-button>
+            <th-button href="https://example.com" variant="outlined" target="_blank">Outlined Link</th-button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Custom color</h2>
+        <div class="row" style="--th-primary:#b91c1c">
+            <th-button variant="tonal">Red</th-button>
+            <th-button variant="outlined">Red Outlined</th-button>
+        </div>
+    </section>
+
+    <hr style="margin:48px 0">
+
+    <h1>th-field</h1>
+
+    <section>
+        <h2>Basic input types</h2>
+        <div class="col">
+            <th-field label="Name" placeholder="Enter your name"></th-field>
+            <th-field label="Email" type="email" placeholder="name@example.com"></th-field>
+            <th-field label="Password" type="password" placeholder="········"></th-field>
+            <th-field label="URL" type="url" placeholder="https://"></th-field>
+            <th-field label="Number" type="number" min="0" max="100"></th-field>
+        </div>
+    </section>
+
+    <section>
+        <h2>Textarea</h2>
+        <div class="col">
+            <th-field label="Bio" type="textarea" rows="4" placeholder="Tell us about yourself"></th-field>
+        </div>
+    </section>
+
+    <section>
+        <h2>Validation</h2>
+        <div class="col">
+            <th-field label="Required" required placeholder="This field is required"></th-field>
+            <th-field label="Min length 4" minlength="4" placeholder="At least 4 chars"></th-field>
+            <th-field label="Pattern (3 digits)" pattern="[0-9]{3}" placeholder="123"></th-field>
+            <th-field id="custom-err" label="Custom error"></th-field>
+        </div>
+        <p><button onclick="document.getElementById('custom-err').setCustomValidity('自定义错误信息')">Set custom error</button>
+        <button onclick="document.getElementById('custom-err').setCustomValidity('')">Clear error</button></p>
+    </section>
+
+    <section>
+        <h2>Disabled & Readonly</h2>
+        <div class="col">
+            <th-field label="Disabled" value="Can't edit" disabled></th-field>
+            <th-field label="Readonly" value="Can't change" readonly></th-field>
+        </div>
+    </section>
+
+    <section>
+        <h2>Value binding</h2>
+        <div class="col">
+            <th-field id="bound-field" label="Type here"></th-field>
+        </div>
+        <p>Value: <span id="value-display">(empty)</span></p>
+        <script>
+            const field = document.getElementById('bound-field');
+            const display = document.getElementById('value-display');
+            field.addEventListener('input', () => {
+                display.textContent = field.value || '(empty)';
+            });
+        </script>
+    </section>
+
+    <section>
+        <h2>Custom content (slot)</h2>
+        <div class="col">
+            <th-field label="Gender">
+                <label style="display:flex;align-items:center;gap:6px;padding:4px 0 8px">
+                    <input type="radio" name="gender" value="male" checked> Male
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;padding:4px 0 8px">
+                    <input type="radio" name="gender" value="female"> Female
+                </label>
+            </th-field>
+            <th-field>
+                <span slot="label">Custom label via slot</span>
+                <input type="color" value="#3730a3" style="border:none;padding:4px 0 8px;background:transparent;width:100%;cursor:pointer">
+            </th-field>
+        </div>
+    </section>
+
+    <hr style="margin:48px 0">
+
+    <h1>Shared color (--th-primary)</h1>
+    <section>
+        <p style="color:#666;font-size:14px">Set once on parent, applies to both th-button and th-field:</p>
+        <div class="col" style="--th-primary:#7c3aed;max-width:360px">
+            <div class="row">
+                <th-button variant="tonal">Purple</th-button>
+                <th-button variant="outlined">Purple</th-button>
+            </div>
+            <th-field label="Purple input" value="Shared theme" style="margin-top:8px"></th-field>
+        </div>
+    </section>
+</body>
+</html>
