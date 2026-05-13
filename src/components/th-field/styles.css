@@ -15,7 +15,6 @@
     font-family: inherit;
     min-height: 38px;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 .th-field:focus-within {
