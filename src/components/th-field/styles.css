@@ -108,6 +108,149 @@ textarea.th-field__input {
     cursor: not-allowed;
 }
 
+.th-field__date-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #9ca3af;
+    transition: color 0.15s;
+    flex-shrink: 0;
+    width: 32px;
+    height: 100%;
+    outline: none;
+    margin-right: -8px;
+}
+
+.th-field__date-btn:hover {
+    color: var(--th-primary);
+}
+
+.th-field__date-btn:focus-visible {
+    color: var(--th-primary);
+}
+
+.th-field__calendar {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 200;
+    background: #fff;
+    border: 1.5px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    width: 246px;
+    box-sizing: border-box;
+}
+
+.th-field__calendar--open {
+    display: block;
+}
+
+.th-field__cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.th-field__cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: background-color 0.15s;
+    outline: none;
+    padding: 0;
+    user-select: none;
+}
+
+.th-field__cal-nav:hover {
+    background: #f3f4f6;
+}
+
+.th-field__cal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.th-field__cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 30px);
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
+.th-field__cal-weekdays span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.th-field__cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 30px);
+    gap: 2px;
+}
+
+.th-field__cal-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    color: #111827;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+    outline: none;
+    padding: 0;
+    user-select: none;
+}
+
+.th-field__cal-day:hover {
+    background: #f3f4f6;
+}
+
+.th-field__cal-day--other {
+    color: #d1d5db;
+}
+
+.th-field__cal-day--today {
+    background: color-mix(in srgb, var(--th-primary) 12%, transparent);
+}
+
+.th-field__cal-day--selected {
+    background: color-mix(in srgb, var(--th-primary) 12%, transparent);
+    color: var(--th-primary);
+    font-weight: 600;
+}
+
+.th-field--disabled .th-field__date-btn {
+    pointer-events: none;
+    color: #d1d5db;
+}
+
 .th-field__error {
     display: none;
     position: absolute;

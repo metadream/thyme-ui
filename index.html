@@ -67,7 +67,17 @@
             <th-field label="Password" type="password" placeholder="········"></th-field>
             <th-field label="URL" type="url" placeholder="https://"></th-field>
             <th-field label="Number" type="number" min="0" max="100"></th-field>
+            <th-field label="Date" type="date" value="2026-05-13"></th-field>
+            <th-field id="date-demo" label="Date picker" type="date"></th-field>
+            <p id="date-status" style="font-size:14px;color:#666;margin:0">selected: (none)</p>
         </div>
+        <script>
+            const df = document.getElementById('date-demo');
+            const ds = document.getElementById('date-status');
+            df.addEventListener('change', () => {
+                ds.textContent = 'selected: ' + (df.value || '(none)');
+            });
+        </script>
     </section>
 
     <section>
