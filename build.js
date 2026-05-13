@@ -46,7 +46,7 @@ const stripModuleSyntax = (code) =>
 
 const parts = [];
 
-for (const file of ['utils.js', 'collect.js', 'Component.js']) {
+for (const file of ['utils.js', 'form.js', 'Component.js']) {
     parts.push(stripModuleSyntax(read(path.join(SRC, 'core', file))));
 }
 
