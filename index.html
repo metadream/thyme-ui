@@ -394,5 +394,58 @@
             </th-select>
         </div>
     </section>
+
+    <hr style="margin:48px 0">
+
+    <h1>Thyme.alert / Thyme.confirm</h1>
+
+    <section>
+        <h2>alert</h2>
+        <div class="row">
+            <th-button id="alert-basic">Message only</th-button>
+            <th-button id="alert-title" variant="outlined">With title</th-button>
+        </div>
+    </section>
+
+    <section>
+        <h2>confirm</h2>
+        <div class="row">
+            <th-button id="confirm-basic" variant="outlined">Are you sure?</th-button>
+        </div>
+        <p id="confirm-result" style="font-size:14px;color:#666">result: (none)</p>
+    </section>
+
+    <section>
+        <h2>Locale switch</h2>
+        <div class="row">
+            <th-button id="locale-btn">Switch to 中文</th-button>
+        </div>
+        <p id="locale-status" style="font-size:14px;color:#666">
+            Current: <span id="locale-label">en</span>
+        </p>
+    </section>
+
+    <script>
+        document.getElementById('alert-basic').addEventListener('click', () => {
+            Thyme.alert('Operation completed successfully.');
+        });
+        document.getElementById('alert-title').addEventListener('click', () => {
+            Thyme.alert('Your changes have been saved.', 'Saved');
+        });
+        document.getElementById('confirm-basic').addEventListener('click', () => {
+            Thyme.confirm('Are you sure you want to proceed?', 'Confirm').then(result => {
+                document.getElementById('confirm-result').textContent = 'result: ' + (result ? 'confirmed' : 'cancelled');
+            });
+        });
+
+        const localeLabel = document.getElementById('locale-label');
+        const localeBtn = document.getElementById('locale-btn');
+        localeBtn.addEventListener('click', () => {
+            const next = Thyme.locale === 'en' ? 'zh' : 'en';
+            Thyme.locale = next;
+            localeLabel.textContent = next;
+            localeBtn.textContent = next === 'en' ? 'Switch to 中文' : 'Switch to English';
+        });
+    </script>
 </body>
 </html>

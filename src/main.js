@@ -18,6 +18,41 @@ customElements.define('th-dialog', ThDialog);
 self.Thyme = {
     form: { getJsonData, setJsonData },
     http: methods,
+    alert(message, title) {
+        const dialog = document.createElement('th-dialog');
+        dialog.setAttribute('closable', 'false');
+        if (title) dialog.setAttribute('title', title);
+        dialog.innerHTML = `<div>${message}</div>
+            <button slot="footer">${locale.translate('alert.ok')}</button>`;
+        document.body.appendChild(dialog);
+        dialog.open();
+        const btn = dialog.querySelector('button');
+        btn.addEventListener('click', () => {
+            dialog.close();
+            setTimeout(() => dialog.remove(), 200);
+        });
+    },
+    confirm(message, title) {
+        return new Promise(resolve => {
+            const dialog = document.createElement('th-dialog');
+            dialog.setAttribute('closable', 'false');
+            if (title) dialog.setAttribute('title', title);
+            dialog.innerHTML = `<div>${message}</div>
+                <button slot="footer" class="th-cancel">${locale.translate('confirm.cancel')}</button>
+                <button slot="footer" class="th-ok">${locale.translate('confirm.ok')}</button>`;
+            document.body.appendChild(dialog);
+            dialog.open();
+            const cleanup = (result) => {
+                dialog.close();
+                setTimeout(() => {
+                    dialog.remove();
+                    resolve(result);
+                }, 200);
+            };
+            dialog.querySelector('.th-ok').addEventListener('click', () => cleanup(true));
+            dialog.querySelector('.th-cancel').addEventListener('click', () => cleanup(false));
+        });
+    },
 };
 Object.defineProperty(self.Thyme, 'locale', {
     get() { return locale.current; },
