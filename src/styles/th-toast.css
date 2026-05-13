@@ -1,0 +1,46 @@
+:host {
+    display: block;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    transition: top 0.35s ease;
+}
+
+.th-toast {
+    pointer-events: auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 420px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition:
+        transform 0.35s ease,
+        opacity 0.35s ease;
+}
+
+:host([type="info"]) .th-toast {
+    background: rgba(30, 30, 30, 0.92);
+    color: #fff;
+}
+
+:host([type="warn"]) .th-toast {
+    background: rgba(255, 193, 7, 0.9);
+    color: #1f2937;
+}
+
+:host([type="error"]) .th-toast {
+    background: rgba(220, 38, 38, 0.9);
+    color: #fff;
+}
+
+:host([type="success"]) .th-toast {
+    background: rgba(22, 163, 74, 0.9);
+    color: #fff;
+}

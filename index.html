@@ -425,6 +425,49 @@
         </p>
     </section>
 
+    <hr style="margin:48px 0">
+
+    <h1>Toast: Thyme.info / .warn / .error / .success</h1>
+
+    <section>
+        <h2>Types</h2>
+        <div class="row">
+            <th-button id="toast-info">info</th-button>
+            <th-button id="toast-warn" variant="outlined">warn</th-button>
+            <th-button id="toast-error" variant="outlined">error</th-button>
+            <th-button id="toast-success" variant="outlined">success</th-button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Custom duration</h2>
+        <div class="row">
+            <th-button id="toast-5s" variant="outlined">5 seconds</th-button>
+            <th-button id="toast-1s" variant="outlined">1 second</th-button>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('toast-info').addEventListener('click', () => {
+            Thyme.info('Welcome to Thyme UI');
+        });
+        document.getElementById('toast-warn').addEventListener('click', () => {
+            Thyme.warn('This action may have consequences');
+        });
+        document.getElementById('toast-error').addEventListener('click', () => {
+            Thyme.error('Failed to save changes');
+        });
+        document.getElementById('toast-success').addEventListener('click', () => {
+            Thyme.success('Changes saved successfully');
+        });
+        document.getElementById('toast-5s').addEventListener('click', () => {
+            Thyme.warn('This will disappear in 5 seconds', 50);
+        });
+        document.getElementById('toast-1s').addEventListener('click', () => {
+            Thyme.info('Quick toast!', 1);
+        });
+    </script>
+
     <script>
         document.getElementById('alert-basic').addEventListener('click', () => {
             Thyme.alert('Operation completed successfully.');

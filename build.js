@@ -50,7 +50,7 @@ for (const file of ['utils.js', 'locale.js', 'form.js', 'http.js', 'Component.js
     parts.push(stripModuleSyntax(read(path.join(SRC, 'core', file))));
 }
 
-for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select', 'th-dialog']) {
+for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select', 'th-dialog', 'th-toast']) {
     const jsPath = path.join(SRC, 'components', `${name}.js`);
     if (fs.existsSync(jsPath)) {
         let js = read(jsPath);

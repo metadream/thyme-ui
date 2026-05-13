@@ -4,6 +4,7 @@ import { ThSwitch } from './components/th-switch.js';
 import { ThCheck } from './components/th-check.js';
 import { ThSelect } from './components/th-select.js';
 import { ThDialog } from './components/th-dialog.js';
+import { ThToast } from './components/th-toast.js';
 import { methods } from './core/http.js';
 import { getJsonData, setJsonData } from './core/form.js';
 import { locale } from './core/locale.js';
@@ -14,6 +15,18 @@ customElements.define('th-switch', ThSwitch);
 customElements.define('th-check', ThCheck);
 customElements.define('th-select', ThSelect);
 customElements.define('th-dialog', ThDialog);
+customElements.define('th-toast', ThToast);
+
+const _toastGap = 60;
+let _toastRefs = [];
+
+function _repositionToasts() {
+    let offset = 24;
+    _toastRefs.forEach(t => {
+        t.style.top = offset + 'px';
+        offset += _toastGap;
+    });
+}
 
 self.Thyme = {
     form: { getJsonData, setJsonData },
@@ -54,6 +67,21 @@ self.Thyme = {
         });
     },
 };
+for (const type of ['info', 'warn', 'error', 'success']) {
+    self.Thyme[type] = (msg, duration) => {
+        const toast = document.createElement('th-toast');
+        toast.setAttribute('type', type);
+        if (duration) toast.setAttribute('duration', String(duration));
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        _toastRefs.push(toast);
+        _repositionToasts();
+        toast.addEventListener('close', () => {
+            _toastRefs = _toastRefs.filter(t => t !== toast);
+            _repositionToasts();
+        });
+    };
+}
 Object.defineProperty(self.Thyme, 'locale', {
     get() { return locale.current; },
     set(v) { locale.setLang(v); },
