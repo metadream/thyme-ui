@@ -1,7 +1,7 @@
 {
     "name": "focal-thyme",
     "version": "0.1.0",
-    "description": "",
+    "description": "A lightweight UI component library built with native Web Components, zero dependencies.",
     "repository": "https://github.com/metadream/focal-thyme.git",
     "author": "Marco <x@zerg.cc>",
     "scripts": {
