@@ -53,7 +53,7 @@ export function nanoId(size = 24) {
  * @returns
  */
 export function toDataURI(svg) {
-    return "data:image/svg+xml;base64," + btoa(svg);
+    return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
 }
 
 /**
@@ -157,7 +157,7 @@ export function formatSeconds(seconds) {
  */
 export function stringify(params) {
     return Object.keys(params)
-        .map((key) => key + "=" + encodeURI(params[key]))
+        .map((key) => key + "=" + encodeURIComponent(params[key]))
         .join("&");
 }
 
