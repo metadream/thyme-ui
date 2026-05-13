@@ -63,22 +63,10 @@ async function request(url, options = {}) {
     return parseResponse(response);
 }
 
-export function get(url, options) {
-    return request(url, { ...options, method: 'GET' });
-}
-
-export function post(url, body, options) {
-    return request(url, { ...options, method: 'POST', body });
-}
-
-export function put(url, body, options) {
-    return request(url, { ...options, method: 'PUT', body });
-}
-
-export function patch(url, body, options) {
-    return request(url, { ...options, method: 'PATCH', body });
-}
-
-export function del(url, options) {
-    return request(url, { ...options, method: 'DELETE' });
-}
+export const methods = {
+    get: (url, options) => request(url, { ...options, method: 'GET' }),
+    post: (url, body, options) => request(url, { ...options, method: 'POST', body }),
+    put: (url, body, options) => request(url, { ...options, method: 'PUT', body }),
+    patch: (url, body, options) => request(url, { ...options, method: 'PATCH', body }),
+    delete: (url, options) => request(url, { ...options, method: 'DELETE' }),
+};

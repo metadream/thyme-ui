@@ -41,7 +41,7 @@ dist/
 - 样式通过 `import xxxCss from '../styles/th-xxx.css'` 引入（每个组件使用唯一变量名避免冲突），构建时自动内联
 - `static get __css__()` 返回 css，基类 `_render()` 将其注入 `<style>`
 - `customElements.define` 统一在 `src/main.js` 中完成，每个组件文件不包含注册代码
-- `self.Thyme` 命名空间暴露工具方法：`Thyme.form.getJsonData`、`Thyme.http.get/post/put/patch/del`
+- `self.Thyme` 命名空间暴露工具方法：`Thyme.form.getJsonData`、`Thyme.http.get/post/put/patch/delete`
 
 ## th-button 组件
 

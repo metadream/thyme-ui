@@ -4,8 +4,8 @@ import { ThSwitch } from './components/th-switch.js';
 import { ThCheck } from './components/th-check.js';
 import { ThSelect } from './components/th-select.js';
 import { ThDialog } from './components/th-dialog.js';
+import { methods } from './core/http.js';
 import { getJsonData, setJsonData } from './core/form.js';
-import { get, post, put, patch, del } from './core/http.js';
 
 customElements.define('th-button', ThButton);
 customElements.define('th-field', ThField);
@@ -16,5 +16,5 @@ customElements.define('th-dialog', ThDialog);
 
 self.Thyme = {
     form: { getJsonData, setJsonData },
-    http: { get, post, put, patch, del },
+    http: methods,
 };
