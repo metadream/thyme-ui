@@ -3,7 +3,7 @@
 ## 技术选型
 - 纯原生 JS Web Components（Custom Elements + Shadow DOM），零第三方依赖
 - 构建工具：Node.js 内置模块（`fs`、`path`）+ terser（dev 依赖）
-- 最终产出 `dist/thyme-ui.js`，浏览器直接 `<script>` 引入
+- 最终产出 `dist/thyme@<version>.js`，浏览器直接 `<script>` 引入
 
 ## 目录结构
 ```
@@ -17,7 +17,7 @@ src/
       styles.css    # 组件样式
 build.js            # 构建脚本（CSS 内联 + import/export 剥离 + 压缩）
 dist/
-  thyme-ui.js       # 单文件产出
+  thyme@<version>.js  # 单文件产出
 ```
 
 ## 组件规范

@@ -1,5 +1,9 @@
 {
-    "private": true,
+    "name": "focal-thyme",
+    "version": "0.1.0",
+    "description": "",
+    "repository": "https://github.com/metadream/focal-thyme.git",
+    "author": "Marco <x@zerg.cc>",
     "scripts": {
         "build": "node build.js"
     },

@@ -23,7 +23,7 @@ src/
 │       └── styles.css     # 组件样式
 ├── build.js               # 构建脚本
 └── dist/
-    └── thyme-ui.js        # 构建产物（单文件）
+    └── thyme@<version>.js  # 构建产物（单文件）
 ```
 
 ## 使用
@@ -31,7 +31,7 @@ src/
 ### 快速开始
 
 ```html
-<script src="path/to/thyme-ui.js"></script>
+<script src="path/to/thyme@0.1.0.js"></script>
 
 <th-button variant="tonal">按钮</th-button>
 <th-button variant="outlined">边框按钮</th-button>
@@ -158,7 +158,7 @@ document.querySelector('th-button').addEventListener('click', () => {
 node build.js
 ```
 
-输出到 `dist/thyme-ui.js`。
+输出到 `dist/thyme@<version>.js`。
 
 ### 添加新组件
 

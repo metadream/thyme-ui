@@ -2,9 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const Terser = require('terser');
 
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
+const version = pkg.version || '0.0.0';
+
 const SRC = path.join(__dirname, 'src');
 const DIST = path.join(__dirname, 'dist');
-const OUTPUT = path.join(DIST, 'thyme-ui.js');
+const OUTPUT = path.join(DIST, `thyme@${version}.js`);
 
 if (!fs.existsSync(DIST)) {
     fs.mkdirSync(DIST, { recursive: true });
@@ -12,7 +15,17 @@ if (!fs.existsSync(DIST)) {
 
 const read = (file) => fs.readFileSync(file, 'utf8');
 
-const escapeCSS = (css) => css.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+const minifyCSS = (css) => css
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{}:;,])\s*/g, '$1')
+    .replace(/;}/g, '}')
+    .trim();
+
+const escapeCSS = (css) => minifyCSS(css)
+    .replace(/\\/g, '\\\\')
+    .replace(/`/g, '\\`')
+    .replace(/\$\{/g, '\\${');
 
 const resolveCssImports = (code, filePath) => {
     return code.replace(/^import\s+(\w+)\s+from\s+['"](.+\.css)['"];\s*$/gm, (_, name, cssPath) => {
