@@ -18,6 +18,10 @@ export class ThCheck extends Component {
 
     get type() { return this.getAttribute('type') || 'checkbox'; }
 
+    get name() { return this.getAttribute('name') || ''; }
+
+    get value() { return this.getAttribute('value') || ''; }
+
     _template() {
         const isRadio = this.type === 'radio';
         const role = isRadio ? 'radio' : 'checkbox';

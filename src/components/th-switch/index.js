@@ -16,6 +16,8 @@ export class ThSwitch extends Component {
 
     get disabled() { return this.hasAttribute('disabled'); }
 
+    get value() { return this.checked ? (this.getAttribute('value') || 'on') : undefined; }
+
     _template() {
         return `<div class="th-switch${this.checked ? ' th-switch--checked' : ''}" role="switch" aria-checked="${this.checked}" tabindex="${this.disabled ? '-1' : '0'}"${this.disabled ? ' disabled' : ''}>
             <div class="th-switch__thumb"></div>

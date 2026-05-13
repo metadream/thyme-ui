@@ -22,6 +22,8 @@ export class ThField extends Component {
         }
     }
 
+    get name() { return this.getAttribute('name') || ''; }
+
     _template() {
         const label = this.getAttribute('label') || '';
         const fieldType = this.getAttribute('type') || 'text';

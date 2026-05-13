@@ -19,6 +19,8 @@ export class ThSelect extends Component {
 
     get disabled() { return this.hasAttribute('disabled'); }
 
+    get name() { return this.getAttribute('name') || ''; }
+
     _template() {
         const label = this.getAttribute('label') || '';
         const placeholder = this.getAttribute('placeholder') || '';
