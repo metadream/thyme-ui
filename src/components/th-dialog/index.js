@@ -74,6 +74,19 @@ export class ThDialog extends Component {
         if (dialog) {
             dialog.setAttribute('aria-modal', String(isOpen));
         }
+        if (isOpen) {
+            this._preventHandler = (e) => {
+                if (this.hasAttribute('open')) e.preventDefault();
+            };
+            window.addEventListener('wheel', this._preventHandler, { passive: false });
+            window.addEventListener('touchmove', this._preventHandler, { passive: false });
+        } else {
+            if (this._preventHandler) {
+                window.removeEventListener('wheel', this._preventHandler);
+                window.removeEventListener('touchmove', this._preventHandler);
+                this._preventHandler = null;
+            }
+        }
     }
 
     open() {
