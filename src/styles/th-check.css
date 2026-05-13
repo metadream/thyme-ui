@@ -3,8 +3,8 @@
     align-items: center;
     vertical-align: middle;
     height: 38px;
-    --th-primary: #3730a3;
 }
+*,*::before,*::after{box-sizing:border-box}
 
 .th-check {
     display: inline-flex;
@@ -80,7 +80,7 @@
 }
 
 .th-check__label {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--th-font-size);
+    line-height: var(--th-line-height);
     color: #111827;
 }

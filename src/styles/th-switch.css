@@ -3,8 +3,8 @@
     align-items: center;
     vertical-align: middle;
     height: 38px;
-    --th-primary: #3730a3;
 }
+*,*::before,*::after{box-sizing:border-box}
 
 .th-switch {
     position: relative;

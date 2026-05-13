@@ -1,7 +1,7 @@
 :host {
     display: block;
-    --th-primary: #3730a3;
 }
+*,*::before,*::after{box-sizing:border-box}
 
 .th-field {
     position: relative;
@@ -9,12 +9,11 @@
     flex-wrap: wrap;
     align-items: center;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
-    border-radius: 8px;
+    border-radius: var(--th-radius);
     transition: border-color 0.2s, box-shadow 0.2s;
     background: #fff;
     font-family: inherit;
     min-height: 38px;
-    box-sizing: border-box;
 }
 
 .th-field:focus-within {
@@ -86,13 +85,12 @@
     border: none;
     padding: 7px 0;
     font-family: inherit;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--th-font-size);
+    line-height: var(--th-line-height);
     outline: none;
     background: transparent;
     color: #111827;
     min-width: 0;
-    box-sizing: border-box;
     height: 35px;
 }
 
@@ -141,11 +139,10 @@ textarea.th-field__input {
     z-index: 200;
     background: #fff;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
-    border-radius: 8px;
+    border-radius: var(--th-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 12px;
     width: 246px;
-    box-sizing: border-box;
 }
 
 .th-field__calendar--open {
@@ -182,7 +179,7 @@ textarea.th-field__input {
 }
 
 .th-field__cal-title {
-    font-size: 14px;
+    font-size: var(--th-font-size);
     font-weight: 600;
     color: #1f2937;
 }

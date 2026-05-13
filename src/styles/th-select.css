@@ -2,18 +2,17 @@
     display: block;
     position: relative;
     font-family: inherit;
-    --th-primary: #3730a3;
 }
+*,*::before,*::after{box-sizing:border-box}
 
 .th-select {
     position: relative;
     display: flex;
     align-items: center;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
-    border-radius: 8px;
+    border-radius: var(--th-radius);
     background: #fff;
     min-height: 38px;
-    box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -59,8 +58,8 @@
 
 .th-select__value {
     flex: 1;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--th-font-size);
+    line-height: var(--th-line-height);
     color: #111827;
     white-space: nowrap;
     overflow: hidden;
@@ -92,11 +91,10 @@
     z-index: 200;
     background: #fff;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
-    border-radius: 8px;
+    border-radius: var(--th-radius);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     max-height: 200px;
     overflow-y: auto;
-    box-sizing: border-box;
 }
 
 .th-select--open .th-select__panel {
@@ -105,8 +103,8 @@
 
 .th-select__option {
     padding: 10px 12px;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--th-font-size);
+    line-height: var(--th-line-height);
     color: #111827;
     cursor: pointer;
     transition: background-color 0.15s;

@@ -9,6 +9,10 @@ import { methods } from './core/http.js';
 import { getJsonData, setJsonData } from './core/form.js';
 import { locale } from './core/locale.js';
 
+document.head.appendChild(Object.assign(document.createElement('style'), {
+    textContent: ':root{--th-primary:#3730a3;--th-radius:8px;--th-font-size:14px;--th-line-height:1.5}'
+}));
+
 customElements.define('th-button', ThButton);
 customElements.define('th-field', ThField);
 customElements.define('th-switch', ThSwitch);

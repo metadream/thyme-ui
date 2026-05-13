@@ -338,10 +338,30 @@ field.setCustomValidity('');  // clear</code></pre>
 <th-dialog id="dlg-noclose" title="重要" closable="false"><p>按 ESC 无法关闭，必须点击按钮。</p><button slot="footer" id="dlg-noclose-ok">我知道了</button></th-dialog>
 
 <h3>Shared color</h3>
-<div class="demo" style="--th-primary:#7c3aed">
-  <th-button id="dlg-color-btn">Purple dialog</th-button>
+<p class="desc">All components read <code>--th-primary</code> from their parent. Set it once to theme everything.</p>
+<div class="demo col" style="--th-primary:#7c3aed;max-width:420px">
+  <div class="demo row" style="border:none;padding:0;background:transparent">
+    <th-button variant="tonal">Purple</th-button>
+    <th-button variant="outlined">Purple</th-button>
+    <th-switch checked></th-switch>
+    <th-check checked>Purple</th-check>
+  </div>
+  <th-field label="Purple input" value="Shared theme"></th-field>
+  <th-select label="Choose" value="2">
+    <option value="1">Option one</option>
+    <option value="2">Option two</option>
+  </th-select>
+  <th-button id="dlg-color-btn" variant="outlined">Open purple dialog</th-button>
+  <th-dialog id="dlg-color" title="紫色主题"><p>对话框按钮颜色同样跟随 --th-primary。</p><button slot="footer" id="dlg-color-cancel">取消</button><button slot="footer" id="dlg-color-ok">确认</button></th-dialog>
 </div>
-<th-dialog id="dlg-color" title="紫色主题"><p>按钮颜色跟随父元素的 --th-primary。</p><button slot="footer" id="dlg-color-cancel">取消</button><button slot="footer" id="dlg-color-ok">确认</button></th-dialog>
+<pre class="code"><code>&lt;div style="--th-primary:#7c3aed"&gt;
+  &lt;th-button variant="tonal"&gt;Purple&lt;/th-button&gt;
+  &lt;th-button variant="outlined"&gt;Purple&lt;/th-button&gt;
+  &lt;th-switch checked&gt;&lt;/th-switch&gt;
+  &lt;th-check checked&gt;Purple&lt;/th-check&gt;
+  &lt;th-field label="Purple input" value="Shared theme"&gt;&lt;/th-field&gt;
+  &lt;th-select label="Choose" value="2"&gt;...&lt;/th-select&gt;
+&lt;/div&gt;</code></pre>
 </section>
 
 <!-- ============================== TOAST COMPONENT ======================== -->

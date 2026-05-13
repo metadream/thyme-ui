@@ -1,8 +1,8 @@
 :host {
     display: inline-flex;
     vertical-align: middle;
-    --th-primary: #3730a3;
 }
+*,*::before,*::after{box-sizing:border-box}
 
 .th-button {
     position: relative;
@@ -13,9 +13,9 @@
     gap: 8px;
     padding: 0 22px;
     border: 1.5px solid transparent;
-    border-radius: 8px;
+    border-radius: var(--th-radius);
     font-family: inherit;
-    font-size: 14px;
+    font-size: var(--th-font-size);
     font-weight: 500;
     line-height: 1;
     text-decoration: none;
@@ -27,7 +27,6 @@
     -webkit-user-select: none;
     outline: none;
     height: 38px;
-    box-sizing: border-box;
     white-space: nowrap;
 }
 
