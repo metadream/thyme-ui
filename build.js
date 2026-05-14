@@ -40,6 +40,48 @@ const stripModuleSyntax = (code) =>
         .replace(/^export\s+(default\s+)?/gm, '')
         .replace(/^export\s+\{[^}]*\};\s*$/gm, '');
 
+const minifyTemplateLiterals = (code) => {
+    let result = '';
+    let i = 0;
+    const next = () => i < code.length ? code[i++] : '';
+    const peek = () => code[i] || '';
+    const parseExpr = () => {
+        let expr = '', depth = 1;
+        while (i < code.length && depth > 0) {
+            if (code[i] === '{') depth++;
+            else if (code[i] === '}') { depth--; if (depth === 0) break; }
+            expr += code[i++];
+        }
+        return expr;
+    };
+    while (i < code.length) {
+        if (code[i] === '`') {
+            result += '`';
+            i++;
+            const parts = [];
+            let buf = '';
+            while (i < code.length) {
+                if (code[i] === '\\') { buf += code[i] + code[i+1]; i += 2; }
+                else if (code[i] === '$' && code[i+1] === '{') {
+                    parts.push({ t: 'h', v: buf }); buf = '';
+                    i += 2;
+                    const expr = parseExpr();
+                    parts.push({ t: 'e', v: minifyTemplateLiterals(expr) });
+                    i++;
+                } else if (code[i] === '`') {
+                    parts.push({ t: 'h', v: buf });
+                    const collapsed = parts.map(p => p.t === 'h' ? p.v.replace(/\s+/g, ' ') : '${' + p.v + '}').join('');
+                    result += collapsed.replace(/>\s+</g, '><').trim();
+                    result += '`';
+                    i++;
+                    break;
+                } else { buf += code[i++]; }
+            }
+        } else { result += code[i++]; }
+    }
+    return result;
+};
+
 const parts = [];
 
 for (const file of ['utils.js', 'locale.js', 'form.js', 'http.js', 'Component.js']) {
@@ -62,9 +104,19 @@ if (fs.existsSync(mainPath)) {
 }
 
 (async () => {
-    const result = await Terser.minify(parts.join('\n'), {
-        compress: { passes: 2 },
-        mangle: true,
+    let code = minifyTemplateLiterals(parts.join('\n'));
+    const result = await Terser.minify(code, {
+        compress: {
+            passes: 3,
+            toplevel: true,
+            unsafe: true,
+            unsafe_arrows: true,
+            unsafe_methods: true,
+            booleans_as_integers: true,
+        },
+        mangle: {
+            toplevel: true,
+        },
         format: { comments: false }
     });
     if (result.error) {
