@@ -1,5 +1,6 @@
 export function getJsonArray(scopes) {
     scopes = typeof scopes === "string" ? document.querySelectorAll(scopes) : scopes;
+    if (!Array.isArray(scopes)) return [];
     const result = [];
 
     for (const scope of scopes) {
@@ -13,7 +14,6 @@ export function getJsonArray(scopes) {
 
 export function getJsonObject(scope) {
     scope = typeof scope === "string" ? document.querySelector(scope) : scope;
-    if (!scope) return {};
     const els = scope.querySelectorAll('[name]:not([name=""])');
     const data = {};
 
@@ -36,7 +36,6 @@ export function getJsonObject(scope) {
 
 export function setJsonObject(scope, data) {
     scope = typeof scope === "string" ? document.querySelector(scope) : scope;
-    if (!scope) return;
     const els = scope.querySelectorAll('[name]:not([name=""])');
 
     for (const el of els) {
