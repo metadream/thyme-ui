@@ -7,7 +7,7 @@ import { ThSwitch } from "./components/th-switch.js";
 import { ThToast } from "./components/th-toast.js";
 import { locale } from "./core/locale.js";
 import { methods } from "./core/http.js";
-import { getJsonData, setJsonData } from "./core/form.js";
+import * as form from "./core/form.js";
 import * as utils from "./core/utils.js";
 
 document.head.appendChild(
@@ -25,9 +25,9 @@ customElements.define("th-switch", ThSwitch);
 customElements.define("th-toast", ThToast);
 
 self.Thyme = {
-    form: { getJsonData, setJsonData },
-    http: methods,
     utils,
+    form,
+    http: methods,
 
     alert(message, title) {
         const dialog = document.createElement("th-dialog");
