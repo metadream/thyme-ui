@@ -4,16 +4,15 @@ import { fileURLToPath } from "url";
 import { minify } from "terser";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf8"));
 const version = pkg.version || "0.0.0";
 
 const SRC = path.join(__dirname, "src");
-const DOCS = path.join(__dirname, "docs");
-const OUTPUT = path.join(DOCS, `thyme@${version}.js`);
+const DIST = path.join(__dirname, "docs");
+const OUTPUT = path.join(DIST, `thyme@${version}.js`);
 
 const read = (file) => fs.readFileSync(file, "utf8");
-
+const escapeCSS = (css) => minifyCSS(css).replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
 const minifyCSS = (css) =>
     css
         .replace(/\/\*[\s\S]*?\*\//g, "")
@@ -21,8 +20,6 @@ const minifyCSS = (css) =>
         .replace(/\s*([{}:;,])\s*/g, "$1")
         .replace(/;}/g, "}")
         .trim();
-
-const escapeCSS = (css) => minifyCSS(css).replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
 
 const resolveCssImports = (code, filePath) => {
     return code.replace(/^import\s+(\w+)\s+from\s+['"](.+\.css)['"];\s*$/gm, (_, name, cssPath) => {
@@ -48,11 +45,14 @@ const resolveNamespaceImports = (code, filePath) => {
             console.warn(`[skip] namespace import ${modulePath} not found`);
             return `const ${name} = {};`;
         }
+
         const content = read(abs);
         const exports = [];
         const funcRe = /^export (?:default )?(?:function|const|let|var) (\w+)/gm;
+
         let m;
         while ((m = funcRe.exec(content)) !== null) exports.push(m[1]);
+
         const namedRe = /^export \{([^}]+)\};/gm;
         while ((m = namedRe.exec(content)) !== null) {
             m[1].split(",").forEach((s) => {
@@ -67,11 +67,10 @@ const resolveNamespaceImports = (code, filePath) => {
 const minifyTemplateLiterals = (code) => {
     let result = "";
     let i = 0;
-    const next = () => (i < code.length ? code[i++] : "");
-    const peek = () => code[i] || "";
     const parseExpr = () => {
         let expr = "",
             depth = 1;
+
         while (i < code.length && depth > 0) {
             if (code[i] === "{") depth++;
             else if (code[i] === "}") {
@@ -82,12 +81,14 @@ const minifyTemplateLiterals = (code) => {
         }
         return expr;
     };
+
     while (i < code.length) {
         if (code[i] === "`") {
             result += "`";
             i++;
             const parts = [];
             let buf = "";
+
             while (i < code.length) {
                 if (code[i] === "\\") {
                     buf += code[i] + code[i + 1];
@@ -120,7 +121,6 @@ const minifyTemplateLiterals = (code) => {
 };
 
 const parts = [];
-
 for (const file of ["utils.js", "locale.js", "form.js", "http.js", "Component.js"]) {
     parts.push(stripModuleSyntax(read(path.join(SRC, "core", file))));
 }
@@ -145,6 +145,7 @@ if (fs.existsSync(mainPath)) {
 (async () => {
     let code = minifyTemplateLiterals(parts.join("\n"));
     const result = await minify(code, {
+        format: { comments: false },
         compress: {
             passes: 3,
             toplevel: true,
@@ -156,12 +157,13 @@ if (fs.existsSync(mainPath)) {
         mangle: {
             toplevel: true,
         },
-        format: { comments: false },
     });
+
     if (result.error) {
         console.error("Minify error:", result.error);
         process.exit(1);
     }
+
     fs.writeFileSync(OUTPUT, result.code, "utf8");
     console.log(`Done: ${OUTPUT} (${result.code.length} bytes)`);
 })();
