@@ -6,12 +6,8 @@ const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'ut
 const version = pkg.version || '0.0.0';
 
 const SRC = path.join(__dirname, 'src');
-const DIST = path.join(__dirname, 'dist');
-const OUTPUT = path.join(DIST, `thyme@${version}.js`);
-
-if (!fs.existsSync(DIST)) {
-    fs.mkdirSync(DIST, { recursive: true });
-}
+const DOCS = path.join(__dirname, 'docs');
+const OUTPUT = path.join(DOCS, `thyme@${version}.js`);
 
 const read = (file) => fs.readFileSync(file, 'utf8');
 

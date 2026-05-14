@@ -3,7 +3,7 @@
 ## 技术选型
 - 纯原生 JS Web Components（Custom Elements + Shadow DOM），零第三方依赖
 - 构建工具：Node.js 内置模块（`fs`、`path`）+ terser（dev 依赖）
-- 最终产出 `dist/thyme@<version>.js`，浏览器直接 `<script>` 引入
+- 最终产出 `docs/thyme@<version>.js`，浏览器直接 `<script>` 引入
 
 ## 目录结构
 ```
@@ -30,8 +30,10 @@ src/
     th-dialog.css
   main.js           # 统一注册所有组件 + Thyme 命名空间
 build.js            # 构建脚本（CSS 内联 + import/export 剥离 + 压缩）
-dist/
+docs/
+  index.html        # 演示 / 文档页面
   thyme@<version>.js  # 单文件产出
+  dist/             # （已废弃）子目录导致 @focal/bunny 500
 ```
 
 ## 组件规范
