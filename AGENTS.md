@@ -224,8 +224,6 @@ docs/
 
 ## 全局通用规则
 - `--th-primary`、`border-radius` 是所有组件共用的 CSS 变量/BEM 惯例
-- 所有单行（单行）组件的高度保持一致，为 `38px`（含 border）
-  - 当前：th-button、th-field（非 textarea）、th-switch、th-check、th-select 均按此值对齐
 
 ## 构建命令
 ```bash
