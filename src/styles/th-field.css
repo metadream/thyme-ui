@@ -56,7 +56,8 @@
 .th-field--textarea .th-field__label {
     border-right: none;
     border-bottom: 1px solid color-mix(in srgb, var(--th-primary) 15%, transparent);
-    align-self: auto;
+    flex-shrink: 0;
+    height: 40px;
 }
 
 .th-field__label::after {
