@@ -96,7 +96,6 @@ pre.code code{font-family:'SF Mono','Menlo','Consolas',monospace;color:#374151;w
   <a href="#utils-format-bytes">formatBytes</a>
   <a href="#utils-format-seconds">formatSeconds</a>
   <a href="#utils-parse-duration">parseDuration</a>
-  <a href="#utils-datauri">toDataURI</a>
   <a href="#utils-stringify">stringify</a>
 </nav>
 
@@ -604,18 +603,6 @@ formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
 parseDuration('00:05:30.500');  // 330500</code></pre>
 </section>
 
-<section id="utils-datauri">
-<h3>toDataURI(svgString)</h3>
-<p class="desc">Convert SVG string to base64 data URI for use in <code>&lt;img src&gt;</code> or CSS <code>background-image</code>.</p>
-<div class="util-row">
-  <span class="label">Demo</span>
-  <img id="datauri-img" style="width:48px;height:48px" alt="SVG preview">
-</div>
-<pre class="code"><code>const svg = '&lt;svg xmlns="http://www.w3.org/2000/svg" ...&gt;&lt;/svg&gt;';
-const uri = toDataURI(svg);
-img.src = uri;</code></pre>
-</section>
-
 <section id="utils-stringify">
 <h3>stringify(params)</h3>
 <p class="desc">Convert an object to URL query string. Keys and values are URI-encoded.</p>
@@ -796,12 +783,6 @@ document.getElementById('t-1s').addEventListener('click', function () { Thyme.in
     label.textContent = 'Current: ' + next;
     btn.textContent = next === 'en' ? 'Switch to 中文' : 'Switch to English';
   });
-})();
-
-/* ---- dataURI demo ---- */
-(function() {
-  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#374151"/><circle cx="24" cy="24" r="10" fill="#fff"/></svg>';
-  document.getElementById('datauri-img').src = Thyme.utils.toDataURI(svg);
 })();
 
 /* ---- delay demo ---- */

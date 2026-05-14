@@ -21,15 +21,6 @@ export function nanoId(size = 24) {
 }
 
 /**
- * SVG转换为DataUri
- * @param {string} svg
- * @returns
- */
-export function toDataURI(svg) {
-    return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
-}
-
-/**
  * Format date with pattern string
  * @param {Date} date
  * @param {string} pattern
