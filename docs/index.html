@@ -532,8 +532,8 @@ nanoId(12);    // custom length</code></pre>
     <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy-MM-dd'))</script></span>
 </div>
 <div class="util-row">
-  <span class="label"><code>yyyy/MM/dd hh:mm</code></span>
-    <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy/MM/dd hh:mm'))</script></span>
+  <span class="label"><code>yyyy/MM/dd hh:mm:ss</code></span>
+    <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy/MM/dd hh:mm:ss'))</script></span>
 </div>
 <pre class="code"><code>formatDate(new Date(), 'yyyy-MM-dd');       // 2026-05-13
 formatDate(new Date(), 'yyyy/MM/dd hh:mm'); // 2026/05/13 14:30
@@ -808,7 +808,7 @@ document.getElementById('t-1s').addEventListener('click', function () { Thyme.in
 document.getElementById('delay-btn').addEventListener('click', async function () {
   var r = document.getElementById('delay-result');
   r.textContent = 'waiting...';
-  await delay(1000);
+  await Thyme.utils.delay(1000);
   r.textContent = 'done!';
 });
 
