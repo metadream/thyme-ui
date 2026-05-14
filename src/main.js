@@ -8,6 +8,7 @@ import { ThToast } from './components/th-toast.js';
 import { methods } from './core/http.js';
 import { getJsonData, setJsonData } from './core/form.js';
 import { locale } from './core/locale.js';
+import * as utils from './core/utils.js';
 
 document.head.appendChild(Object.assign(document.createElement('style'), {
     textContent: ':root{--th-primary:#3730a3;--th-radius:8px;--th-font-size:14px;--th-line-height:1.5}'
@@ -35,6 +36,7 @@ function _repositionToasts() {
 self.Thyme = {
     form: { getJsonData, setJsonData },
     http: methods,
+    utils,
     alert(message, title) {
         const dialog = document.createElement('th-dialog');
         dialog.setAttribute('closable', 'false');
@@ -71,6 +73,7 @@ self.Thyme = {
         });
     },
 };
+
 for (const type of ['info', 'warn', 'error', 'success']) {
     self.Thyme[type] = (msg, duration) => {
         const toast = document.createElement('th-toast');
@@ -86,6 +89,7 @@ for (const type of ['info', 'warn', 'error', 'success']) {
         });
     };
 }
+
 Object.defineProperty(self.Thyme, 'locale', {
     get() { return locale.current; },
     set(v) { locale.setLang(v); },
