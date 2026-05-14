@@ -1,6 +1,5 @@
 export function getJsonArray(scopes) {
     scopes = typeof scopes === "string" ? document.querySelectorAll(scopes) : scopes;
-    if (!scopes) return [];
     const result = [];
 
     for (const scope of scopes) {
