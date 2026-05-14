@@ -127,7 +127,8 @@
     background: color-mix(in srgb, var(--th-primary) 6%, transparent);
 }
 
-.th-select__option--highlighted {
+.th-select__option--highlighted,
+.th-select__option--highlighted:hover {
     background: color-mix(in srgb, var(--th-primary) 12%, transparent);
 }
 
