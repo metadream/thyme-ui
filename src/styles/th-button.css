@@ -20,9 +20,9 @@
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition:
-        background-color 0.2s,
-        border-color 0.2s;
+    background: var(--th-primary);
+    color: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
     user-select: none;
     -webkit-user-select: none;
     outline: none;
@@ -30,9 +30,43 @@
     white-space: nowrap;
 }
 
+.th-button:hover {
+    background: color-mix(in srgb, var(--th-primary) 80%, #000);
+}
+
+.th-button:active {
+    background: color-mix(in srgb, var(--th-primary) 60%, #000);
+}
+
 .th-button:focus-visible {
     outline: 2px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
     outline-offset: 2px;
+}
+
+:host([size="sm"]) .th-button {
+    height: 30px;
+    padding: 0 14px;
+    font-size: 12px;
+}
+
+:host([size="lg"]) .th-button {
+    height: 46px;
+    padding: 0 28px;
+    font-size: 16px;
+}
+
+.th-button--icon-only {
+    padding: 0;
+}
+:host(:not([size])) .th-button--icon-only,
+:host([size="md"]) .th-button--icon-only {
+    width: 38px;
+}
+:host([size="sm"]) .th-button--icon-only {
+    width: 30px;
+}
+:host([size="lg"]) .th-button--icon-only {
+    width: 46px;
 }
 
 .th-button--tonal {
@@ -107,9 +141,14 @@
 .th-ripple {
     position: absolute;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--th-primary) 25%, transparent);
+    background: rgba(255,255,255,0.35);
     pointer-events: none;
     animation: th-ripple-expand 0.6s ease-out forwards;
+}
+
+.th-button--tonal .th-ripple,
+.th-button--outlined .th-ripple {
+    background: color-mix(in srgb, var(--th-primary) 25%, transparent);
 }
 
 @keyframes th-ripple-expand {

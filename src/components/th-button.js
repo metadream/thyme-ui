@@ -25,6 +25,7 @@ export class ThButton extends Component {
     static get _observedAttrs() {
         return [
             'variant',
+            'size',
             'href',
             'target',
             'loading',
@@ -42,10 +43,13 @@ export class ThButton extends Component {
     _template() {
         const isLink = this.hasAttribute('href');
         const tag = isLink ? 'a' : 'button';
-        const variant = this.getAttribute('variant') || 'tonal';
+        const variant = this.getAttribute('variant') || 'filled';
 
         return `<${tag} class="th-button th-button--${variant}" part="button">
-            <span class="th-button__content" part="content"><slot></slot></span>
+            <span class="th-button__content" part="content">
+                <slot name="icon"></slot>
+                <slot></slot>
+            </span>
             <span class="th-button__loader" part="loader">
                 <svg class="th-button__spinner" viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
@@ -57,11 +61,16 @@ export class ThButton extends Component {
     _init() {
         this._button = this.$('.th-button');
         this._loader = this.$('.th-button__loader');
+        this._iconSlot = this.$('slot[name="icon"]');
+        this._labelSlot = this.$('slot:not([name])');
 
         this._syncAttrs();
         this._updateLoading();
         this._setupRipple();
         this._setupEvents();
+        this._updateSlots();
+        this._iconSlot.addEventListener('slotchange', () => this._updateSlots());
+        this._labelSlot.addEventListener('slotchange', () => this._updateSlots());
     }
 
     _attrChanged(name, value) {
@@ -78,10 +87,20 @@ export class ThButton extends Component {
             case 'disabled':
                 this._syncDisabled();
                 break;
+            case 'size':
+                break;
             default:
                 this._forwardAttr(name, value);
                 break;
         }
+    }
+
+    _updateSlots() {
+        const hasIcon = this._iconSlot.assignedNodes().length > 0;
+        const hasText = this._labelSlot.assignedNodes().length > 0;
+        this._iconSlot.style.display = hasIcon ? '' : 'none';
+        this._labelSlot.style.display = hasText ? '' : 'none';
+        this._button.classList.toggle('th-button--icon-only', hasIcon && !hasText);
     }
 
     _syncAttrs() {
@@ -139,8 +158,8 @@ export class ThButton extends Component {
 
     _updateVariant(value) {
         if (!this._button) return;
-        this._button.classList.remove('th-button--tonal', 'th-button--outlined');
-        this._button.classList.add(`th-button--${value || 'tonal'}`);
+        this._button.classList.remove('th-button--filled', 'th-button--tonal', 'th-button--outlined');
+        this._button.classList.add(`th-button--${value || 'filled'}`);
     }
 
     _updateLoading() {
