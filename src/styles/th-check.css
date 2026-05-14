@@ -2,7 +2,6 @@
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
-    height: 38px;
 }
 *,*::before,*::after{box-sizing:border-box}
 
@@ -45,6 +44,7 @@
 
 .th-check__indicator::after {
     content: '';
+    display: block;
     width: 6px;
     height: 10px;
     margin-top: -2px;
@@ -54,7 +54,6 @@
     transform: rotate(45deg);
     opacity: 0;
     transition: opacity 0.15s;
-    box-sizing: border-box;
 }
 
 .th-check--checked .th-check__indicator::after {
@@ -66,12 +65,14 @@
 }
 
 .th-check--radio .th-check__indicator::after {
+    display: block;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #fff;
     border: none;
     transform: none;
+    margin-top: 0;
 }
 
 .th-check:focus-visible .th-check__indicator {
