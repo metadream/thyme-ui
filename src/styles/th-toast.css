@@ -1,3 +1,4 @@
+*,*::before,*::after{box-sizing:border-box}
 :host {
     display: block;
     position: fixed;
@@ -12,11 +13,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    padding: 0 20px;
+    min-height: 40px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     max-width: 420px;
     text-align: center;
