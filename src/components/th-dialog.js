@@ -11,8 +11,8 @@ export class ThDialog extends Component {
     _template() {
         const title = this.getAttribute('title') || '';
         const open = this.hasAttribute('open');
-        return `<div class="th-dialog-overlay${open ? ' th-dialog-overlay--open' : ''}" part="overlay">
-            <div class="th-dialog" part="dialog" role="dialog" aria-modal="${open}">
+        return `<div class="th-dialog-overlay${open ? ' fade-in' : ''}" part="overlay">
+            <div class="th-dialog${open ? ' scale-in' : ''}" part="dialog" role="dialog" aria-modal="${open}">
                 ${title ? `<div class="th-dialog__title" part="title">${title}</div>` : ''}
                 <div class="th-dialog__body" part="body">
                     <slot></slot>
@@ -67,20 +67,27 @@ export class ThDialog extends Component {
     }
 
     _updateOpenState() {
-        if (!this._overlay) return;
-        const isOpen = this.hasAttribute('open');
-        this._overlay.classList.toggle('th-dialog-overlay--open', isOpen);
+        const overlay = this._overlay;
         const dialog = this.$('.th-dialog');
-        if (dialog) {
-            dialog.setAttribute('aria-modal', String(isOpen));
-        }
+        if (!overlay || !dialog) return;
+
+        const isOpen = this.hasAttribute('open');
+        dialog.setAttribute('aria-modal', String(isOpen));
+
         if (isOpen) {
-            this._preventHandler = (e) => {
-                if (this.hasAttribute('open')) e.preventDefault();
-            };
+            overlay.classList.remove('fade-out');
+            dialog.classList.remove('scale-out');
+            void overlay.offsetWidth;
+            overlay.classList.add('fade-in');
+            dialog.classList.add('scale-in');
+
+            this._preventHandler = (e) => e.preventDefault();
             window.addEventListener('wheel', this._preventHandler, { passive: false });
             window.addEventListener('touchmove', this._preventHandler, { passive: false });
         } else {
+            overlay.classList.remove('fade-in', 'fade-out');
+            dialog.classList.remove('scale-in', 'scale-out');
+
             if (this._preventHandler) {
                 window.removeEventListener('wheel', this._preventHandler);
                 window.removeEventListener('touchmove', this._preventHandler);
@@ -90,10 +97,30 @@ export class ThDialog extends Component {
     }
 
     open() {
+        if (this.hasAttribute('open')) return;
         this.setAttribute('open', '');
     }
 
     close() {
-        this.removeAttribute('open');
+        if (!this.hasAttribute('open')) return;
+        this._animateClose();
+    }
+
+    _animateClose() {
+        const overlay = this._overlay;
+        const dialog = this.$('.th-dialog');
+        if (!overlay || !dialog) return;
+
+        overlay.classList.remove('fade-in');
+        dialog.classList.remove('scale-in');
+        void overlay.offsetWidth;
+        overlay.classList.add('fade-out');
+        dialog.classList.add('scale-out');
+
+        setTimeout(() => {
+            this.removeAttribute('open');
+            overlay.classList.remove('fade-out');
+            dialog.classList.remove('scale-out');
+        }, 300);
     }
 }
