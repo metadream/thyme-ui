@@ -9,11 +9,6 @@
     vertical-align: middle;
 }
 
-:host(:not([size])) .th-button--icon-only,
-:host([size="medium"]) .th-button--icon-only {
-    width: 38px;
-}
-
 :host([size="small"]) .th-button {
     height: 30px;
     padding: 0 14px;
@@ -24,6 +19,18 @@
     height: 46px;
     padding: 0 28px;
     font-size: 16px;
+}
+
+:host(:not([size])) .th-button--icon-only,
+:host([size="medium"]) .th-button--icon-only {
+    width: 38px;
+}
+
+:host([size="small"]) .th-button--icon-only {
+    width: 30px;
+}
+:host([size="large"]) .th-button--icon-only {
+    width: 46px;
 }
 
 .th-button {
@@ -69,13 +76,6 @@
 
 .th-button--icon-only {
     padding: 0;
-}
-
-:host([size="small"]) .th-button--icon-only {
-    width: 30px;
-}
-:host([size="large"]) .th-button--icon-only {
-    width: 46px;
 }
 
 .th-button--tonal {
