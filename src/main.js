@@ -24,17 +24,6 @@ customElements.define("th-select", ThSelect);
 customElements.define("th-switch", ThSwitch);
 customElements.define("th-toast", ThToast);
 
-const _toastGap = 55;
-let _toastRefs = [];
-
-function _repositionToasts() {
-    let offset = 80;
-    _toastRefs.forEach((t) => {
-        t.style.top = offset + "px";
-        offset += _toastGap;
-    });
-}
-
 self.Thyme = {
     form: { getJsonData, setJsonData },
     http: methods,
@@ -83,12 +72,6 @@ for (const type of ["info", "warn", "error", "success"]) {
         if (duration) toast.setAttribute("duration", String(duration));
         toast.textContent = msg;
         document.body.appendChild(toast);
-        _toastRefs.push(toast);
-        _repositionToasts();
-        toast.addEventListener("close", () => {
-            _toastRefs = _toastRefs.filter((t) => t !== toast);
-            _repositionToasts();
-        });
     };
 }
 
