@@ -2,11 +2,17 @@
     "name": "focal-thyme",
     "version": "0.1.0",
     "description": "A lightweight UI component library built with native Web Components, zero dependencies.",
+    "license": "MIT",
     "repository": "https://github.com/metadream/focal-thyme.git",
     "author": "Marco <x@zerg.cc>",
     "type": "module",
+    "files": [
+        "docs/thyme@*.js",
+        "README.md"
+    ],
     "scripts": {
-        "build": "node build.js"
+        "build": "node build.js",
+        "prepare": "node build.js"
     },
     "devDependencies": {
         "terser": "^5.0.0"
