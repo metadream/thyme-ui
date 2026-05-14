@@ -1,7 +1,12 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: block;
 }
-*,*::before,*::after{box-sizing:border-box}
 
 .th-field {
     position: relative;
@@ -9,10 +14,12 @@
     align-items: center;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
     border-radius: var(--th-radius);
-    transition: border-color 0.2s, box-shadow 0.2s;
     background: #fff;
     font-family: inherit;
     height: 42px;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
 
 .th-field:focus-within {
@@ -39,18 +46,18 @@
 .th-field__label {
     display: flex;
     align-items: center;
-    padding: 12px;
-    font-size: 11px;
+    padding: 15px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--th-primary);
     white-space: nowrap;
+    color: var(--th-primary);
     border-right: 1px solid color-mix(in srgb, var(--th-primary) 15%, transparent);
+    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
     user-select: none;
     align-self: stretch;
-    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
-    min-width: 90px;
+    min-width: 120px;
 }
 
 .th-field--textarea .th-field__label {
@@ -61,7 +68,7 @@
 }
 
 .th-field__label::after {
-    content: ' *';
+    content: " *";
     color: #ef4444;
     display: none;
 }
@@ -74,7 +81,7 @@
     flex: 1;
     display: flex;
     align-items: center;
-    min-width: 100px;
+    width: 100%;
     padding: 0 12px;
 }
 
@@ -84,14 +91,13 @@
 
 .th-field__input {
     flex: 1;
+    outline: none;
     border: none;
-    padding: 7px 0;
     font-family: inherit;
     font-size: var(--th-font-size);
     line-height: var(--th-line-height);
-    outline: none;
     background: transparent;
-    color: #111827;
+    padding: 8px 0;
     min-width: 0;
     height: 100%;
 }
@@ -143,8 +149,7 @@ textarea.th-field__input {
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
     border-radius: var(--th-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 12px;
-    width: 246px;
+    padding: 10px;
 }
 
 .th-field__calendar--open {
@@ -169,7 +174,6 @@ textarea.th-field__input {
     cursor: pointer;
     color: #6b7280;
     border-radius: 4px;
-    font-size: 13px;
     transition: background-color 0.15s;
     outline: none;
     padding: 0;
@@ -183,13 +187,12 @@ textarea.th-field__input {
 .th-field__cal-title {
     font-size: var(--th-font-size);
     font-weight: 600;
-    color: #1f2937;
 }
 
 .th-field__cal-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 30px);
-    gap: 2px;
+    gap: 3px;
     margin-bottom: 4px;
 }
 
@@ -206,20 +209,19 @@ textarea.th-field__input {
 .th-field__cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 30px);
-    gap: 2px;
+    gap: 3px;
 }
 
 .th-field__cal-day {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 28px;
+    width: 28px;
+    height: 26px;
     border: none;
     background: transparent;
     cursor: pointer;
     font-size: 12px;
-    color: #111827;
     border-radius: 4px;
     transition: background-color 0.15s;
     outline: none;
@@ -254,9 +256,8 @@ textarea.th-field__input {
     display: none;
     position: absolute;
     top: calc(100% + 8px);
-    left: 12px;
+    left: 20px;
     font-size: 12px;
-    line-height: 1.4;
     color: #fff;
     background: rgba(239, 68, 68, 0.9);
     padding: 6px 10px;
@@ -267,10 +268,10 @@ textarea.th-field__input {
 }
 
 .th-field__error::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
-    left: 20px;
+    left: 25px;
     border: 6px solid transparent;
     border-bottom-color: rgba(239, 68, 68, 0.9);
 }
