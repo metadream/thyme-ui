@@ -85,6 +85,10 @@
     padding: 0 12px;
 }
 
+.th-field__input-wrap--date {
+    padding-right: 4px;
+}
+
 .th-field--textarea .th-field__input-wrap {
     padding: 0;
 }
@@ -128,7 +132,6 @@ textarea.th-field__input {
     width: 32px;
     height: 100%;
     outline: none;
-    margin-right: -4px;
 }
 
 .th-field__date-btn:hover {

@@ -45,7 +45,7 @@ export class ThField extends Component {
             <label class="th-field__label" part="label">
                 <slot name="label">${label}</slot>
             </label>
-            <div class="th-field__input-wrap">
+            <div class="th-field__input-wrap${isDate ? ' th-field__input-wrap--date' : ''}">
                 <slot>
                     <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
                 </slot>
