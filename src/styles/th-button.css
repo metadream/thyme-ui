@@ -1,8 +1,30 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: inline-flex;
     vertical-align: middle;
 }
-*,*::before,*::after{box-sizing:border-box}
+
+:host(:not([size])) .th-button--icon-only,
+:host([size="medium"]) .th-button--icon-only {
+    width: 38px;
+}
+
+:host([size="small"]) .th-button {
+    height: 30px;
+    padding: 0 14px;
+    font-size: 12px;
+}
+
+:host([size="large"]) .th-button {
+    height: 46px;
+    padding: 0 28px;
+    font-size: 16px;
+}
 
 .th-button {
     position: relative;
@@ -11,7 +33,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 0 22px;
+    padding: 0 20px;
     border: 1.5px solid transparent;
     border-radius: var(--th-radius);
     font-family: inherit;
@@ -22,12 +44,14 @@
     cursor: pointer;
     background: var(--th-primary);
     color: #fff;
-    transition: background-color 0.2s, border-color 0.2s;
     user-select: none;
     -webkit-user-select: none;
     outline: none;
     height: 38px;
     white-space: nowrap;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
 }
 
 .th-button:hover {
@@ -43,25 +67,10 @@
     outline-offset: 2px;
 }
 
-:host([size="small"]) .th-button {
-    height: 30px;
-    padding: 0 14px;
-    font-size: 12px;
-}
-
-:host([size="large"]) .th-button {
-    height: 46px;
-    padding: 0 28px;
-    font-size: 16px;
-}
-
 .th-button--icon-only {
     padding: 0;
 }
-:host(:not([size])) .th-button--icon-only,
-:host([size="medium"]) .th-button--icon-only {
-    width: 38px;
-}
+
 :host([size="small"]) .th-button--icon-only {
     width: 30px;
 }
@@ -104,8 +113,8 @@
 .th-button__content {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     transition: opacity 0.2s;
+    gap: 8px;
 }
 
 .th-button__loader {
@@ -132,16 +141,10 @@
     color: currentColor;
 }
 
-@keyframes th-spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .th-ripple {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255, 255, 255, 0.35);
     pointer-events: none;
     animation: th-ripple-expand 0.6s ease-out forwards;
 }
@@ -149,6 +152,12 @@
 .th-button--tonal .th-ripple,
 .th-button--outlined .th-ripple {
     background: color-mix(in srgb, var(--th-primary) 25%, transparent);
+}
+
+@keyframes th-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes th-ripple-expand {
