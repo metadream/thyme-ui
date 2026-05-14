@@ -55,6 +55,7 @@ export class ThSelect extends Component {
         this._selectedValue = "";
         this._selectedText = "";
 
+        this._loadOptions();
         this._setupEvents();
         this._updateDisabled();
     }
