@@ -31,21 +31,21 @@
 }
 
 :host([type="info"]) .th-toast {
-    background: rgba(30, 30, 30, 0.92);
+    background: rgba(30, 30, 30, 0.8);
     color: #fff;
 }
 
 :host([type="warn"]) .th-toast {
-    background: rgba(255, 193, 7, 0.9);
+    background: rgba(255, 193, 7, 0.8);
     color: #1f2937;
 }
 
 :host([type="error"]) .th-toast {
-    background: rgba(220, 38, 38, 0.9);
+    background: rgba(220, 38, 38, 0.8);
     color: #fff;
 }
 
 :host([type="success"]) .th-toast {
-    background: rgba(22, 163, 74, 0.9);
+    background: rgba(22, 163, 74, 0.8);
     color: #fff;
 }
