@@ -94,7 +94,7 @@ export class ThButton extends Component {
 
     _updateSlots() {
         const hasIcon = this._iconSlot.assignedNodes().length > 0;
-        const hasText = this._labelSlot.assignedNodes().length > 0;
+        const hasText = this._labelSlot.assignedNodes().some((n) => n.textContent.trim());
         this._iconSlot.style.display = hasIcon ? "" : "none";
         this._labelSlot.style.display = hasText ? "" : "none";
         this._button.classList.toggle("th-button--icon-only", hasIcon && !hasText);
