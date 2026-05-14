@@ -96,7 +96,6 @@ pre.code code{font-family:'SF Mono','Menlo','Consolas',monospace;color:#374151;w
   <a href="#utils-format-bytes">formatBytes</a>
   <a href="#utils-format-seconds">formatSeconds</a>
   <a href="#utils-parse-duration">parseDuration</a>
-  <a href="#utils-stringify">stringify</a>
 </nav>
 
 <!-- ======================================================================== -->
@@ -717,21 +716,6 @@ formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
 </div>
 <pre class="code"><code>parseDuration('01:30:00');      // 5400000 (1.5 hours)
 parseDuration('00:05:30.500');  // 330500</code></pre>
-</section>
-
-<section id="utils-stringify">
-<h3>stringify(params)</h3>
-<p class="desc">Convert an object to URL query string. Keys and values are URI-encoded.</p>
-<div class="util-row">
-  <span class="label">Input</span>
-  <span class="val">{ q: "hello world", page: 1 }</span>
-</div>
-<div class="util-row">
-  <span class="label">Output</span>
-  <span class="val"><script>document.write(Thyme.utils.stringify({q:"hello world",page:1}))</script></span>
-</div>
-<pre class="code"><code>stringify({ q: "hello world", page: 1 });
-// "q=hello%20world&page=1"</code></pre>
 </section>
 
 </main>

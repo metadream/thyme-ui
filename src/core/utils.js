@@ -1,4 +1,3 @@
-/** 延迟执行 */
 export function delay(delayInms) {
     return new Promise((resolve) => setTimeout(resolve, delayInms));
 }
@@ -115,18 +114,7 @@ export function formatSeconds(seconds) {
 }
 
 /**
- * 将对象转换为查询字符串
- * @param {Object} params
- * @returns
- */
-export function stringify(params) {
-    return Object.keys(params)
-        .map((key) => key + "=" + encodeURIComponent(params[key]))
-        .join("&");
-}
-
-/**
- * Base64编码
+ * Base64 Encode
  * @param {string} str
  * @returns
  */
