@@ -33,6 +33,11 @@
     width: 46px;
 }
 
+:host([size]) .th-button--icon-only,
+:host(:not([size])) .th-button--icon-only {
+    padding: 0;
+}
+
 .th-button {
     position: relative;
     overflow: hidden;
@@ -72,10 +77,6 @@
 .th-button:focus-visible {
     outline: 2px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
     outline-offset: 2px;
-}
-
-.th-button--icon-only {
-    padding: 0;
 }
 
 .th-button--tonal {
