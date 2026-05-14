@@ -1,9 +1,14 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
 }
-*,*::before,*::after{box-sizing:border-box}
 
 .th-switch {
     position: relative;
@@ -34,7 +39,7 @@
     height: 18px;
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
     transition: transform 0.2s;
 }
 
