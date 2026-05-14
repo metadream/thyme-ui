@@ -518,7 +518,7 @@ console.log('1 second later');</code></pre>
 <p class="desc">URL-safe unique ID generator (A-Za-z0-9, no <code>-</code> <code>_</code>).</p>
 <div class="util-row">
   <span class="label">Result</span>
-  <span id="nanoid-result" class="val"><script>document.write(nanoId())</script></span>
+    <span id="nanoid-result" class="val"><script>document.write(Thyme.utils.nanoId())</script></span>
 </div>
 <pre class="code"><code>nanoId();      // e.g. "Xa3Rt9Kf2LmNpQwZbY7VcJ1"
 nanoId(12);    // custom length</code></pre>
@@ -529,11 +529,11 @@ nanoId(12);    // custom length</code></pre>
 <p class="desc">Format a Date object with custom pattern. Supports yyyy/yy/MM/M/dd/d/hh/h/mm/m/ss/s/SSS/S.</p>
 <div class="util-row">
   <span class="label"><code>yyyy-MM-dd</code></span>
-  <span class="val"><script>document.write(formatDate(new Date(), 'yyyy-MM-dd'))</script></span>
+    <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy-MM-dd'))</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>yyyy/MM/dd hh:mm</code></span>
-  <span class="val"><script>document.write(formatDate(new Date(), 'yyyy/MM/dd hh:mm'))</script></span>
+    <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy/MM/dd hh:mm'))</script></span>
 </div>
 <pre class="code"><code>formatDate(new Date(), 'yyyy-MM-dd');       // 2026-05-13
 formatDate(new Date(), 'yyyy/MM/dd hh:mm'); // 2026/05/13 14:30
@@ -545,7 +545,7 @@ formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
 <p class="desc">Format as currency with 2 decimal places and thousand separators.</p>
 <div class="util-row">
   <span class="label"><code>1234567.89</code></span>
-  <span class="val"><script>document.write(formatMoney(1234567.89))</script></span>
+    <span class="val"><script>document.write(Thyme.utils.formatMoney(1234567.89))</script></span>
 </div>
 <pre class="code"><code>formatMoney(1234567.89);  // "1,234,567.89"</code></pre>
 </section>
@@ -555,19 +555,19 @@ formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
 <p class="desc">Human-readable byte sizes (B, KiB, MiB, GiB, TiB...).</p>
 <div class="util-row">
   <span class="label"><code>0</code></span>
-  <span class="val"><script>document.write(formatBytes(0))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatBytes(0))</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>1024</code></span>
-  <span class="val"><script>document.write(formatBytes(1024))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatBytes(1024))</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>1048576</code></span>
-  <span class="val"><script>document.write(formatBytes(1048576))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatBytes(1048576))</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>1073741824</code></span>
-  <span class="val"><script>document.write(formatBytes(1073741824))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatBytes(1073741824))</script></span>
 </div>
 <pre class="code"><code>formatBytes(1024);          // "1 KiB"
 formatBytes(1048576);       // "1 MiB"
@@ -579,11 +579,11 @@ formatBytes(1073741824);    // "1 GiB"</code></pre>
 <p class="desc">Format seconds to compact <code>d h m s</code> string.</p>
 <div class="util-row">
   <span class="label"><code>3661</code></span>
-  <span class="val"><script>document.write(formatSeconds(3661))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatSeconds(3661))</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>90061</code></span>
-  <span class="val"><script>document.write(formatSeconds(90061))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.formatSeconds(90061))</script></span>
 </div>
 <pre class="code"><code>formatSeconds(3661);   // "1h 1m 1s"
 formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
@@ -594,11 +594,11 @@ formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
 <p class="desc">Parse <code>HH:mm:ss.SSS</code> to milliseconds.</p>
 <div class="util-row">
   <span class="label"><code>01:30:00</code></span>
-  <span class="val"><script>document.write(parseDuration('01:30:00') + 'ms')</script></span>
+  <span class="val"><script>document.write(Thyme.utils.parseDuration('01:30:00') + 'ms')</script></span>
 </div>
 <div class="util-row">
   <span class="label"><code>00:05:30.500</code></span>
-  <span class="val"><script>document.write(parseDuration('00:05:30.500') + 'ms')</script></span>
+  <span class="val"><script>document.write(Thyme.utils.parseDuration('00:05:30.500') + 'ms')</script></span>
 </div>
 <pre class="code"><code>parseDuration('01:30:00');      // 5400000 (1.5 hours)
 parseDuration('00:05:30.500');  // 330500</code></pre>
@@ -625,7 +625,7 @@ img.src = uri;</code></pre>
 </div>
 <div class="util-row">
   <span class="label">Output</span>
-  <span class="val"><script>document.write(stringify({q:"hello world",page:1}))</script></span>
+  <span class="val"><script>document.write(Thyme.utils.stringify({q:"hello world",page:1}))</script></span>
 </div>
 <pre class="code"><code>stringify({ q: "hello world", page: 1 });
 // "q=hello%20world&page=1"</code></pre>
@@ -801,7 +801,7 @@ document.getElementById('t-1s').addEventListener('click', function () { Thyme.in
 /* ---- dataURI demo ---- */
 (function() {
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#374151"/><circle cx="24" cy="24" r="10" fill="#fff"/></svg>';
-  document.getElementById('datauri-img').src = toDataURI(svg);
+  document.getElementById('datauri-img').src = Thyme.utils.toDataURI(svg);
 })();
 
 /* ---- delay demo ---- */

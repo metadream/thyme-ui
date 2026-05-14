@@ -40,6 +40,29 @@ const stripModuleSyntax = (code) =>
         .replace(/^export\s+(default\s+)?/gm, '')
         .replace(/^export\s+\{[^}]*\};\s*$/gm, '');
 
+const resolveNamespaceImports = (code, filePath) => {
+    return code.replace(/^import \* as (\w+) from ['"](.+?)['"];\s*$/gm, (_, name, modulePath) => {
+        const abs = path.resolve(path.dirname(filePath), modulePath);
+        if (!fs.existsSync(abs)) {
+            console.warn(`[skip] namespace import ${modulePath} not found`);
+            return `const ${name} = {};`;
+        }
+        const content = read(abs);
+        const exports = [];
+        const funcRe = /^export (?:default )?(?:function|const|let|var) (\w+)/gm;
+        let m;
+        while ((m = funcRe.exec(content)) !== null) exports.push(m[1]);
+        const namedRe = /^export \{([^}]+)\};/gm;
+        while ((m = namedRe.exec(content)) !== null) {
+            m[1].split(',').forEach(s => {
+                const parts = s.trim().split(/\s+as\s+/);
+                exports.push(parts[parts.length - 1].trim());
+            });
+        }
+        return `const ${name} = { ${exports.map(e => e + ': ' + e).join(', ')} };`;
+    });
+};
+
 const minifyTemplateLiterals = (code) => {
     let result = '';
     let i = 0;
@@ -100,7 +123,9 @@ for (const name of ['th-button', 'th-field', 'th-switch', 'th-check', 'th-select
 
 const mainPath = path.join(SRC, 'main.js');
 if (fs.existsSync(mainPath)) {
-    parts.push(stripModuleSyntax(read(mainPath)));
+    let mainCode = read(mainPath);
+    mainCode = resolveNamespaceImports(mainCode, mainPath);
+    parts.push(stripModuleSyntax(mainCode));
 }
 
 (async () => {
