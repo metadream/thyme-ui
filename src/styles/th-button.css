@@ -43,13 +43,13 @@
     outline-offset: 2px;
 }
 
-:host([size="sm"]) .th-button {
+:host([size="small"]) .th-button {
     height: 30px;
     padding: 0 14px;
     font-size: 12px;
 }
 
-:host([size="lg"]) .th-button {
+:host([size="large"]) .th-button {
     height: 46px;
     padding: 0 28px;
     font-size: 16px;
@@ -59,13 +59,13 @@
     padding: 0;
 }
 :host(:not([size])) .th-button--icon-only,
-:host([size="md"]) .th-button--icon-only {
+:host([size="medium"]) .th-button--icon-only {
     width: 38px;
 }
-:host([size="sm"]) .th-button--icon-only {
+:host([size="small"]) .th-button--icon-only {
     width: 30px;
 }
-:host([size="lg"]) .th-button--icon-only {
+:host([size="large"]) .th-button--icon-only {
     width: 46px;
 }
 
