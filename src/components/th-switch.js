@@ -2,17 +2,17 @@ import { Component } from "../core/Component.js";
 import switchCss from "../styles/th-switch.css";
 
 export class ThSwitch extends Component {
+    // prettier-ignore
+    static get __css__() { return switchCss; }
+
     static get _observedAttrs() {
         return ["checked", "disabled"];
-    }
-
-    static get __css__() {
-        return switchCss;
     }
 
     get checked() {
         return this.hasAttribute("checked");
     }
+
     set checked(v) {
         if (v) this.setAttribute("checked", "");
         else this.removeAttribute("checked");

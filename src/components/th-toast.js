@@ -13,9 +13,8 @@ function repositionAll() {
 }
 
 export class ThToast extends Component {
-    static get __css__() {
-        return toastCss;
-    }
+    // prettier-ignore
+    static get __css__() { return toastCss; }
 
     static get _observedAttrs() {
         return ["type", "duration"];
@@ -36,7 +35,6 @@ export class ThToast extends Component {
 
         this._timeoutId = setTimeout(() => this.close(), ms);
         this._toast.addEventListener("click", () => this.close());
-
         this._cleanup = () => {
             clearTimeout(this._timeoutId);
         };
