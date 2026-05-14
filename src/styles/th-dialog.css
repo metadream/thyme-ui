@@ -17,7 +17,8 @@
     border: none;
     background: transparent;
     font-weight: 500;
-    color: var(--th-primary);
+    font-size: inherit;
+    color: var(--th-primary, #3730a3);
     cursor: pointer;
     outline: none;
     transition: background-color 0.15s;
@@ -33,15 +34,28 @@
 }
 
 ::slotted(button:hover) {
-    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
+    background: color-mix(in srgb, var(--th-primary, #3730a3) 8%, transparent);
 }
 
 ::slotted(button:active) {
-    background: color-mix(in srgb, var(--th-primary) 15%, transparent);
+    background: color-mix(in srgb, var(--th-primary, #3730a3) 15%, transparent);
 }
 
 ::slotted(button:focus-visible) {
-    background: color-mix(in srgb, var(--th-primary) 12%, transparent);
+    background: color-mix(in srgb, var(--th-primary, #3730a3) 12%, transparent);
+}
+
+.th-dialog {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 400px;
+    margin: 30px;
+    width: 100%;
+    font-size: var(--th-font-size);
 }
 
 .th-dialog-overlay {
@@ -73,18 +87,6 @@
     animation: scaleOut ease 0.3s forwards;
 }
 
-.th-dialog {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
-    min-width: 280px;
-    max-width: 400px;
-    margin: 30px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 .th-dialog__title {
     padding: 20px 20px 0;
     font-size: var(--th-font-size);
@@ -95,9 +97,8 @@
 
 .th-dialog__body {
     padding: 25px;
-    font-size: 13px;
     line-height: var(--th-line-height);
-    color: #6b7280;
+    color: #666;
     text-align: center;
 }
 
