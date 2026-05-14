@@ -4,6 +4,7 @@
     "description": "A lightweight UI component library built with native Web Components, zero dependencies.",
     "repository": "https://github.com/metadream/focal-thyme.git",
     "author": "Marco <x@zerg.cc>",
+    "type": "module",
     "scripts": {
         "build": "node build.js"
     },
