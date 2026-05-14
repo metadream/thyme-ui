@@ -1,17 +1,22 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
 }
-*,*::before,*::after{box-sizing:border-box}
 
 .th-check {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     cursor: pointer;
     outline: none;
     user-select: none;
+    gap: 8px;
 }
 
 .th-check--disabled {
@@ -25,12 +30,14 @@
     border-radius: 4px;
     border: 2px solid #d1d5db;
     background: #fff;
-    transition: background-color 0.2s, border-color 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     box-sizing: border-box;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
 }
 
 .th-check:hover .th-check__indicator {
@@ -43,7 +50,7 @@
 }
 
 .th-check__indicator::after {
-    content: '';
+    content: "";
     display: block;
     width: 6px;
     height: 10px;
@@ -83,5 +90,4 @@
 .th-check__label {
     font-size: var(--th-font-size);
     line-height: var(--th-line-height);
-    color: #111827;
 }

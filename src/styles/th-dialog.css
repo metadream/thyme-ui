@@ -1,7 +1,48 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: contents;
 }
-*,*::before,*::after{box-sizing:border-box}
+
+::slotted(button) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    border: none;
+    background: transparent;
+    font-weight: 500;
+    color: var(--th-primary);
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    height: 42px;
+    border-right: 1px solid #e5e7eb;
+}
+
+::slotted(button:last-child) {
+    border-right: none;
+}
+
+::slotted(button:hover) {
+    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
+}
+
+::slotted(button:active) {
+    background: color-mix(in srgb, var(--th-primary) 15%, transparent);
+}
+
+::slotted(button:focus-visible) {
+    background: color-mix(in srgb, var(--th-primary) 12%, transparent);
+}
 
 .th-dialog-overlay {
     position: fixed;
@@ -11,8 +52,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
     pointer-events: none;
+    opacity: 0;
 }
 
 .th-dialog-overlay.fade-in {
@@ -30,26 +71,6 @@
 
 .th-dialog.scale-out {
     animation: scaleOut ease 0.3s forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-@keyframes scaleIn {
-    from { transform: scale(0.8); }
-    to { transform: scale(1); }
-}
-
-@keyframes scaleOut {
-    from { transform: scale(1); }
-    to { transform: scale(0.8); }
 }
 
 .th-dialog {
@@ -99,39 +120,38 @@
     flex: 1;
 }
 
-::slotted(button) {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8px;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--th-primary);
-    cursor: pointer;
-    outline: none;
-    transition: background-color 0.15s;
-    user-select: none;
-    -webkit-user-select: none;
-    position: relative;
-    height: 42px;
-    border-right: 1px solid #e5e7eb;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-::slotted(button:last-child) {
-    border-right: none;
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
-::slotted(button:hover) {
-    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
-::slotted(button:active) {
-    background: color-mix(in srgb, var(--th-primary) 15%, transparent);
-}
-
-::slotted(button:focus-visible) {
-    background: color-mix(in srgb, var(--th-primary) 12%, transparent);
+@keyframes scaleOut {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.8);
+    }
 }
