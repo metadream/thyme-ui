@@ -12,7 +12,7 @@
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
     border-radius: var(--th-radius);
     background: #fff;
-    min-height: 38px;
+    min-height: 40px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
