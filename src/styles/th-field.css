@@ -77,7 +77,7 @@
 }
 
 .th-field--textarea .th-field__input-wrap {
-    padding: 0 12px;
+    padding: 0;
 }
 
 .th-field__input {
@@ -98,7 +98,7 @@ textarea.th-field__input {
     height: auto;
     resize: vertical;
     min-height: 60px;
-    padding: 8px 0;
+    padding: 8px;
 }
 
 .th-field__input:disabled {
