@@ -81,6 +81,7 @@
     height: 20px;
     color: #9ca3af;
     flex-shrink: 0;
+    display: block;
     transition: transform 0.2s;
 }
 
