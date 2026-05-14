@@ -2,7 +2,6 @@
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
-    height: 38px;
 }
 *,*::before,*::after{box-sizing:border-box}
 
