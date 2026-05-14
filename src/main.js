@@ -21,11 +21,11 @@ customElements.define('th-select', ThSelect);
 customElements.define('th-dialog', ThDialog);
 customElements.define('th-toast', ThToast);
 
-const _toastGap = 60;
+const _toastGap = 55;
 let _toastRefs = [];
 
 function _repositionToasts() {
-    let offset = 24;
+    let offset = 80;
     _toastRefs.forEach(t => {
         t.style.top = offset + 'px';
         offset += _toastGap;
