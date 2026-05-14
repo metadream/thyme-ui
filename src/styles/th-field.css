@@ -12,7 +12,7 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     background: #fff;
     font-family: inherit;
-    height: 40px;
+    height: 42px;
 }
 
 .th-field:focus-within {
