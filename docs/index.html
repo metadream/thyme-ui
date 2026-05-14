@@ -507,12 +507,79 @@ Thyme.locale = 'zh';</code></pre>
 <!-- ============================== FORM ==================================== -->
 <section id="form">
 <h2>Thyme.form</h2>
-<p class="desc">Serialize form data to/from JSON objects. Handles all <code>[name]</code> elements including radio, checkbox, select.</p>
+<p class="desc">Serialize form data to/from JSON objects. Handles all <code>[name]</code> elements including radio, checkbox, switch, select.</p>
 
-<pre class="code"><code>const data = Thyme.form.getJsonData(formElement);
-// { name: "Marco", age: "30", interests: ["js", "css"] }
+<div class="demo col">
+  <th-field label="Name" name="name" value="Marco"></th-field>
+  <th-field label="Email" name="email" type="email" value="marco@test.com"></th-field>
+  <th-field label="Birth" name="date" type="date" value="1995-06-15"></th-field>
+  <th-field label="Bio" name="bio" type="textarea" rows="2" value="Developer &amp; designer"></th-field>
+  <th-check name="interest" value="js" checked>JS</th-check>
+  <th-check name="interest" value="css" checked>CSS</th-check>
+  <th-check name="interest" value="rust">Rust</th-check>
+  <th-check type="radio" name="gender" value="male" checked>Male</th-check>
+  <th-check type="radio" name="gender" value="female">Female</th-check>
+  <th-switch name="notify" checked></th-switch>
+  <th-select name="city" value="sh">
+    <option value="bj">Beijing</option>
+    <option value="sh">Shanghai</option>
+    <option value="gz">Guangzhou</option>
+  </th-select>
+</div>
 
-Thyme.form.setJsonData(formElement, { name: "Test", age: "25" });</code></pre>
+<div class="demo col">
+  <th-field label="Name" name="name" value="Alice"></th-field>
+  <th-field label="Email" name="email" type="email" value="alice@test.com"></th-field>
+  <th-field label="Birth" name="date" type="date" value="1998-03-22"></th-field>
+  <th-field label="Bio" name="bio" type="textarea" rows="2" value="UX designer"></th-field>
+  <th-check name="interest" value="js">JS</th-check>
+  <th-check name="interest" value="css" checked>CSS</th-check>
+  <th-check name="interest" value="rust" checked>Rust</th-check>
+  <th-check type="radio" name="gender" value="male">Male</th-check>
+  <th-check type="radio" name="gender" value="female" checked>Female</th-check>
+  <th-switch name="notify"></th-switch>
+  <th-select name="city" value="gz">
+    <option value="bj">Beijing</option>
+    <option value="sh">Shanghai</option>
+    <option value="gz">Guangzhou</option>
+  </th-select>
+</div>
+
+<div class="demo row">
+  <th-button onclick="demoFormGet()">getJsonObject</th-button>
+  <th-button onclick="demoFormArray()">getJsonArray</th-button>
+  <th-button onclick="demoFormSet()">setJsonObject</th-button>
+</div>
+
+<div id="form-result" style="margin-top:8px;padding:10px;background:#f3f4f6;border-radius:6px;font-size:13px;font-family:monospace;white-space:pre-wrap"></div>
+
+<script>
+  const scopes = document.querySelectorAll('#form > .demo.col');
+
+  function show(val) {
+    document.getElementById('form-result').textContent = JSON.stringify(val, null, 2);
+  }
+
+  window.demoFormGet = () => show(Thyme.form.getJsonObject(scopes[0]));
+
+  window.demoFormArray = () => show(Thyme.form.getJsonArray(scopes));
+
+  window.demoFormSet = () => {
+    Thyme.form.setJsonObject(scopes[1], { name: 'Alice', email: 'alice@test.com', interest: ['rust'], city: 'bj', notify: true });
+    show('set done');
+  };
+</script>
+
+<pre class="code"><code>// Collect all [name] values from a single scope
+const data = Thyme.form.getJsonObject(formEl);
+// { name: "Marco", email: "marco@test.com", interest: ["js","css"], gender: "male", notify: true, city: "sh" }
+
+// Collect from multiple scopes (e.g. table rows)
+const rows = Thyme.form.getJsonArray('.form-row');
+// [{ name: "Marco", ... }, { name: "Alice", ... }]
+
+// Set values back into a scope
+Thyme.form.setJsonObject(formEl, { name: "Alice", interest: ["rust"] });</code></pre>
 </section>
 
 <!-- ============================== HTTP ==================================== -->

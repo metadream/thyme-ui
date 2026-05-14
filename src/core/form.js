@@ -1,8 +1,6 @@
 export function getJsonArray(scopes) {
     scopes = typeof scopes === "string" ? document.querySelectorAll(scopes) : scopes;
-    if (!Array.isArray(scopes)) return [];
     const result = [];
-
     for (const scope of scopes) {
         const obj = getJsonObject(scope);
         if (Object.keys(obj).length) {
@@ -24,7 +22,7 @@ export function getJsonObject(scope) {
 
         if (el.type === "checkbox") {
             if (!Array.isArray(data[name])) data[name] = [];
-            data[name].push(el.value ?? "on");
+            data[name].push(el.value ?? 1);
         } else if (el.isContentEditable) {
             data[name] = el.innerHTML.trim();
         } else {
