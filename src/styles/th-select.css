@@ -1,9 +1,14 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :host {
     display: block;
     position: relative;
     font-family: inherit;
 }
-*,*::before,*::after{box-sizing:border-box}
 
 .th-select {
     position: relative;
@@ -13,7 +18,9 @@
     border-radius: var(--th-radius);
     background: #fff;
     height: 42px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
 
 .th-select:focus-within {
@@ -30,8 +37,8 @@
 .th-select__label {
     display: flex;
     align-items: center;
-    padding: 12px;
-    font-size: 11px;
+    padding: 15px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -41,7 +48,7 @@
     user-select: none;
     align-self: stretch;
     background: color-mix(in srgb, var(--th-primary) 8%, transparent);
-    min-width: 90px;
+    min-width: 120px;
 }
 
 .th-select__trigger {
@@ -60,7 +67,6 @@
     flex: 1;
     font-size: var(--th-font-size);
     line-height: var(--th-line-height);
-    color: #111827;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -92,7 +98,7 @@
     background: #fff;
     border: 1.5px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
     border-radius: var(--th-radius);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-height: 200px;
     overflow-y: auto;
 }
@@ -105,7 +111,6 @@
     padding: 10px 12px;
     font-size: var(--th-font-size);
     line-height: 20px;
-    color: #111827;
     cursor: pointer;
     transition: background-color 0.15s;
 }
