@@ -102,10 +102,6 @@
     text-align: center;
 }
 
-.th-dialog__body:only-child {
-    padding: 24px 20px;
-}
-
 .th-dialog__footer {
     border-top: 1px solid #e5e7eb;
     display: flex;
