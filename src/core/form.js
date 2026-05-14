@@ -1,11 +1,10 @@
 export function getJsonArray(scopes) {
     scopes = typeof scopes === "string" ? document.querySelectorAll(scopes) : scopes;
+    if (!scopes) return [];
     const result = [];
 
     for (const scope of scopes) {
         const obj = getJsonObject(scope);
-        if (!obj) return; // !important
-
         if (Object.keys(obj).length) {
             result.push(obj);
         }
@@ -15,6 +14,7 @@ export function getJsonArray(scopes) {
 
 export function getJsonObject(scope) {
     scope = typeof scope === "string" ? document.querySelector(scope) : scope;
+    if (!scope) return {};
     const els = scope.querySelectorAll('[name]:not([name=""])');
     const data = {};
 
@@ -26,10 +26,10 @@ export function getJsonObject(scope) {
         if (el.type === "checkbox") {
             if (!Array.isArray(data[name])) data[name] = [];
             data[name].push(el.value ?? "on");
-        } else if (field.isContentEditable) {
-            data[name] = field.innerHTML = field.innerHTML.trim();
+        } else if (el.isContentEditable) {
+            data[name] = el.innerHTML.trim();
         } else {
-            data[name] = el.value ?? field.textContent ?? "";
+            data[name] = el.value ?? el?.textContent ?? "";
         }
     }
     return data;
@@ -37,6 +37,7 @@ export function getJsonObject(scope) {
 
 export function setJsonObject(scope, data) {
     scope = typeof scope === "string" ? document.querySelector(scope) : scope;
+    if (!scope) return;
     const els = scope.querySelectorAll('[name]:not([name=""])');
 
     for (const el of els) {
