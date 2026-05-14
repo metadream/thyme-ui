@@ -68,7 +68,7 @@
 }
 
 .th-field__label::after {
-    content: " *";
+    content: "\00a0*";
     color: #ef4444;
     display: none;
 }
