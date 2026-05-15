@@ -412,11 +412,18 @@ field.setCustomValidity('');  // clear</code></pre>
   <th-button id="dlg-noclose-btn">Non-closable</th-button>
 </div>
 
+<h3>Custom width</h3>
+<div class="demo">
+  <th-button id="dlg-width-btn">Wide dialog (500px)</th-button>
+</div>
+<pre class="code"><code>&lt;th-dialog title="Wide" width="500"&gt;...&lt;/th-dialog&gt;</code></pre>
+
 <!-- dialogs defined here -->
 <th-dialog id="dlg-basic" title="提示"><p>操作已成功完成。</p><button slot="footer">好</button></th-dialog>
 <th-dialog id="dlg-confirm" title="确认删除"><p>此操作不可撤销，确定要删除吗？</p><button slot="footer" id="dlg-cancel">取消</button><button slot="footer" id="dlg-ok" style="font-weight:600">删除</button></th-dialog>
 <th-dialog id="dlg-notitle"><p>这是一个没有标题栏的对话框。</p><button slot="footer">知道了</button></th-dialog>
 <th-dialog id="dlg-noclose" title="重要" closable="false"><p>按 ESC 无法关闭，必须点击按钮。</p><button slot="footer" id="dlg-noclose-ok">我知道了</button></th-dialog>
+<th-dialog id="dlg-width" title="Wide Dialog" width="500"><p>This dialog has <code>width="500"</code>.</p><button slot="footer">OK</button></th-dialog>
 
 <h3>Shared color</h3>
 <p class="desc">All components read <code>--th-primary</code> from their parent. Set it once to theme everything.</p>
@@ -591,24 +598,56 @@ Thyme.form.setJsonObject(formEl, { name: "Alice", interest: ["rust"] });</code><
 <!-- ============================== HTTP ==================================== -->
 <section id="http">
 <h2>Thyme.http</h2>
-<p class="desc">Lightweight HTTP client with auto Content-Type detection. Methods available under <code>Thyme.http</code>.</p>
+<p class="desc">Lightweight HTTP client wrapping fetch() with JSON handling, response auto-detection, and error reporting.</p>
 
+<h3>Methods</h3>
+<pre class="code"><code>Thyme.http.get(url, opts?)
+Thyme.http.post(url, data?, opts?)
+Thyme.http.put(url, data?, opts?)
+Thyme.http.patch(url, data?, opts?)
+Thyme.http.delete(url, opts?)</code></pre>
+
+<h3>Basic usage</h3>
 <pre class="code"><code>// GET
-const data = await Thyme.http.get('/api/users');
+const users = await Thyme.http.get('/api/users');
 
-// POST — auto Content-Type: application/json for objects
-const res = await Thyme.http.post('/api/users', { name: 'Marco' });
+// POST with JSON body
+const user = await Thyme.http.post('/api/users', { name: 'Marco' });
 
-// PUT, PATCH, DELETE — same signature
-Thyme.http.put('/api/users/1', { name: 'Updated' });
-Thyme.http.patch('/api/users/1', { age: 31 });
-Thyme.http.delete('/api/users/1');
-</code></pre>
+// PUT / PATCH / DELETE
+await Thyme.http.put('/api/users/1', { name: 'Updated' });
+await Thyme.http.patch('/api/users/1', { age: 31 });
+await Thyme.http.delete('/api/users/1');</code></pre>
 
-<h3>Content-Type auto-detection</h3>
-<pre class="code"><code>// object → application/json
-// string  → text/plain
-// FormData / Blob / ArrayBuffer → no Content-Type set (browser sets it with boundary for FormData)</code></pre>
+<h3>Custom fetch options</h3>
+<p class="desc">Pass native fetch options like <code>signal</code>, <code>credentials</code>, or custom <code>headers</code> via the last argument.</p>
+<pre class="code"><code>// Abort request
+const ctrl = new AbortController();
+setTimeout(() => ctrl.abort(), 3000);
+const data = await Thyme.http.get('/api/slow', { signal: ctrl.signal });
+
+// Custom headers (merged with defaults)
+Thyme.http.post('/api/data', { foo: 1 }, {
+  headers: { Authorization: 'Bearer xxx' }
+});
+
+// FormData (not JSON-stringified)
+const fd = new FormData();
+fd.append('file', blob);
+await Thyme.http.post('/api/upload', fd);</code></pre>
+
+<h3>Response types</h3>
+<p class="desc">Body is parsed automatically based on <code>Content-Type</code>:</p>
+<pre class="code"><code>// text/*       → response.text()
+// application/json → response.json()
+// everything else  → response.blob()
+
+// Non-OK status throws with the parsed server message
+try {
+  await Thyme.http.get('/api/data');
+} catch (e) {
+  console.error(e.message);
+}</code></pre>
 </section>
 
 <!-- ============================== UTILS =================================== -->
@@ -829,6 +868,7 @@ document.getElementById('select-demo').addEventListener('change', function (e) {
   setup('dlg-notitle-btn', 'dlg-notitle');
   setup('dlg-noclose-btn', 'dlg-noclose');
   setup('dlg-color-btn', 'dlg-color');
+  setup('dlg-width-btn', 'dlg-width');
 
   document.getElementById('dlg-cancel').addEventListener('click', function () {
     document.getElementById('dlg-confirm').close();
