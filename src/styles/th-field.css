@@ -81,12 +81,8 @@
     flex: 1;
     display: flex;
     align-items: center;
-    width: 100%;
     padding: 0 12px;
-}
-
-.th-field__input-wrap--date {
-    padding-right: 4px;
+    min-width: 100px;
 }
 
 .th-field--textarea .th-field__input-wrap {
@@ -129,7 +125,6 @@ textarea.th-field__input {
     color: #9ca3af;
     transition: color 0.15s;
     flex-shrink: 0;
-    width: 32px;
     height: 100%;
     outline: none;
 }
