@@ -379,6 +379,7 @@ A modal dialog with overlay, title, body, and footer slot.
 | `open`     | boolean   | —       | Whether the dialog is visible |
 | `title`    | string    | —       | Dialog title text |
 | `closable` | boolean   | `true`  | Whether Escape key can close the dialog |
+| `width`    | number    | —       | Fixed dialog width in pixels (overrides CSS default) |
 
 #### Methods
 
@@ -547,11 +548,31 @@ Thyme.form.setJsonObject('#my-form', { username: 'admin', age: 25 });
 
 ### HTTP client
 
-Methods: `get`, `post`, `put`, `patch`, `delete`
+`Thyme.http` wraps `fetch()` with JSON handling, response type detection, and error reporting.
+
+#### Methods
+
+```js
+const data   = await Thyme.http.get(url, opts?)
+const data   = await Thyme.http.post(url, data?, opts?)
+const data   = await Thyme.http.put(url, data?, opts?)
+const data   = await Thyme.http.patch(url, data?, opts?)
+const data   = await Thyme.http.delete(url, opts?)
+```
+
+#### Parameters
+
+| Param  | Type     | Description |
+|--------|----------|-------------|
+| `url`  | string   | Request URL |
+| `data` | any      | Request body. Plain objects/arrays are JSON-stringified automatically. `FormData`, `Blob`, `ArrayBuffer` sent as-is. Omit for `GET`/`DELETE` |
+| `opts` | object   | Additional [fetch options](https://developer.mozilla.org/en-US/docs/Web/API/fetch) merged into the request (`signal`, `credentials`, custom `headers`, etc.) |
+
+#### Examples
 
 ```js
 // GET
-const data = await Thyme.http.get('/api/users');
+const users = await Thyme.http.get('/api/users');
 
 // POST with JSON body
 const user = await Thyme.http.post('/api/users', { name: 'Alice' });
@@ -566,11 +587,50 @@ await Thyme.http.patch('/api/users/1', { name: 'Bob' });
 await Thyme.http.delete('/api/users/1');
 ```
 
-**Request behavior:**
-- If body is a plain object/array, it's JSON-stringified and `Content-Type: application/json` is set automatically
-- If body is a `string`, `Content-Type: text/plain` is set
-- If body is `FormData`, `URLSearchParams`, `Blob`, or `ArrayBuffer`, it's sent as-is
-- Non-OK responses throw an error with `.status` and `.body` properties
+#### Custom fetch options
+
+Pass native `fetch()` options through the third argument:
+
+```js
+// Abort request
+const controller = new AbortController();
+Thyme.http.get('/api/search', { signal: controller.signal });
+controller.abort();
+
+// Custom headers (merged with defaults)
+Thyme.http.post('/api/data', { foo: 1 }, {
+    headers: { Authorization: 'Bearer xxx' }
+});
+
+// FormData (not JSON-stringified)
+const form = new FormData();
+form.append('file', file);
+await Thyme.http.post('/api/upload', form);
+```
+
+#### Response types
+
+The response body is parsed automatically based on `Content-Type`:
+
+| Content-Type              | Parsed as      |
+|---------------------------|----------------|
+| `text/*`                  | `response.text()` |
+| `application/json`        | `response.json()` |
+| Everything else           | `response.blob()` |
+
+Non-OK status codes (4xx/5xx) throw an `Error` with the parsed server message.
+
+#### Error handling
+
+```js
+try {
+    await Thyme.http.get('/api/data');
+} catch (e) {
+    console.error(e.message); // server error message or "Unknown error"
+}
+```
+
+Errors are also passed to `Thyme.error()` automatically.
 
 ### Utility functions
 
