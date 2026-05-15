@@ -621,16 +621,13 @@ Thyme.http.get('/api/data', { 'X-Custom': 'value' });</code></pre>
 
 <section id="utils-delay">
 <h3>delay(ms)</h3>
-<p class="desc">Promise-based setTimeout — <code>await delay(1000)</code> waits 1 second.</p>
+<p class="desc">Promise-based setTimeout — <code>await Thyme.utils.delay(1000)</code> waits 1 second.</p>
 <div class="util-row">
   <span class="label">Demo</span>
   <th-button id="delay-btn">Wait 1s</th-button>
   <span id="delay-result" class="val"></span>
 </div>
-<pre class="code"><code>import { delay } from 'thyme/utils';  // source
-// or: global delay() after build
-
-await delay(1000);
+<pre class="code"><code>await Thyme.utils.delay(1000);
 console.log('1 second later');</code></pre>
 </section>
 
@@ -641,8 +638,8 @@ console.log('1 second later');</code></pre>
   <span class="label">Result</span>
     <span id="nanoid-result" class="val"><script>document.write(Thyme.utils.nanoId())</script></span>
 </div>
-<pre class="code"><code>nanoId();      // e.g. "Xa3Rt9Kf2LmNpQwZbY7VcJ1"
-nanoId(12);    // custom length</code></pre>
+<pre class="code"><code>Thyme.utils.nanoId();      // e.g. "Xa3Rt9Kf2LmNpQwZbY7VcJ1"
+Thyme.utils.nanoId(12);    // custom length</code></pre>
 </section>
 
 <section id="utils-format-date">
