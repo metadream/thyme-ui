@@ -170,7 +170,7 @@ textarea.th-field__input {
     border: none;
     background: transparent;
     cursor: pointer;
-    color: #6b7280;
+    color: #666;
     border-radius: 4px;
     transition: background-color 0.15s;
     outline: none;
