@@ -111,6 +111,7 @@ Shadow DOM isolates box-sizing from the global page.
 - `Thyme.form` and `Thyme.utils` use `import * as` in `main.js`, resolved by `resolveNamespaceImports()` in `build.js`
 
 ## Theming
-- Global `:root{--th-primary:#3730a3;--th-radius:8px;--th-font-size:14px;--th-line-height:1.5}` injected once by `main.js`
+- CSS custom properties use `@property` registration with `initial-value` in `main.js` — no global `:root` injection
+- Defaults apply only when no element has set the property; user styles always win
 - Set `--th-primary` on any ancestor to theme all components — custom properties inherit through Shadow DOM
-- Derived colors (hover, border, focus ring, ripple) via `color-mix(in srgb, var(--th-primary) X%, ...)` — no fallback in `var()`, global `:root` default cascades through shadow boundaries
+- Derived colors (hover, border, focus ring, ripple) via `color-mix(in srgb, var(--th-primary) X%, ...)`

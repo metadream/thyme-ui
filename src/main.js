@@ -10,11 +10,9 @@ import { methods } from "./core/http.js";
 import * as form from "./core/form.js";
 import * as utils from "./core/utils.js";
 
-document.head.appendChild(
-    Object.assign(document.createElement("style"), {
-        textContent: ":root{--th-primary:#3730a3;--th-radius:8px;--th-font-size:14px;--th-line-height:1.5}",
-    }),
-);
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(`@property --th-primary{syntax:"<color>";inherits:true;initial-value:#3730a3}@property --th-radius{syntax:"<length>";inherits:true;initial-value:8px}@property --th-font-size{syntax:"<length>";inherits:true;initial-value:14px}@property --th-line-height{syntax:"<number>";inherits:true;initial-value:1.5}`);
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
 customElements.define("th-button", ThButton);
 customElements.define("th-check", ThCheck);

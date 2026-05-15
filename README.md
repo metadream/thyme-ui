@@ -691,9 +691,9 @@ th-dialog::part(dialog) {
 
 ## Browser Support
 
-Chrome 111+ / Firefox 113+ / Safari 16.2+ / Edge 111+.
+Chrome 111+ / Firefox 128+ / Safari 16.2+ / Edge 111+.
 
-Requires `color-mix()` CSS function. IE is not supported.
+Requires `@property` CSS at-rule and `color-mix()`. IE is not supported.
 
 ---
 
