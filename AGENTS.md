@@ -19,14 +19,20 @@ node build.js              # outputs docs/thyme@<version>.js via terser
 2. All `src/components/th-*.js`
 3. `src/main.js` (last — uses everything above)
 
-New component/CSS files must be added to both `build.js` component loop and `main.js` imports + `customElements.define()`.
+### Build notes
+- `import * as ns from './path'` → `resolveNamespaceImports()` in `build.js` scans the target file for exports and generates `const ns = { exp1, exp2, ... }`
+- `import { x } from './path'` → stripped, relies on concatenation order for resolution
+- New component/CSS files must be added to both `build.js` component loop and `main.js` imports + `customElements.define()`.
 
 ## Global access
 - `self.Thyme` (not `const Thyme`) — accessible across `<script>` tags
 - `Thyme.locale = 'en'|'zh'` — switches via getter/setter, backend `locale.setLang()`
 - `Thyme.alert(msg, title?)` / `Thyme.confirm(msg, title?) → Promise<boolean>` — uses `th-dialog`
-- `Thyme.info/warn/error/success(msg, duration?)` — uses `th-toast`, auto-repositions via `_repositionToasts()` array
-- Toast `close` event drives repositioning; each `<th-toast>` is `position: fixed`, no container div
+- `Thyme.info/warn/error/success(msg, duration?)` — uses `th-toast`, auto-repositions via internal `refs[]` array inside `th-toast.js`
+- Each `<th-toast>` is `position: fixed`, no container div; `close()` dispatches `close` event
+- `Thyme.form.getJsonObject / getJsonArray / setJsonObject` — form serialization
+- `Thyme.http.get / post / put / patch / delete` — HTTP client
+- `Thyme.utils.delay / nanoId / formatDate / formatMoney / ...` — utility functions
 
 ## CSS & theming
 - Global `:root{--th-primary:#3730a3;--th-radius:8px;--th-font-size:14px;--th-line-height:1.5}` injected once by `main.js`
@@ -39,3 +45,4 @@ New component/CSS files must be added to both `build.js` component loop and `mai
 - Date format: `yyyy-mm-dd` throughout
 - `th-button`: default variant `"filled"` (not `tonal`); supports `size="small"`/no attr(medium)/`"large"`; `slot="icon"` with auto icon-only detection
 - `locale.translate(key)` (renamed from old `.t()`); `Thyme.http.delete` (renamed from old `del()`)
+- `Thyme.form` and `Thyme.utils` use `import * as` in `main.js`, resolved by `resolveNamespaceImports()` in `build.js`

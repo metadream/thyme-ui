@@ -22,6 +22,7 @@
 <th-button>按钮</th-button>
 <th-button variant="tonal">辅助</th-button>
 <th-button variant="outlined">边框</th-button>
+<th-button variant="ghost">幽灵</th-button>
 ```
 
 ### 自定义主题色
@@ -40,7 +41,7 @@
 
 | 组件 | 说明 | 关键属性 |
 |------|------|----------|
-| `th-button` | 按钮 | `variant="filled\|tonal\|outlined"` `size="small\|large"` `loading` `slot="icon"` |
+| `th-button` | 按钮 | `variant="filled\|tonal\|outlined\|ghost"` `size="small\|large"` `loading` `slot="icon"` |
 | `th-field` | 输入框 / 日期选择 | `type="text\|email\|number\|date\|textarea"` `label` `error` |
 | `th-switch` | 开关 | `checked` `disabled` |
 | `th-check` | 复选框 / 单选 | `type="checkbox\|radio"` `checked` `name` `value` |
