@@ -17,7 +17,7 @@
 ### CDN
 
 ```html
-<script src="https://unpkg.com/thyme-ui"></script>
+<script src="https://unpkg.com/@metadream/thyme-ui"></script>
 
 <th-button>按钮</th-button>
 <th-button variant="tonal">辅助</th-button>
