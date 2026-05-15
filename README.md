@@ -1,33 +1,33 @@
 # Thyme UI
 
-基于原生 Web Components 的轻量级 UI 组件库，零第三方依赖。
+A lightweight UI component library built with native Web Components, zero dependencies.
 
-> [https://metadream.github.io/thyme-ui](https://metadream.github.io/thyme-ui) — 在线示例
+> [https://metadream.github.io/thyme-ui](https://metadream.github.io/thyme-ui) — live demo
 
-## 特点
+## Features
 
-- **纯原生** — Custom Elements + Shadow DOM，无框架锁定
-- **单文件输出** — 构建后一个 JS 文件，`<script>` 直引即可
-- **样式隔离** — Shadow DOM 天然隔离，组件互不干扰
-- **主题色** — `--th-primary` CSS 变量一键换色
-- **国际化** — 内置 `en` / `zh` 切换
+- **Pure native** — Custom Elements + Shadow DOM, no framework lock-in
+- **Single-file output** — One JS file after build, drop in via `<script>` tag
+- **Style isolation** — Shadow DOM scopes styles, no interference between components
+- **Theme color** — `--th-primary` CSS variable for one-click color switching
+- **i18n** — Built-in `en` / `zh` toggle
 
-## 使用
+## Usage
 
 ### CDN
 
 ```html
 <script src="https://unpkg.com/@metadream/thyme-ui"></script>
 
-<th-button>按钮</th-button>
-<th-button variant="tonal">辅助</th-button>
-<th-button variant="outlined">边框</th-button>
-<th-button variant="ghost">幽灵</th-button>
+<th-button>Button</th-button>
+<th-button variant="tonal">Tonal</th-button>
+<th-button variant="outlined">Outlined</th-button>
+<th-button variant="ghost">Ghost</th-button>
 ```
 
-### 自定义主题色
+### Custom theme color
 
-全局或任意祖先元素设置：
+Set on `:root` or any ancestor element:
 
 ```css
 :root {
@@ -35,55 +35,55 @@
 }
 ```
 
-所有派生色（悬停、边框、涟漪等）由 `color-mix()` 自动计算。
+All derived colors (hover, border, ripple, etc.) are computed automatically via `color-mix()`.
 
-## 组件
+## Components
 
-| 组件 | 说明 | 关键属性 |
-|------|------|----------|
-| `th-button` | 按钮 | `variant="filled\|tonal\|outlined\|ghost"` `size="small\|large"` `loading` `slot="icon"` |
-| `th-field` | 输入框 / 日期选择 | `type="text\|email\|number\|date\|textarea"` `label` `error` |
-| `th-switch` | 开关 | `checked` `disabled` |
-| `th-check` | 复选框 / 单选 | `type="checkbox\|radio"` `checked` `name` `value` |
-| `th-select` | 下拉选择 | `label` `value` `placeholder` `<option>` 子元素 |
-| `th-dialog` | 对话框 | `title` `closable` `open()` `close()` |
-| `th-toast` | 通知条 | `type="info\|warn\|error\|success"` `duration` `close()` |
+| Component | Description | Key attributes |
+|-----------|-------------|----------------|
+| `th-button` | Button | `variant="filled\|tonal\|outlined\|ghost"` `size="small\|large"` `loading` `slot="icon"` |
+| `th-field` | Input / Date picker | `type="text\|email\|number\|date\|textarea"` `label` `error` |
+| `th-switch` | Switch | `checked` `disabled` |
+| `th-check` | Checkbox / Radio | `type="checkbox\|radio"` `checked` `name` `value` |
+| `th-select` | Select dropdown | `label` `value` `placeholder` `<option>` children |
+| `th-dialog` | Dialog | `title` `closable` `open()` `close()` |
+| `th-toast` | Toast notification | `type="info\|warn\|error\|success"` `duration` `close()` |
 
-## 全局 API
+## Global API
 
-| API | 说明 |
-|-----|------|
-| `Thyme.alert(msg, title?)` | 提示框 |
-| `Thyme.confirm(msg, title?) → Promise` | 确认框 |
-| `Thyme.info / warn / error / success(msg, duration?)` | 通知条 |
-| `Thyme.locale = 'en' \| 'zh'` | 切换语言 |
-| `Thyme.form.getJsonObject(scope)` | 表单序列化 |
-| `Thyme.form.getJsonArray(scopes)` | 多个表单序列化 |
-| `Thyme.form.setJsonObject(scope, data)` | 填充表单 |
-| `Thyme.http.get / post / put / patch / delete` | HTTP 请求 |
-| `Thyme.utils.delay / nanoId / formatDate / formatMoney / ...` | 工具函数 |
+| API | Description |
+|-----|-------------|
+| `Thyme.alert(msg, title?)` | Alert dialog |
+| `Thyme.confirm(msg, title?) → Promise` | Confirm dialog |
+| `Thyme.info / warn / error / success(msg, duration?)` | Toast notification |
+| `Thyme.locale = 'en' \| 'zh'` | Toggle language |
+| `Thyme.form.getJsonObject(scope)` | Serialize form to object |
+| `Thyme.form.getJsonArray(scopes)` | Serialize multiple forms |
+| `Thyme.form.setJsonObject(scope, data)` | Populate form from object |
+| `Thyme.http.get / post / put / patch / delete` | HTTP client |
+| `Thyme.utils.delay / nanoId / formatDate / formatMoney / ...` | Utility functions |
 
-## 构建
+## Build
 
 ```bash
-npm install        # 安装 terser
-npm run build      # 输出 docs/thyme.min.js
+npm install        # installs terser
+npm run build      # outputs docs/thyme.min.js
 ```
 
-## 添加新组件
+## Adding a new component
 
-1. `src/components/th-xxx.js` 编写组件（继承 `Component`）
-2. `src/styles/th-xxx.css` 编写样式
-3. `src/main.js` 导入 + `customElements.define`
-4. `build.js` 组件列表加入新文件名
+1. `src/components/th-xxx.js` — implement component (extend `Component`)
+2. `src/styles/th-xxx.css` — write styles
+3. `src/main.js` — import + `customElements.define`
+4. `build.js` — add filename to component list
 
-组件注册统一在 `main.js` 中完成，组件文件本身不调用 `define`。
+Component registration is centralized in `main.js`; component files never call `define` themselves.
 
-## 兼容性
+## Browser support
 
-Chrome 111+ / Firefox 113+ / Safari 16.2+ / Edge 111+。
+Chrome 111+ / Firefox 113+ / Safari 16.2+ / Edge 111+.
 
-依赖 `color-mix()`，不支持 IE。
+Requires `color-mix()`. IE is not supported.
 
 ## License
 
