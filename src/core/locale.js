@@ -2,6 +2,8 @@ export const locale = {
     current: "en",
     strings: {
         en: {
+            "unsupported.response": "Unsupported response type",
+            "unknown.error": "Unknown error",
             "datepicker.aria": "Select date",
             "weekday.labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             "alert.ok": "OK",
@@ -9,6 +11,8 @@ export const locale = {
             "confirm.cancel": "Cancel",
         },
         zh: {
+            "unsupported.response": "不支持的响应类型",
+            "unknown.error": "未知错误",
             "datepicker.aria": "选择日期",
             "weekday.labels": ["一", "二", "三", "四", "五", "六", "日"],
             "alert.ok": "确定",

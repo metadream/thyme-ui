@@ -564,12 +564,6 @@ await Thyme.http.patch('/api/users/1', { name: 'Bob' });
 
 // DELETE
 await Thyme.http.delete('/api/users/1');
-
-// Custom headers and options
-const res = await Thyme.http.get('/api/data', {
-    headers: { Authorization: 'Bearer token' },
-    signal: abortController.signal,
-});
 ```
 
 **Request behavior:**

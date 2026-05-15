@@ -6,7 +6,7 @@ export class ThDialog extends Component {
     static get __css__() { return dialogCss; }
 
     static get _observedAttrs() {
-        return ["open", "title", "closable"];
+        return ["open", "title", "closable", "width"];
     }
 
     _template() {
@@ -27,10 +27,12 @@ export class ThDialog extends Component {
 
     _init() {
         this._overlay = this.$(".th-dialog-overlay");
+        this._dialog = this.$(".th-dialog");
         this._footer = this.$(".th-dialog__footer");
         this._footerSlot = this.$('slot[name="footer"]');
-
+        this._updateWidth();
         this._updateFooter();
+
         this._footerSlot.addEventListener("slotchange", () => {
             this._updateFooter();
         });
@@ -50,6 +52,19 @@ export class ThDialog extends Component {
         };
     }
 
+    _updateWidth() {
+        const w = this.getAttribute("width");
+        if (this._dialog) {
+            if (w) {
+                this._dialog.style.width = w + "px";
+                this._dialog.style.maxWidth = w + "px";
+            } else {
+                this._dialog.style.width = "";
+                this._dialog.style.maxWidth = "";
+            }
+        }
+    }
+
     _updateFooter() {
         const nodes = this._footerSlot.assignedNodes();
         const hasButtons = nodes.some((n) => n.nodeType === 1);
@@ -63,6 +78,9 @@ export class ThDialog extends Component {
                 break;
             case "title":
                 this._rerender();
+                break;
+            case "width":
+                this._updateWidth();
                 break;
         }
     }

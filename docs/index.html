@@ -603,9 +603,7 @@ const res = await Thyme.http.post('/api/users', { name: 'Marco' });
 Thyme.http.put('/api/users/1', { name: 'Updated' });
 Thyme.http.patch('/api/users/1', { age: 31 });
 Thyme.http.delete('/api/users/1');
-
-// Optional headers
-Thyme.http.get('/api/data', { 'X-Custom': 'value' });</code></pre>
+</code></pre>
 
 <h3>Content-Type auto-detection</h3>
 <pre class="code"><code>// object → application/json
