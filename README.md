@@ -2,7 +2,7 @@
 
 基于原生 Web Components 的轻量级 UI 组件库，零第三方依赖。
 
-> [https://metadream.github.io/focal-thyme](https://metadream.github.io/focal-thyme) — 在线示例
+> [https://metadream.github.io/thyme-ui](https://metadream.github.io/thyme-ui) — 在线示例
 
 ## 特点
 
@@ -17,7 +17,7 @@
 ### CDN
 
 ```html
-<script src="https://unpkg.com/focal-thyme@0.1.0/docs/thyme.min.js"></script>
+<script src="https://unpkg.com/thyme-ui"></script>
 
 <th-button>按钮</th-button>
 <th-button variant="tonal">辅助</th-button>
