@@ -17,7 +17,7 @@
 ### CDN
 
 ```html
-<script src="https://unpkg.com/focal-thyme@0.1.0/docs/thyme@0.1.0.js"></script>
+<script src="https://unpkg.com/focal-thyme@0.1.0/docs/thyme.min.js"></script>
 
 <th-button>按钮</th-button>
 <th-button variant="tonal">辅助</th-button>
@@ -67,7 +67,7 @@
 
 ```bash
 npm install        # 安装 terser
-npm run build      # 输出 docs/thyme@<version>.js
+npm run build      # 输出 docs/thyme.min.js
 ```
 
 ## 添加新组件

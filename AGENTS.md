@@ -2,7 +2,7 @@
 
 ## Build
 ```bash
-node build.js              # outputs docs/thyme@<version>.js via terser
+node build.js              # outputs docs/thyme.min.js via terser
 ```
 
 ## Architecture

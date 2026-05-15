@@ -9,7 +9,7 @@ const version = pkg.version || "0.0.0";
 
 const SRC = path.join(__dirname, "src");
 const DIST = path.join(__dirname, "docs");
-const OUTPUT = path.join(DIST, `thyme@${version}.js`);
+const OUTPUT = path.join(DIST, "thyme.min.js");
 
 const read = (file) => fs.readFileSync(file, "utf8");
 const escapeCSS = (css) => minifyCSS(css).replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");

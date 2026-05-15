@@ -6,8 +6,10 @@
     "repository": "https://github.com/metadream/focal-thyme.git",
     "author": "Marco <x@zerg.cc>",
     "type": "module",
+    "main": "docs/thyme.min.js",
+    "unpkg": "docs/thyme.min.js",
     "files": [
-        "docs/thyme@*.js",
+        "docs/thyme.min.js",
         "README.md"
     ],
     "scripts": {
