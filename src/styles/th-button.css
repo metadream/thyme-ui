@@ -106,6 +106,20 @@
     background: color-mix(in srgb, var(--th-primary) 16%, transparent);
 }
 
+.th-button--ghost {
+    background: transparent;
+    color: var(--th-primary);
+    border-color: transparent;
+}
+
+.th-button--ghost:hover {
+    background: color-mix(in srgb, var(--th-primary) 8%, transparent);
+}
+
+.th-button--ghost:active {
+    background: color-mix(in srgb, var(--th-primary) 16%, transparent);
+}
+
 .th-button[disabled] {
     opacity: 0.5;
     pointer-events: none;
@@ -151,7 +165,8 @@
 }
 
 .th-button--tonal .th-ripple,
-.th-button--outlined .th-ripple {
+.th-button--outlined .th-ripple,
+.th-button--ghost .th-ripple {
     background: color-mix(in srgb, var(--th-primary) 25%, transparent);
 }
 

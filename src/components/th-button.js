@@ -148,7 +148,7 @@ export class ThButton extends Component {
 
     _updateVariant(value) {
         if (!this._button) return;
-        this._button.classList.remove("th-button--filled", "th-button--tonal", "th-button--outlined");
+        this._button.classList.remove("th-button--filled", "th-button--tonal", "th-button--outlined", "th-button--ghost");
         this._button.classList.add(`th-button--${value || "filled"}`);
     }
 
