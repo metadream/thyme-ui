@@ -7,7 +7,6 @@
     "author": "Marco <x@zerg.cc>",
     "type": "module",
     "main": "docs/thyme.min.js",
-    "unpkg": "docs/thyme.min.js",
     "files": [
         "docs/thyme.min.js",
         "README.md"
