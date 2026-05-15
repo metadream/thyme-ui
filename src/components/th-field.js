@@ -3,6 +3,12 @@ import { locale } from "../core/locale.js";
 import fieldCss from "../styles/th-field.css";
 
 const TEXTAREA = "textarea";
+// prettier-ignore
+const BLOCK = new Set([
+    "P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6", "OL", "UL", "LI", "HR", "DL", "DT", "DD",
+    "HEADER", "FOOTER", "MAIN", "TABLE", "SECTION", "ARTICLE", "ASIDE", "NAV", "FORM", "SUMMARY",
+    "BLOCKQUOTE", "PRE", "FIGURE", "FIGCAPTION", "DETAILS", "ADDRESS", "FIELDSET",
+]);
 
 export class ThField extends Component {
     // prettier-ignore
@@ -45,10 +51,9 @@ export class ThField extends Component {
             <label class="th-field__label" part="label">
                 <slot name="label">${label}</slot>
             </label>
-            <div class="th-field__input-wrap${isDate ? ' th-field__input-wrap--date' : ''}">
-                <slot>
-                    <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
-                </slot>
+            <div class="th-field__input-wrap${isDate ? " th-field__input-wrap--date" : ""}">
+                <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
+                <slot></slot>
                 ${
                     isDate
                         ? `<button class="th-field__date-btn" part="date-btn" type="button" tabindex="-1" aria-label="${locale.translate("datepicker.aria")}">
@@ -100,8 +105,13 @@ export class ThField extends Component {
         this._field = this.$(".th-field");
         this._errorEl = this.$(".th-field__error");
         this._input = this.$(".th-field__input");
-
         if (!this._input) return;
+
+        if (this.childNodes.length > 0) {
+            this._consumeSlotContent();
+        } else {
+            setTimeout(() => this._consumeSlotContent(), 0);
+        }
 
         this._syncAttrs();
         this._updateRequired();
@@ -272,6 +282,33 @@ export class ThField extends Component {
             this._input.dispatchEvent(new Event("change", { bubbles: true }));
         }
         this._closeCalendar();
+    }
+
+    _consumeSlotContent() {
+        if (!this.isConnected || this.childNodes.length === 0) return;
+
+        const hasCustomInput = Array.from(this.children).some(
+            (n) => ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(n.tagName) || n.tagName.startsWith("TH-"),
+        );
+        if (hasCustomInput) {
+            this._input.style.display = "none";
+            return;
+        }
+
+        if (this.getAttribute("type") === TEXTAREA) {
+            let text = "";
+            for (const n of this.childNodes) {
+                if (n.nodeType === Node.ELEMENT_NODE) {
+                    text += (n.textContent || "").trim();
+                    if (BLOCK.has(n.tagName)) text += "\n";
+                } else if (n.nodeType === Node.TEXT_NODE && n.textContent.trim()) {
+                    text += n.textContent.trim();
+                }
+            }
+            text = text.replace(/\n{3,}/g, "\n\n").trim();
+            if (text) this._input.value = text;
+        }
+        this.innerHTML = "";
     }
 
     _attrChanged(name, value) {
