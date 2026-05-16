@@ -106,7 +106,7 @@ textarea.th-field__input {
     height: auto;
     resize: vertical;
     min-height: 60px;
-    padding: 8px;
+    padding: 12px;
 }
 
 .th-field__input:disabled {
