@@ -46,11 +46,10 @@ export class ThField extends Component {
         const rows = isTextarea ? ` rows="${this.getAttribute("rows") || "3"}"` : "";
         const type = !isTextarea ? ` type="${isDate ? "text" : fieldType}"` : "";
         const cls = isTextarea ? "th-field th-field--textarea" : "th-field";
+        const showLabel = label || Array.from(this.children).some(c => c.getAttribute?.("slot") === "label");
 
         return `<div class="${cls}" part="field">
-            <label class="th-field__label" part="label">
-                <slot name="label">${label}</slot>
-            </label>
+            ${showLabel ? `<label class="th-field__label" part="label"><slot name="label">${label}</slot></label>` : ""}
             <div class="th-field__input-wrap${isDate ? " th-field__input-wrap--date" : ""}">
                 <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
                 <slot></slot>
