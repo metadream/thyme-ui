@@ -103,6 +103,10 @@
     height: 100%;
 }
 
+.th-field__input::placeholder {
+    color: #9ca3af;
+}
+
 .th-field__input[contenteditable] {
     height: auto;
     min-height: 60px;
