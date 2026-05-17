@@ -274,6 +274,10 @@ export class ThSelect extends Component {
         }
     }
 
+    focus() {
+        this._trigger?.focus();
+    }
+
     checkValidity() {
         return !this._validate();
     }

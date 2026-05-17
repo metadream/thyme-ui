@@ -533,6 +533,10 @@ export class ThField extends Component {
         this._field.classList.add("th-field--error");
     }
 
+    focus() {
+        this._input?.focus();
+    }
+
     checkValidity() {
         if (!this._input) return true;
         const isCE = this._input.tagName === "DIV";
