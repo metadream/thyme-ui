@@ -1,8 +1,11 @@
 export function getJsonArray(scopes) {
     scopes = typeof scopes === "string" ? document.querySelectorAll(scopes) : scopes;
     const result = [];
+
     for (const scope of scopes) {
         const obj = getJsonObject(scope);
+        if (!obj) return null; // !important
+
         if (Object.keys(obj).length) {
             result.push(obj);
         }
@@ -16,6 +19,11 @@ export function getJsonObject(scope) {
     const data = {};
 
     for (const el of els) {
+        if (el.checkValidity && !el.checkValidity()) {
+            el.reportValidity();
+            return null;
+        }
+
         const name = el.name || el.getAttribute("name");
         if (!name) continue;
         if (typeof el.checked === "boolean" && !el.checked) continue;

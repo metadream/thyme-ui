@@ -57,6 +57,7 @@ export class ThSelect extends Component {
             <div class="th-select__panel" part="panel" role="listbox">
                 <div class="th-select__options"></div>
             </div>
+            <span class="th-select__error" part="error"></span>
         </div>`;
     }
 
@@ -65,6 +66,7 @@ export class ThSelect extends Component {
         this._valueEl = this.$(".th-select__value");
         this._trigger = this.$(".th-select__trigger");
         this._optionsContainer = this.$(".th-select__options");
+        this._errorEl = this.$(".th-select__error");
         this._isOpen = false;
         this._selectedValue = "";
         this._selectedText = "";
@@ -248,6 +250,7 @@ export class ThSelect extends Component {
         const value = opt.dataset.value;
         this._selectValue(value);
         this.setAttribute("value", value);
+        this._checkValidity();
         this._close();
         this.dispatchEvent(
             new CustomEvent("change", {
@@ -255,5 +258,47 @@ export class ThSelect extends Component {
                 bubbles: true,
             }),
         );
+    }
+
+    _validate() {
+        if (this.hasAttribute("required") && !this.value) return locale.translate("select.required") || "required";
+        return "";
+    }
+
+    _checkValidity() {
+        const msg = this._validate();
+        if (msg) {
+            this._showError(msg);
+        } else {
+            this._clearError();
+        }
+    }
+
+    checkValidity() {
+        return !this._validate();
+    }
+
+    reportValidity() {
+        const msg = this._validate();
+        if (msg) {
+            this._showError(msg);
+            return false;
+        }
+        this._clearError();
+        return true;
+    }
+
+    _showError(msg) {
+        if (!msg || !this._errorEl || !this._select) return;
+        this._errorEl.textContent = msg;
+        this._errorEl.classList.add("th-select__error--visible");
+        this._select.classList.add("th-select--error");
+    }
+
+    _clearError() {
+        if (!this._errorEl || !this._select) return;
+        this._errorEl.textContent = "";
+        this._errorEl.classList.remove("th-select__error--visible");
+        this._select.classList.remove("th-select--error");
     }
 }

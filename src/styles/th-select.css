@@ -142,3 +142,40 @@
     outline: 2px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
     outline-offset: 2px;
 }
+
+.th-select--error {
+    border-color: #ef4444;
+}
+
+.th-select--error:focus-within {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.th-select__error {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 20px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(239, 68, 68, 0.9);
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.th-select__error::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 25px;
+    border: 6px solid transparent;
+    border-bottom-color: rgba(239, 68, 68, 0.9);
+}
+
+.th-select__error--visible {
+    display: block;
+}

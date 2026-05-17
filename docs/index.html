@@ -533,7 +533,8 @@ Thyme.locale = 'zh';</code></pre>
   <th-check type="radio" name="gender" value="male" checked>Male</th-check>
   <th-check type="radio" name="gender" value="female">Female</th-check>
   <th-switch name="notify" checked></th-switch>
-  <th-select name="city" value="sh">
+  <th-select name="city" required>
+    <option></option>
     <option value="bj">Beijing</option>
     <option value="sh">Shanghai</option>
     <option value="gz">Guangzhou</option>
@@ -573,9 +574,17 @@ Thyme.locale = 'zh';</code></pre>
     document.getElementById('form-result').textContent = JSON.stringify(val, null, 2);
   }
 
-  window.demoFormGet = () => show(Thyme.form.getJsonObject(scopes[0]));
+  window.demoFormGet = () => {
+      const data = Thyme.form.getJsonObject(scopes[0]);
+      if (!data) return;
+      show(data);
+  }
 
-  window.demoFormArray = () => show(Thyme.form.getJsonArray(scopes));
+  window.demoFormArray = () => {
+      const data = Thyme.form.getJsonArray(scopes);
+      if (!data) return;
+      show(data);
+  };
 
   window.demoFormSet = () => {
     Thyme.form.setJsonObject(scopes[1], { name: 'Alice', email: 'alice@test.com', interest: ['rust'], city: 'bj', notify: true });
