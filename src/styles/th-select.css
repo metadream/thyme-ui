@@ -110,6 +110,7 @@
 
 .th-select__option {
     padding: 10px 12px;
+    min-height: 40px;
     font-size: var(--th-font-size);
     line-height: 20px;
     cursor: pointer;
