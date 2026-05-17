@@ -12,7 +12,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
     border-radius: var(--th-radius);
     background: #fff;
     font-family: inherit;
@@ -53,7 +53,7 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     color: var(--th-primary);
-    border-right: 1px solid color-mix(in srgb, var(--th-primary) 15%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
     background: color-mix(in srgb, var(--th-primary) 8%, transparent);
     user-select: none;
     align-self: stretch;
@@ -62,7 +62,7 @@
 
 .th-field--textarea .th-field__label {
     border-right: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--th-primary) 15%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
     flex-shrink: 0;
     height: 40px;
 }
@@ -276,6 +276,11 @@
     background: color-mix(in srgb, var(--th-primary) 12%, transparent);
     color: var(--th-primary);
     font-weight: 600;
+}
+
+.th-field--disabled .th-field__label,
+.th-field--textarea.th-field--disabled .th-field__label {
+    color: color-mix(in srgb, var(--th-primary) 50%, transparent);
 }
 
 .th-field--disabled .th-field__date-btn {
