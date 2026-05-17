@@ -21,7 +21,7 @@ export function getJsonObject(scope) {
     for (const el of els) {
         if (el.checkValidity && !el.checkValidity()) {
             el.reportValidity();
-            el.focus();
+            el.focus && el.focus();
             return null;
         }
 
