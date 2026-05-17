@@ -114,7 +114,6 @@
 }
 
 .th-field__input[contenteditable][disabled] {
-    background: #f9fafb;
     color: #9ca3af;
     cursor: not-allowed;
 }

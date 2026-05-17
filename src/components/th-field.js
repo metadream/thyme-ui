@@ -41,6 +41,15 @@ export class ThField extends Component {
         return this.getAttribute("name") || "";
     }
 
+    get disabled() {
+        return this.hasAttribute("disabled");
+    }
+
+    set disabled(v) {
+        if (v) this.setAttribute("disabled", "");
+        else this.removeAttribute("disabled");
+    }
+
     _template() {
         const label = this.getAttribute("label") || "";
         const fieldType = this.getAttribute("type") || "text";
@@ -363,7 +372,11 @@ export class ThField extends Component {
             if (name === "value") {
                 const text = value ?? "";
                 if (this._input.innerText !== text) this._input.innerText = text;
-            } else if (name === "disabled" || name === "readonly") {
+            } else if (name === "disabled") {
+                this._input.contentEditable = value === null ? "true" : "false";
+                if (value !== null) this._input.setAttribute("disabled", "");
+                else this._input.removeAttribute("disabled");
+            } else if (name === "readonly") {
                 this._input.contentEditable = value === null ? "true" : "false";
             } else if (name === "rows" || name === "max-rows") {
                 if (this.isConnected) this._updateRowHeight();
