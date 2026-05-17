@@ -221,7 +221,7 @@ pre.code code{font-family:'SF Mono','Menlo','Consolas',monospace;color:#374151;w
 
 <h3>Textarea</h3>
 <template class="demo col">
-  <th-field label="Bio" type="textarea" minlength="4" placeholder="Tell us about yourself">
+  <th-field label="Bio" type="textarea" rows="4" placeholder="Tell us about yourself">
     <p>If there's content inside</p>
     <p>If there's content inside</p>
   </th-field>
@@ -825,7 +825,7 @@ document.getElementById('btn-load-demo').addEventListener('click', function () {
 (function() {
   var err = document.getElementById('custom-err');
   document.getElementById('btn-set-err').addEventListener('click', function () {
-    err.disabled=true;
+    err.setCustomValidity('自定义错误信息');
   });
   document.getElementById('btn-clr-err').addEventListener('click', function () {
     err.setCustomValidity('');
