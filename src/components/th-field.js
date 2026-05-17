@@ -50,6 +50,24 @@ export class ThField extends Component {
         else this.removeAttribute("disabled");
     }
 
+    get required() {
+        return this.hasAttribute("required");
+    }
+
+    set required(v) {
+        if (v) this.setAttribute("required", "");
+        else this.removeAttribute("required");
+    }
+
+    get readonly() {
+        return this.hasAttribute("readonly");
+    }
+
+    set readonly(v) {
+        if (v) this.setAttribute("readonly", "");
+        else this.removeAttribute("readonly");
+    }
+
     _template() {
         const label = this.getAttribute("label") || "";
         const fieldType = this.getAttribute("type") || "text";

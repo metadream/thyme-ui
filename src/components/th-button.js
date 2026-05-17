@@ -37,6 +37,24 @@ export class ThButton extends Component {
         ];
     }
 
+    get loading() {
+        return this.hasAttribute("loading");
+    }
+
+    set loading(v) {
+        if (v) this.setAttribute("loading", "");
+        else this.removeAttribute("loading");
+    }
+
+    get disabled() {
+        return this.hasAttribute("disabled");
+    }
+
+    set disabled(v) {
+        if (v) this.setAttribute("disabled", "");
+        else this.removeAttribute("disabled");
+    }
+
     _template() {
         const isLink = this.hasAttribute("href");
         const tag = isLink ? "a" : "button";

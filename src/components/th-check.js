@@ -19,6 +19,8 @@ export class ThCheck extends Component {
     // prettier-ignore
     get disabled() { return this.hasAttribute("disabled"); }
     // prettier-ignore
+    set disabled(v) { if (v) this.setAttribute("disabled", ""); else this.removeAttribute("disabled"); }
+    // prettier-ignore
     get type() { return this.getAttribute("type") || "checkbox"; }
     // prettier-ignore
     get name() { return this.getAttribute("name") || ""; }

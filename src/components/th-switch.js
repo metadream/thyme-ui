@@ -22,6 +22,11 @@ export class ThSwitch extends Component {
         return this.hasAttribute("disabled");
     }
 
+    set disabled(v) {
+        if (v) this.setAttribute("disabled", "");
+        else this.removeAttribute("disabled");
+    }
+
     get value() {
         return this.checked ? this.getAttribute("value") || 1 : undefined;
     }

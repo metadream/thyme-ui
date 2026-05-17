@@ -25,6 +25,20 @@ export class ThSelect extends Component {
         return this.hasAttribute("disabled");
     }
 
+    set disabled(v) {
+        if (v) this.setAttribute("disabled", "");
+        else this.removeAttribute("disabled");
+    }
+
+    get required() {
+        return this.hasAttribute("required");
+    }
+
+    set required(v) {
+        if (v) this.setAttribute("required", "");
+        else this.removeAttribute("required");
+    }
+
     get name() {
         return this.getAttribute("name") || "";
     }
