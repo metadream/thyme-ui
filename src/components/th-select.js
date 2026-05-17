@@ -195,7 +195,6 @@ export class ThSelect extends Component {
         }
 
         idx = Math.max(0, Math.min(options.length - 1, idx + direction));
-
         options.forEach((opt) => opt.classList.remove("th-select__option--highlighted"));
         options[idx].classList.add("th-select__option--highlighted");
         options[idx].scrollIntoView({ block: "nearest" });
