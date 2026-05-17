@@ -18,17 +18,21 @@ export class ThField extends Component {
     static get _observedAttrs() {
         return [
             'label', 'type', 'value', 'name', 'placeholder', 'required',
-            'disabled', 'readonly', 'minlength', 'maxlength', 'rows',
+            'disabled', 'readonly', 'minlength', 'maxlength', 'rows', 'max-rows',
             'min', 'max', 'pattern', 'autocomplete', 'autofocus', 'error'
         ];
     }
 
     get value() {
-        return this._input?.value ?? "";
+        if (!this._input) return "";
+        return this._input.tagName === "DIV" ? this._input.innerText : this._input.value;
     }
 
     set value(v) {
-        if (this._input) {
+        if (!this._input) return;
+        if (this._input.tagName === "DIV") {
+            this._input.innerText = v ?? "";
+        } else {
             this._input.value = v ?? "";
         }
     }
@@ -42,16 +46,18 @@ export class ThField extends Component {
         const fieldType = this.getAttribute("type") || "text";
         const isTextarea = fieldType === TEXTAREA;
         const isDate = fieldType === "date";
-        const tag = isTextarea ? TEXTAREA : "input";
-        const rows = isTextarea ? ` rows="${this.getAttribute("rows") || "3"}"` : "";
         const type = !isTextarea ? ` type="${isDate ? "text" : fieldType}"` : "";
         const cls = isTextarea ? "th-field th-field--textarea" : "th-field";
-        const showLabel = label || Array.from(this.children).some(c => c.getAttribute?.("slot") === "label");
+        const showLabel = label || Array.from(this.children).some((c) => c.getAttribute?.("slot") === "label");
 
         return `<div class="${cls}" part="field">
             ${showLabel ? `<label class="th-field__label" part="label"><slot name="label">${label}</slot></label>` : ""}
             <div class="th-field__input-wrap${isDate ? " th-field__input-wrap--date" : ""}">
-                <${tag} class="th-field__input" part="input"${type}${rows}></${tag}>
+                ${
+                    isTextarea
+                        ? `<div class="th-field__input" part="input" contenteditable="plaintext-only"></div><span class="ce-placeholder">${this.getAttribute("placeholder") || ""}</span>`
+                        : `<input class="th-field__input" part="input"${type}>`
+                }
                 <slot></slot>
                 ${
                     isDate
@@ -106,10 +112,17 @@ export class ThField extends Component {
         this._input = this.$(".th-field__input");
         if (!this._input) return;
 
+        this._updateCEState();
+        this._updateRowHeight();
+
         if (this.childNodes.length > 0) {
             this._consumeSlotContent();
+            this._updateCEState();
         } else {
-            setTimeout(() => this._consumeSlotContent(), 0);
+            setTimeout(() => {
+                this._consumeSlotContent();
+                this._updateCEState();
+            }, 0);
         }
 
         this._syncAttrs();
@@ -305,7 +318,7 @@ export class ThField extends Component {
                 }
             }
             text = text.replace(/\n{3,}/g, "\n\n").trim();
-            if (text) this._input.value = text;
+            if (text) this._input.innerText = text;
         }
         this.innerHTML = "";
     }
@@ -346,25 +359,30 @@ export class ThField extends Component {
 
     _forwardAttr(name, value) {
         if (!this._input) return;
-        if (name === "value") {
-            this._input.value = value ?? "";
-        } else if (name === "disabled" || name === "readonly" || name === "required") {
-            if (value !== null) {
-                this._input.setAttribute(name, "");
+        if (this._input.tagName === "DIV") {
+            if (name === "value") {
+                const text = value ?? "";
+                if (this._input.innerText !== text) this._input.innerText = text;
+            } else if (name === "disabled" || name === "readonly") {
+                this._input.contentEditable = value === null ? "true" : "false";
+            } else if (name === "rows" || name === "max-rows") {
+                if (this.isConnected) this._updateRowHeight();
             } else {
-                this._input.removeAttribute(name);
-            }
-        } else if (name === "rows" && this._input.tagName.toLowerCase() === TEXTAREA) {
-            if (value !== null) {
-                this._input.setAttribute("rows", value);
-            } else {
-                this._input.removeAttribute("rows");
+                if (value !== null) this._input.setAttribute(name, value);
+                else this._input.removeAttribute(name);
             }
         } else {
-            if (value !== null) {
-                this._input.setAttribute(name, value);
+            if (name === "value") {
+                this._input.value = value ?? "";
+            } else if (name === "disabled" || name === "readonly" || name === "required") {
+                if (value !== null) this._input.setAttribute(name, "");
+                else this._input.removeAttribute(name);
+            } else if (name === "rows" && this._input.tagName.toLowerCase() === TEXTAREA) {
+                if (value !== null) this._input.setAttribute("rows", value);
+                else this._input.removeAttribute("rows");
             } else {
-                this._input.removeAttribute(name);
+                if (value !== null) this._input.setAttribute(name, value);
+                else this._input.removeAttribute(name);
             }
         }
     }
@@ -410,21 +428,64 @@ export class ThField extends Component {
     }
 
     _syncValue() {
-        const val = this._input.value;
-        if (val) {
-            this.setAttribute("value", val);
+        const val = this._input.tagName === "DIV" ? this._input.innerText : this._input.value;
+        if (val !== this.getAttribute("value")) {
+            if (val) this.setAttribute("value", val);
+            else this.removeAttribute("value");
+        }
+        this._updateCEState();
+    }
+
+    _updateCEState() {
+        if (this._input?.tagName !== "DIV" || !this._field) return;
+        this._field.classList.toggle("ce--empty", !this._input.textContent.length);
+    }
+
+    _updateRowHeight() {
+        if (this._input?.tagName !== "DIV") return;
+        const style = getComputedStyle(this._input);
+        const lh = parseFloat(style.lineHeight) || 21;
+        const pt = parseFloat(style.paddingTop) || 12;
+        const pb = parseFloat(style.paddingBottom) || 12;
+
+        const rows = parseInt(this.getAttribute("rows")) || 3;
+        this._input.style.minHeight = rows * lh + pt + pb + "px";
+
+        const maxRows = this.hasAttribute("max-rows") ? parseInt(this.getAttribute("max-rows")) : 0;
+        if (maxRows) {
+            this._input.style.maxHeight = maxRows * lh + pt + pb + "px";
         } else {
-            this.removeAttribute("value");
+            this._input.style.maxHeight = "";
         }
     }
 
     _checkValidity() {
         if (!this._input || this.hasAttribute("error")) return;
-        if (this._input.checkValidity()) {
+        const isCE = this._input.tagName === "DIV";
+        if (isCE) {
+            const msg = this._validateCE();
+            if (msg) {
+                if (this._input.innerText || this._input === document.activeElement) {
+                    this._showError(msg);
+                }
+            } else {
+                this._clearError();
+            }
+        } else if (this._input.checkValidity()) {
             this._clearError();
         } else if (this._input.value || this._input === document.activeElement) {
             this._showError(this._input.validationMessage);
         }
+    }
+
+    _validateCE() {
+        const val = this._input.innerText;
+        if (this.hasAttribute("required") && !val.trim()) return "required";
+        const min = this.hasAttribute("minlength") ? parseInt(this.getAttribute("minlength")) : 0;
+        if (min && val.length < min) return `minimum ${min} characters`;
+        const max = this.hasAttribute("maxlength") ? parseInt(this.getAttribute("maxlength")) : 0;
+        if (max && val.length > max) return `maximum ${max} characters`;
+        return "";
     }
 
     _showError(msg) {
@@ -435,11 +496,22 @@ export class ThField extends Component {
     }
 
     checkValidity() {
-        return this._input?.checkValidity() ?? true;
+        if (!this._input) return true;
+        if (this._input.tagName === "DIV") return !this._validateCE();
+        return this._input.checkValidity();
     }
 
     reportValidity() {
         if (!this._input) return true;
+        if (this._input.tagName === "DIV") {
+            const msg = this._validateCE();
+            if (msg) {
+                this._showError(msg);
+                return false;
+            }
+            this._clearError();
+            return true;
+        }
         if (this._input.checkValidity()) {
             this._clearError();
             return true;
@@ -450,11 +522,13 @@ export class ThField extends Component {
 
     setCustomValidity(msg) {
         if (!this._input) return;
-        this._input.setCustomValidity(msg);
-        if (msg) {
-            this.setAttribute("error", msg);
+        if (this._input.tagName === "DIV") {
+            if (msg) this.setAttribute("error", msg);
+            else this.removeAttribute("error");
         } else {
-            this.removeAttribute("error");
+            this._input.setCustomValidity(msg);
+            if (msg) this.setAttribute("error", msg);
+            else this.removeAttribute("error");
         }
     }
 }

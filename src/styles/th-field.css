@@ -78,6 +78,7 @@
 }
 
 .th-field__input-wrap {
+    position: relative;
     flex: 1;
     display: flex;
     align-items: center;
@@ -102,11 +103,39 @@
     height: 100%;
 }
 
-textarea.th-field__input {
+.th-field__input[contenteditable] {
     height: auto;
-    resize: vertical;
     min-height: 60px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
     padding: 12px;
+    outline: none;
+}
+
+.th-field__input[contenteditable][disabled] {
+    background: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.ce-placeholder {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    color: #9ca3af;
+    pointer-events: none;
+    user-select: none;
+    font-size: var(--th-font-size, 14px);
+    line-height: var(--th-line-height, 1.5);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.th-field--textarea.ce--empty .ce-placeholder {
+    display: block;
 }
 
 .th-field__input:disabled {
