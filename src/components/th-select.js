@@ -261,7 +261,7 @@ export class ThSelect extends Component {
     }
 
     _validate() {
-        if (this.hasAttribute("required") && !this.value) return locale.translate("select.required") || "required";
+        if (this.hasAttribute("required") && !this.value) return locale.translate("select.required");
         return "";
     }
 

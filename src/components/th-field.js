@@ -518,28 +518,28 @@ export class ThField extends Component {
     }
 
     _validateValue(val) {
-        if (this.hasAttribute("required") && !val.trim()) return "required";
+        if (this.hasAttribute("required") && !val.trim()) return locale.translate("field.required");
         if (this.getAttribute("type") === "date" && val) {
-            if (!/^\d{4}-\d{2}-\d{2}$/.test(val)) return "invalid date format (yyyy-mm-dd)";
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(val)) return locale.translate("field.date.format");
             const [y, m, d] = val.split("-").map(Number);
             const dt = new Date(y, m - 1, d);
-            if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) return "invalid date";
+            if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) return locale.translate("field.date.invalid");
             const min = this.getAttribute("min");
             if (min) {
                 const [minY, minM, minD] = min.split("-").map(Number);
-                if (dt < new Date(minY, minM - 1, minD)) return `earliest date is ${min}`;
+                if (dt < new Date(minY, minM - 1, minD)) return locale.translate("field.date.min").replace("{min}", min);
             }
             const max = this.getAttribute("max");
             if (max) {
                 const [maxY, maxM, maxD] = max.split("-").map(Number);
-                if (dt > new Date(maxY, maxM - 1, maxD)) return `latest date is ${max}`;
+                if (dt > new Date(maxY, maxM - 1, maxD)) return locale.translate("field.date.max").replace("{max}", max);
             }
             return "";
         }
         const minLen = this.hasAttribute("minlength") ? parseInt(this.getAttribute("minlength")) : 0;
-        if (minLen && val.length < minLen) return `minimum ${minLen} characters`;
+        if (minLen && val.length < minLen) return locale.translate("field.minlength").replace("{n}", minLen);
         const maxLen = this.hasAttribute("maxlength") ? parseInt(this.getAttribute("maxlength")) : 0;
-        if (maxLen && val.length > maxLen) return `maximum ${maxLen} characters`;
+        if (maxLen && val.length > maxLen) return locale.translate("field.maxlength").replace("{n}", maxLen);
         return "";
     }
 

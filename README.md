@@ -132,6 +132,7 @@ A form field with label, input/textarea/date picker, built-in validation, and er
 | `.checkValidity()`            | boolean  | Returns whether the input passes validation |
 | `.reportValidity()`           | boolean  | Checks validity and shows error message if invalid |
 | `.setCustomValidity(msg)`     | void     | Sets a custom validation error. Pass empty string to clear |
+| `.focus()`                    | void     | Focuses the inner input/textarea |
 
 #### Events (native, delegated from inner `<input>`/`<textarea>`)
 
@@ -303,8 +304,11 @@ A custom select dropdown built from `<option>` children.
 | Property   | Type    | Get/Set | Description |
 |------------|---------|---------|-------------|
 | `.value`   | string  | get/set | Currently selected value |
-| `.disabled`| boolean | get     | Disabled state |
+| `.disabled`| boolean | get/set | Disabled state |
 | `.name`    | string  | get     | Name attribute |
+| `.checkValidity()` | boolean | — | Returns whether validation passes |
+| `.reportValidity()`| boolean | — | Checks validity and shows error if invalid |
+| `.focus()` | void | — | Focuses the trigger element |
 
 #### Events
 
@@ -332,6 +336,7 @@ The `selected` attribute on an `<option>` sets the initial value.
 | `trigger` | Clickable trigger bar |
 | `value`   | Value display `<span>` |
 | `panel`   | Dropdown panel |
+| `error`   | Error message `<span>` |
 
 #### Keyboard navigation
 
