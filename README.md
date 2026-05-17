@@ -516,16 +516,6 @@ Thyme.locale = 'zh';  // switch to Chinese
 Thyme.locale = 'en';  // switch to English
 ```
 
-Built-in translation keys:
-
-| Key                | en                  | zh           |
-|--------------------|---------------------|--------------|
-| `datepicker.aria`  | Select date         | 选择日期     |
-| `weekday.labels`   | Mon, Tue, ...       | 一, 二, ...  |
-| `alert.ok`         | OK                  | 确定         |
-| `confirm.ok`       | OK                  | 确定         |
-| `confirm.cancel`   | Cancel              | 取消         |
-
 ### Form utilities
 
 ```js

@@ -32,7 +32,7 @@ export class ThSwitch extends Component {
     }
 
     _template() {
-        return `<div class="th-switch${this.checked ? " th-switch--checked" : ""}" role="switch" aria-checked="${this.checked}" tabindex="${this.disabled ? "-1" : "0"}"${this.disabled ? " disabled" : ""}>
+        return `<div class="th-switch${this.checked ? " th-switch--checked" : ""}" role="switch" tabindex="${this.disabled ? "-1" : "0"}"${this.disabled ? " disabled" : ""}>
             <div class="th-switch__thumb"></div>
         </div>`;
     }
@@ -51,7 +51,6 @@ export class ThSwitch extends Component {
     _updateChecked() {
         if (!this._switch) return;
         this._switch.classList.toggle("th-switch--checked", this.checked);
-        this._switch.setAttribute("aria-checked", String(this.checked));
     }
 
     _setupEvents() {

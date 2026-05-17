@@ -13,7 +13,7 @@ export class ThDialog extends Component {
         const title = this.getAttribute("title") || "";
         const open = this.hasAttribute("open");
         return `<div class="th-dialog-overlay${open ? " fade-in" : ""}" part="overlay">
-            <div class="th-dialog${open ? " scale-in" : ""}" part="dialog" role="dialog" aria-modal="${open}">
+            <div class="th-dialog${open ? " scale-in" : ""}" part="dialog" role="dialog">
                 ${title ? `<div class="th-dialog__title" part="title">${title}</div>` : ""}
                 <div class="th-dialog__body" part="body">
                     <slot></slot>
@@ -91,8 +91,6 @@ export class ThDialog extends Component {
         if (!overlay || !dialog) return;
 
         const isOpen = this.hasAttribute("open");
-        dialog.setAttribute("aria-modal", String(isOpen));
-
         if (isOpen) {
             overlay.classList.remove("fade-out");
             dialog.classList.remove("scale-out");

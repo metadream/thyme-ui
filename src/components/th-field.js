@@ -88,7 +88,7 @@ export class ThField extends Component {
                 <slot></slot>
                 ${
                     isDate
-                        ? `<button class="th-field__date-btn" part="date-btn" type="button" tabindex="-1" aria-label="${locale.translate("datepicker.aria")}">
+                        ? `<button class="th-field__date-btn" part="date-btn" type="button" tabindex="-1">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -523,16 +523,19 @@ export class ThField extends Component {
             if (!/^\d{4}-\d{2}-\d{2}$/.test(val)) return locale.translate("field.date.format");
             const [y, m, d] = val.split("-").map(Number);
             const dt = new Date(y, m - 1, d);
-            if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) return locale.translate("field.date.invalid");
+            if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d)
+                return locale.translate("field.date.invalid");
             const min = this.getAttribute("min");
             if (min) {
                 const [minY, minM, minD] = min.split("-").map(Number);
-                if (dt < new Date(minY, minM - 1, minD)) return locale.translate("field.date.min").replace("{min}", min);
+                if (dt < new Date(minY, minM - 1, minD))
+                    return locale.translate("field.date.min").replace("{min}", min);
             }
             const max = this.getAttribute("max");
             if (max) {
                 const [maxY, maxM, maxD] = max.split("-").map(Number);
-                if (dt > new Date(maxY, maxM - 1, maxD)) return locale.translate("field.date.max").replace("{max}", max);
+                if (dt > new Date(maxY, maxM - 1, maxD))
+                    return locale.translate("field.date.max").replace("{max}", max);
             }
             return "";
         }

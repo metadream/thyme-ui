@@ -30,7 +30,7 @@ export class ThCheck extends Component {
     _template() {
         const isRadio = this.type === "radio";
         const role = isRadio ? "radio" : "checkbox";
-        return `<div class="th-check${this.checked ? " th-check--checked" : ""}${isRadio ? " th-check--radio" : ""}${this.disabled ? " th-check--disabled" : ""}" role="${role}" aria-checked="${this.checked}" tabindex="${this.disabled ? "-1" : "0"}">
+        return `<div class="th-check${this.checked ? " th-check--checked" : ""}${isRadio ? " th-check--radio" : ""}${this.disabled ? " th-check--disabled" : ""}" role="${role}" tabindex="${this.disabled ? "-1" : "0"}">
             <div class="th-check__indicator"></div>
             <span class="th-check__label"><slot></slot></span>
         </div>`;
@@ -54,7 +54,6 @@ export class ThCheck extends Component {
     _updateChecked() {
         if (!this._check) return;
         this._check.classList.toggle("th-check--checked", this.checked);
-        this._check.setAttribute("aria-checked", String(this.checked));
     }
 
     _updateDisabled() {

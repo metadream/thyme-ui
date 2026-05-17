@@ -4,7 +4,6 @@ import btnCss from "../styles/th-button.css";
 function ripple(container, event) {
     const el = document.createElement("span");
     el.className = "th-ripple";
-    el.setAttribute("aria-hidden", "true");
 
     let cx = event.clientX,
         cy = event.clientY;
@@ -66,7 +65,7 @@ export class ThButton extends Component {
                 <slot></slot>
             </span>
             <span class="th-button__loader" part="loader">
-                <svg class="th-button__spinner" viewBox="0 0 24 24" aria-hidden="true">
+                <svg class="th-button__spinner" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
                 </svg>
             </span>
@@ -135,10 +134,7 @@ export class ThButton extends Component {
         const tag = this._button.tagName.toLowerCase();
 
         if (tag === "a") {
-            if (name === "disabled") {
-                this._button.setAttribute("aria-disabled", value !== null ? "true" : "false");
-                return;
-            }
+            if (name === "disabled") return;
             if (["type", "name", "value", "form", "autofocus"].includes(name)) return;
         }
 
@@ -155,9 +151,7 @@ export class ThButton extends Component {
 
     _syncDisabled() {
         if (!this._button) return;
-        if (this._button.tagName === "A") {
-            this._button.setAttribute("aria-disabled", this.hasAttribute("disabled") ? "true" : "false");
-        } else if (this.hasAttribute("disabled") || this.hasAttribute("loading")) {
+        if (this.hasAttribute("disabled") || this.hasAttribute("loading")) {
             this._button.setAttribute("disabled", "");
         } else {
             this._button.removeAttribute("disabled");
@@ -166,7 +160,12 @@ export class ThButton extends Component {
 
     _updateVariant(value) {
         if (!this._button) return;
-        this._button.classList.remove("th-button--filled", "th-button--tonal", "th-button--outlined", "th-button--ghost");
+        this._button.classList.remove(
+            "th-button--filled",
+            "th-button--tonal",
+            "th-button--outlined",
+            "th-button--ghost",
+        );
         this._button.classList.add(`th-button--${value || "filled"}`);
     }
 

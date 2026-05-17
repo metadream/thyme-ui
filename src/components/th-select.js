@@ -48,9 +48,9 @@ export class ThSelect extends Component {
         const placeholder = this.getAttribute("placeholder") || "";
         return `<div class="th-select" part="select">
             ${label ? `<label class="th-select__label" part="label">${label}</label>` : ""}
-            <div class="th-select__trigger" part="trigger" role="combobox" aria-expanded="false" aria-haspopup="listbox" tabindex="0">
+            <div class="th-select__trigger" part="trigger" role="combobox" tabindex="0">
                 <span class="th-select__value${placeholder && !this._selectedText ? " th-select__placeholder" : ""}" part="value">${this._selectedText || placeholder}</span>
-                <svg class="th-select__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <svg class="th-select__arrow" viewBox="0 0 24 24" width="20" height="20">
                     <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
@@ -163,8 +163,6 @@ export class ThSelect extends Component {
         if (this.disabled) return;
         this._isOpen = true;
         this._select.classList.add("th-select--open");
-        this._trigger.setAttribute("aria-expanded", "true");
-
         const options = this._optionsContainer.querySelectorAll(".th-select__option");
         options.forEach((opt) => opt.classList.remove("th-select__option--highlighted"));
 
@@ -178,7 +176,6 @@ export class ThSelect extends Component {
     _close() {
         this._isOpen = false;
         this._select.classList.remove("th-select--open");
-        this._trigger.setAttribute("aria-expanded", "false");
         this._trigger.focus();
     }
 
