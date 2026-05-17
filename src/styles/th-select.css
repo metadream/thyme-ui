@@ -14,7 +14,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    border: 1.5px solid color-mix(in srgb, var(--th-primary) 30%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--th-primary) 50%, transparent);
     border-radius: var(--th-radius);
     background: #fff;
     height: 42px;
@@ -44,7 +44,7 @@
     letter-spacing: 0.5px;
     color: var(--th-primary);
     white-space: nowrap;
-    border-right: 1px solid color-mix(in srgb, var(--th-primary) 15%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--th-primary) 20%, transparent);
     user-select: none;
     align-self: stretch;
     background: color-mix(in srgb, var(--th-primary) 8%, transparent);

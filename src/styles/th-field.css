@@ -278,9 +278,9 @@
     font-weight: 600;
 }
 
-.th-field--disabled .th-field__label,
-.th-field--textarea.th-field--disabled .th-field__label {
-    color: color-mix(in srgb, var(--th-primary) 50%, transparent);
+.th-field--disabled,
+.th-field--textarea.th-field--disabled {
+    opacity: 0.5;
 }
 
 .th-field--disabled .th-field__date-btn {

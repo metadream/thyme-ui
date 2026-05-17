@@ -154,6 +154,7 @@ export class ThField extends Component {
 
         this._syncAttrs();
         this._updateRequired();
+        this._updateDisabled();
         this._updateError();
         this._setupEvents();
 
@@ -366,6 +367,10 @@ export class ThField extends Component {
                 this._updateRequired();
                 this._forwardAttr(name, value);
                 break;
+            case "disabled":
+                this._updateDisabled();
+                this._forwardAttr(name, value);
+                break;
             default:
                 this._forwardAttr(name, value);
                 break;
@@ -421,6 +426,11 @@ export class ThField extends Component {
     _updateRequired() {
         if (!this._field) return;
         this._field.classList.toggle("th-field--required", this.hasAttribute("required"));
+    }
+
+    _updateDisabled() {
+        if (!this._field) return;
+        this._field.classList.toggle("th-field--disabled", this.hasAttribute("disabled"));
     }
 
     _updateError() {

@@ -100,6 +100,7 @@ Shadow DOM isolates box-sizing from the global page.
 
 ## Component conventions
 - Expose native-like `.value`, `.name`, `.checked`, `.type` properties for uniform form handling
+- Every observed attribute that is commonly set via JS (`disabled`, `loading`, `required`, `readonly`, etc.) must have `get`/`set` property pair delegated to `hasAttribute`/`setAttribute`/`removeAttribute` — JS property assignment does not trigger `attributeChangedCallback`
 - Date format: `yyyy-mm-dd` throughout
 - `th-button`: default variant `"filled"` (not `tonal`); supports `size="small"`/no attr(medium)/`"large"`; `slot="icon"` with auto icon-only detection; renders `<a>` when `href` attribute present
 - `th-field`: type `"date"` renders as `type="text"` internally with a built-in calendar popup; exposes `.checkValidity()`, `.reportValidity()`, `.setCustomValidity(msg)` methods; `error` attribute overrides validation; `slot="label"` replaces label text; default slot replaces the `<input>` element
