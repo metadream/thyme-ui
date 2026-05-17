@@ -493,24 +493,21 @@ export class ThField extends Component {
     _checkValidity() {
         if (!this._input || this.hasAttribute("error")) return;
         const isCE = this._input.tagName === "DIV";
-        if (isCE) {
-            const msg = this._validateCE();
-            if (msg) {
-                if (this._input.innerText || this._input === document.activeElement) {
-                    this._showError(msg);
-                }
-            } else {
-                this._clearError();
+        const val = isCE ? this._input.innerText : this._input.value;
+        let msg = this._validateValue(val);
+        if (!msg && !isCE && !this._input.checkValidity()) {
+            msg = this._input.validationMessage;
+        }
+        if (msg) {
+            if (val || this._input === document.activeElement) {
+                this._showError(msg);
             }
-        } else if (this._input.checkValidity()) {
+        } else {
             this._clearError();
-        } else if (this._input.value || this._input === document.activeElement) {
-            this._showError(this._input.validationMessage);
         }
     }
 
-    _validateCE() {
-        const val = this._input.innerText;
+    _validateValue(val) {
         if (this.hasAttribute("required") && !val.trim()) return "required";
         const min = this.hasAttribute("minlength") ? parseInt(this.getAttribute("minlength")) : 0;
         if (min && val.length < min) return `minimum ${min} characters`;
@@ -528,27 +525,28 @@ export class ThField extends Component {
 
     checkValidity() {
         if (!this._input) return true;
-        if (this._input.tagName === "DIV") return !this._validateCE();
-        return this._input.checkValidity();
+        const isCE = this._input.tagName === "DIV";
+        const val = isCE ? this._input.innerText : this._input.value;
+        if (this._validateValue(val)) return false;
+        if (!isCE && !this._input.checkValidity()) return false;
+        return true;
     }
 
     reportValidity() {
         if (!this._input) return true;
-        if (this._input.tagName === "DIV") {
-            const msg = this._validateCE();
-            if (msg) {
-                this._showError(msg);
-                return false;
-            }
-            this._clearError();
-            return true;
+        const isCE = this._input.tagName === "DIV";
+        const val = isCE ? this._input.innerText : this._input.value;
+        const msg = this._validateValue(val);
+        if (msg) {
+            this._showError(msg);
+            return false;
         }
-        if (this._input.checkValidity()) {
-            this._clearError();
-            return true;
+        if (!isCE && !this._input.checkValidity()) {
+            this._showError(this._input.validationMessage);
+            return false;
         }
-        this._showError(this._input.validationMessage);
-        return false;
+        this._clearError();
+        return true;
     }
 
     setCustomValidity(msg) {
