@@ -39,6 +39,10 @@ export class ThSelect extends Component {
         else this.removeAttribute("required");
     }
 
+    get type() {
+        return "select-one";
+    }
+
     get name() {
         return this.getAttribute("name") || "";
     }

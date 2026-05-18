@@ -29,13 +29,25 @@ export function getJsonObject(scope) {
         if (!name) continue;
         if (typeof el.checked === "boolean" && !el.checked) continue;
 
-        if (el.type === "checkbox") {
+        if (el.type === "checkbox" || el.type === "select-multiple") {
             if (!Array.isArray(data[name])) data[name] = [];
-            data[name].push(el.value ?? 1);
+            if (el.type === "select-multiple") {
+                for (const opt of el.options) {
+                    if (opt.selected) data[name].push(opt.value);
+                }
+            } else {
+                data[name].push(el.value ?? 1);
+            }
         } else if (el.isContentEditable) {
             data[name] = el.innerHTML.trim();
+            el.innerHTML = data[name];
         } else {
-            data[name] = el.value ?? el?.textContent ?? "";
+            let v = el.value ?? el?.textContent ?? "";
+            if (typeof v === "string" && _isInput(el)) {
+                v = v.trim();
+                el.value = v;
+            }
+            data[name] = v;
         }
     }
     return data;
@@ -60,4 +72,8 @@ export function setJsonObject(scope, data) {
             el.value = val ?? "";
         }
     }
+}
+
+function _isInput(el) {
+    return el.type !== "radio" && el.type !== "select-one" && typeof el.checked !== "boolean";
 }
