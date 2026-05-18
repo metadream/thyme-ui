@@ -525,7 +525,7 @@ Thyme.locale = 'zh';</code></pre>
 <div class="demo col">
   <th-field label="Name" name="name" value="Marco"></th-field>
   <th-field label="Email" name="email" type="email" value="marco@test.com"></th-field>
-  <th-field label="Birth" name="date" type="date" min="1970-01-01" value="1965-06-15"></th-field>
+  <th-field label="Birth" name="date" type="date" min="1970-01-01" value="1971-06-15"></th-field>
   <th-field label="Bio" name="bio" type="textarea" rows="2" value="Developer &amp; designer"></th-field>
   <th-check name="interest" value="js" checked>JS</th-check>
   <th-check name="interest" value="css" checked>CSS</th-check>
@@ -533,7 +533,7 @@ Thyme.locale = 'zh';</code></pre>
   <th-check type="radio" name="gender" value="male" checked>Male</th-check>
   <th-check type="radio" name="gender" value="female">Female</th-check>
   <th-switch name="notify" checked></th-switch>
-  <th-select name="city" required>
+  <th-select name="city" value="sh" required>
     <option></option>
     <option value="bj">Beijing</option>
     <option value="sh">Shanghai</option>
@@ -576,13 +576,13 @@ Thyme.locale = 'zh';</code></pre>
 
   window.demoFormGet = () => {
       const data = Thyme.form.getJsonObject(scopes[0]);
-      if (!data) return;
+      if (data === null) { Thyme.warn('null — validation failed'); return; }
       show(data);
   }
 
   window.demoFormArray = () => {
       const data = Thyme.form.getJsonArray(scopes);
-      if (!data) return;
+      if (data === null) { Thyme.warn('null — validation failed'); return; }
       show(data);
   };
 
@@ -594,14 +594,19 @@ Thyme.locale = 'zh';</code></pre>
 
 <pre class="code"><code>// Collect all [name] values from a single scope
 const data = Thyme.form.getJsonObject(formEl);
-// { name: "Marco", email: "marco@test.com", interest: ["js","css"], gender: "male", notify: true, city: "sh" }
+// Returns null if ANY field fails checkValidity()
 
 // Collect from multiple scopes (e.g. table rows)
 const rows = Thyme.form.getJsonArray('.form-row');
-// [{ name: "Marco", ... }, { name: "Alice", ... }]
+// Returns null if ANY scope fails
 
 // Set values back into a scope
-Thyme.form.setJsonObject(formEl, { name: "Alice", interest: ["rust"] });</code></pre>
+Thyme.form.setJsonObject(formEl, { name: "Alice", interest: ["rust"] });
+
+// Validate first, then submit
+const data = Thyme.form.getJsonObject('#my-form');
+if (data === null) return;  // ⬅ validation failed, already focused on first invalid field
+await fetch('/api/submit', { method: 'POST', body: JSON.stringify(data) });</code></pre>
 </section>
 
 <!-- ============================== HTTP ==================================== -->
@@ -662,7 +667,7 @@ try {
 <!-- ============================== UTILS =================================== -->
 <section id="utils-overview">
 <h2>Utilities</h2>
-<p class="desc">All utility functions are available as globals after loading <code>thyme.min.js</code>. No prefix required.</p>
+<p class="desc">Called via <code>Thyme.utils.*</code>.</p>
 </section>
 
 <section id="utils-delay">
@@ -699,9 +704,9 @@ Thyme.utils.nanoId(12);    // custom length</code></pre>
   <span class="label"><code>yyyy/MM/dd hh:mm:ss</code></span>
     <span class="val"><script>document.write(Thyme.utils.formatDate(new Date(), 'yyyy/MM/dd hh:mm:ss'))</script></span>
 </div>
-<pre class="code"><code>formatDate(new Date(), 'yyyy-MM-dd');       // 2026-05-13
-formatDate(new Date(), 'yyyy/MM/dd hh:mm'); // 2026/05/13 14:30
-formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
+<pre class="code"><code>Thyme.utils.formatDate(new Date(), 'yyyy-MM-dd');       // 2026-05-13
+Thyme.utils.formatDate(new Date(), 'yyyy/MM/dd hh:mm'); // 2026/05/13 14:30
+Thyme.utils.formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
 </section>
 
 <section id="utils-format-money">
@@ -711,7 +716,7 @@ formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
   <span class="label"><code>1234567.89</code></span>
     <span class="val"><script>document.write(Thyme.utils.formatMoney(1234567.89))</script></span>
 </div>
-<pre class="code"><code>formatMoney(1234567.89);  // "1,234,567.89"</code></pre>
+<pre class="code"><code>Thyme.utils.formatMoney(1234567.89);  // "1,234,567.89"</code></pre>
 </section>
 
 <section id="utils-format-bytes">
@@ -733,9 +738,9 @@ formatDate(new Date(), 'MM/dd', true);      // UTC version</code></pre>
   <span class="label"><code>1073741824</code></span>
   <span class="val"><script>document.write(Thyme.utils.formatBytes(1073741824))</script></span>
 </div>
-<pre class="code"><code>formatBytes(1024);          // "1 KiB"
-formatBytes(1048576);       // "1 MiB"
-formatBytes(1073741824);    // "1 GiB"</code></pre>
+<pre class="code"><code>Thyme.utils.formatBytes(1024);          // "1 KiB"
+Thyme.utils.formatBytes(1048576);       // "1 MiB"
+Thyme.utils.formatBytes(1073741824);    // "1 GiB"</code></pre>
 </section>
 
 <section id="utils-format-seconds">
@@ -749,8 +754,8 @@ formatBytes(1073741824);    // "1 GiB"</code></pre>
   <span class="label"><code>90061</code></span>
   <span class="val"><script>document.write(Thyme.utils.formatSeconds(90061))</script></span>
 </div>
-<pre class="code"><code>formatSeconds(3661);   // "1h 1m 1s"
-formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
+<pre class="code"><code>Thyme.utils.formatSeconds(3661);   // "1h 1m 1s"
+Thyme.utils.formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
 </section>
 
 <section id="utils-parse-duration">
@@ -764,8 +769,8 @@ formatSeconds(90061);  // "1d 1h 1m 1s"</code></pre>
   <span class="label"><code>00:05:30.500</code></span>
   <span class="val"><script>document.write(Thyme.utils.parseDuration('00:05:30.500') + 'ms')</script></span>
 </div>
-<pre class="code"><code>parseDuration('01:30:00');      // 5400000 (1.5 hours)
-parseDuration('00:05:30.500');  // 330500</code></pre>
+<pre class="code"><code>Thyme.utils.parseDuration('01:30:00');      // 5400000 (1.5 hours)
+Thyme.utils.parseDuration('00:05:30.500');  // 330500</code></pre>
 </section>
 
 </main>

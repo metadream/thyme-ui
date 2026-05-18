@@ -118,12 +118,17 @@ A form field with label, input/textarea/date picker, built-in validation, and er
 | `autofocus`    | boolean   | —         | Auto-focus on mount |
 | `error`        | string    | —         | Sets an error message (overrides validation). Remove attr to clear |
 
+**Note:** When `type="date"`, the built-in input is `type="text"` with `maxlength="10"` (for `yyyy-mm-dd` format) and a custom calendar popup. Validation checks the date format, real date existence, and optional `min`/`max` constraints.
+
 #### Properties
 
-| Property | Type   | Get/Set | Description |
-|----------|--------|---------|-------------|
-| `.value` | string | get/set | Current input value |
-| `.name`  | string | get     | Field name attribute |
+| Property | Type    | Get/Set | Description |
+|----------|---------|---------|-------------|
+| `.value` | string  | get/set | Current input value |
+| `.name`  | string  | get     | Field name attribute |
+| `.disabled` | boolean | get/set | Whether the field is disabled |
+| `.readonly` | boolean | get/set | Whether the field is read-only |
+| `.required` | boolean | get/set | Whether the field is required |
 
 #### Methods
 
@@ -146,7 +151,7 @@ A form field with label, input/textarea/date picker, built-in validation, and er
 
 | Slot     | Description |
 |----------|-------------|
-| default  | Replaces the built-in `<input>`/`<textarea>` with a custom element (the custom element must have `.value` and support the expected attributes) |
+| default  | Replaces the built-in `<input>`/`<textarea>` with a custom element (the custom element must have `.value` and support the expected attributes). When `type="textarea"`, light DOM text content is consumed as the initial value |
 | `"label"`| Replaces the label text |
 
 #### CSS Shadow Parts
@@ -175,8 +180,10 @@ A form field with label, input/textarea/date picker, built-in validation, and er
 <!-- Date picker -->
 <th-field label="Date" type="date" name="date"></th-field>
 
-<!-- Textarea -->
-<th-field label="Bio" type="textarea" name="bio" rows="5"></th-field>
+<!-- Textarea with slot content consumed as initial value -->
+<th-field label="Bio" type="textarea" name="bio" rows="5">
+  <p>Existing content</p>
+</th-field>
 
 <!-- Pre-filled value -->
 <th-field label="City" value="Shanghai"></th-field>
@@ -519,27 +526,38 @@ Thyme.locale = 'en';  // switch to English
 ### Form utilities
 
 ```js
-// Serialize a form scope to an object
-// Returns { [name]: value, ... }
+// Serialize a form scope to an object.
+// Returns null if ANY field fails checkValidity() — the first
+// invalid field receives focus and shows its error message.
 const data = Thyme.form.getJsonObject('#my-form');
 // or pass an element:
 const data = Thyme.form.getJsonObject(document.querySelector('#my-form'));
 
-// Serialize multiple form scopes to an array
+// Serialize multiple form scopes to an array.
+// Returns null if ANY scope's validation fails.
 const all = Thyme.form.getJsonArray('.form-scope');
 // or pass a NodeList:
 const all = Thyme.form.getJsonArray(document.querySelectorAll('.form-scope'));
 
 // Populate a form from an object
 Thyme.form.setJsonObject('#my-form', { username: 'admin', age: 25 });
+
+// Typical submit guard:
+const data = Thyme.form.getJsonObject('#my-form');
+if (data === null) return;  // validation failed, already focused
+await fetch('/api/submit', { method: 'POST', body: JSON.stringify(data) });
 ```
 
-**Rules** for serialization:
+**Rules** for serialization (`getJsonObject` / `getJsonArray`):
 - Only elements with a `name` attribute are included
-- Unchecked checkboxes/radio buttons are skipped
-- Checkboxes with the same `name` are collected into an array
-- `contentEditable` elements use `innerHTML`
-- All others use `.value` or `textContent`
+- Unchecked checkboxes / radio buttons / switches are skipped
+- Checkboxes with the same `name` or `<select multiple>` are collected into an array
+- `contentEditable` elements use trimmed `innerHTML`
+- User-input elements (native `<input>`/`<textarea>`, `<th-field>`) have their value trimmed and written back to the element
+- Selection elements (`<select>`, `<th-select>`, `<th-check>`, `<th-switch>`, radio buttons) are stored as-is
+- On any `checkValidity()` failure, `getJsonObject` returns `null` immediately — the first invalid field is focused and shows its error
+
+`setJsonObject` populates elements by matching `[name]` attributes. Handles all the same element types including `<select multiple>`, checkbox arrays, radio groups, and contentEditable.
 
 ### HTTP client
 
