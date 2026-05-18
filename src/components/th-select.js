@@ -78,6 +78,7 @@ export class ThSelect extends Component {
         this._loadOptions();
         this._setupEvents();
         this._updateDisabled();
+        this._updateRequired();
     }
 
     _loadOptions() {
@@ -114,6 +115,9 @@ export class ThSelect extends Component {
             case "disabled":
                 if (this.__initialized) this._updateDisabled();
                 break;
+            case "required":
+                this._updateRequired();
+                break;
             case "label":
             case "placeholder":
                 if (this.__initialized) this._rerender();
@@ -125,6 +129,11 @@ export class ThSelect extends Component {
         if (!this._select) return;
         this._select.classList.toggle("th-select--disabled", this.disabled);
         this._trigger.setAttribute("tabindex", this.disabled ? "-1" : "0");
+    }
+
+    _updateRequired() {
+        if (!this._select) return;
+        this._select.classList.toggle("th-select--required", this.hasAttribute("required"));
     }
 
     _buildOptions() {

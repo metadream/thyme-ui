@@ -51,6 +51,16 @@
     min-width: 120px;
 }
 
+.th-select__label::after {
+    content: "\00a0*";
+    color: #ef4444;
+    display: none;
+}
+
+.th-select--required .th-select__label::after {
+    display: inline;
+}
+
 .th-select__trigger {
     flex: 1;
     display: flex;
