@@ -74,6 +74,7 @@ export class ThField extends Component {
         const isTextarea = fieldType === TEXTAREA;
         const isDate = fieldType === "date";
         const type = !isTextarea ? ` type="${isDate ? "text" : fieldType}"` : "";
+        const maxlength = isDate ? ` maxlength="10"` : "";
         const cls = isTextarea ? "th-field th-field--textarea" : "th-field";
         const showLabel = label || Array.from(this.children).some((c) => c.getAttribute?.("slot") === "label");
 
@@ -83,7 +84,7 @@ export class ThField extends Component {
                 ${
                     isTextarea
                         ? `<div class="th-field__input" part="input" contenteditable="plaintext-only"></div><span class="ce-placeholder">${this.getAttribute("placeholder") || ""}</span>`
-                        : `<input class="th-field__input" part="input"${type}>`
+                        : `<input class="th-field__input" part="input"${type}${maxlength}>`
                 }
                 <slot></slot>
                 ${
