@@ -45,6 +45,11 @@
     background: color-mix(in srgb, var(--th-primary, #3730a3) 12%, transparent);
 }
 
+::slotted(button[disabled]) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .th-dialog {
     display: flex;
     flex-direction: column;

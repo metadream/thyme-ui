@@ -1,6 +1,6 @@
 {
     "name": "@metadream/thyme-ui",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "description": "A lightweight UI component library built with native Web Components, zero dependencies.",
     "license": "MIT",
     "repository": "https://github.com/metadream/thyme-ui.git",
