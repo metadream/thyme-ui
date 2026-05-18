@@ -103,13 +103,14 @@ Shadow DOM isolates box-sizing from the global page.
 - Every observed attribute that is commonly set via JS (`disabled`, `loading`, `required`, `readonly`, etc.) must have `get`/`set` property pair delegated to `hasAttribute`/`setAttribute`/`removeAttribute` — JS property assignment does not trigger `attributeChangedCallback`
 - Date format: `yyyy-mm-dd` throughout
 - `th-button`: default variant `"filled"` (not `tonal`); supports `size="small"`/no attr(medium)/`"large"`; `slot="icon"` with auto icon-only detection; renders `<a>` when `href` attribute present
-- `th-field`: type `"date"` renders as `type="text"` internally with a built-in calendar popup; exposes `.checkValidity()`, `.reportValidity()`, `.setCustomValidity(msg)` methods; `error` attribute overrides validation; `slot="label"` replaces label text; default slot replaces the `<input>` element
-- `th-check` `type="radio"`: auto-unchecks same-name siblings via `document.querySelectorAll`; `change` event detail: `{ checked, value }`
-- `th-select`: reads `<option>` children declaratively (not via properties); keyboard navigation (arrows, enter, escape); `change` event detail: `{ value, text }`
+- `th-field`: `<input>`/`<textarea>` is rendered **outside** `<slot>` (not as fallback content) so `this._input` is always queryable; `_consumeSlotContent()` in `_init()` handles light DOM children — (a) custom form controls hide the built-in input, (b) `type="textarea"` extracts block-aware text as initial value then clears `innerHTML`, (c) other types ignore slot content; date type renders as `type="text"` internally with `maxlength="10"` plus a built-in calendar popup; exposes `.checkValidity()`, `.reportValidity()`, `.setCustomValidity(msg)`; `_validateValue(val)` handles required, date format/validity/min/max, and minlength/maxlength; `disabled`, `readonly`, `required` have `get`/`set` pairs; `error` attribute overrides validation
+- `th-check` `type="radio"`: auto-unchecks same-name siblings via `document.querySelectorAll`; `change` event detail: `{ checked, value }`; `type` getter returns `"checkbox"` or `"radio"`
+- `th-select`: reads `<option>` children declaratively (not via properties); keyboard navigation (arrows, enter, escape); `change` event detail: `{ value, text }`; `get type()` returns `"select-one"` for native-like form handling
 - `th-dialog`: prevents body scroll while open (wheel + touchmove capture); Escape respects `closable` attribute; `.open()` and `.close()` methods
 - `th-toast`: module-level `refs[]` array for auto-stacking with 55px gap; each toast is `position: fixed` with no container div; `close()` method dispatches `close` event; auto-removes after `duration` seconds (default 3)
 - `locale.translate(key)` (renamed from old `.t()`); `Thyme.http.delete` (renamed from old `del()`)
 - `Thyme.form` and `Thyme.utils` use `import * as` in `main.js`, resolved by `resolveNamespaceImports()` in `build.js`
+- `Thyme.form.getJsonObject(scope)`: returns `null` if any field's `checkValidity()` fails; for user-input elements (`_isInput()` — `type` is not `"radio"`/`"select-one"` and no `checked` property), values are trimmed and written back to the element; `<select multiple>` collected as array alongside checkbox logic; `setJsonObject` is unchanged
 
 ## Theming
 - CSS custom properties use `@property` registration with `initial-value` in `main.js` — no global `:root` injection
