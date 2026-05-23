@@ -32,6 +32,7 @@ self.Thyme = {
         dialog.setAttribute("closable", "false");
         if (title) dialog.setAttribute("title", title);
 
+        dialog.setAttribute("type", "alert");
         dialog.innerHTML = `<div>${message}</div><button slot="footer">${locale.translate("alert.ok")}</button>`;
         document.body.appendChild(dialog);
         const btn = dialog.querySelector("button");
@@ -49,6 +50,7 @@ self.Thyme = {
             dialog.setAttribute("closable", "false");
             if (title) dialog.setAttribute("title", title);
 
+            dialog.setAttribute("type", "confirm");
             dialog.innerHTML = `<div>${message}</div>
                 <button slot="footer" class="th-cancel">${locale.translate("confirm.cancel")}</button>
                 <button slot="footer" class="th-ok">${locale.translate("confirm.ok")}</button>`;

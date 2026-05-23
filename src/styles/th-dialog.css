@@ -104,6 +104,10 @@
     padding: 30px;
     line-height: var(--th-line-height);
     color: #666;
+}
+
+:host([type="alert"]) .th-dialog__body,
+:host([type="confirm"]) .th-dialog__body {
     text-align: center;
 }
 
