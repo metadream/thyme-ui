@@ -27,7 +27,7 @@ export function getJsonObject(scope) {
 
         const name = el.name || el.getAttribute("name");
         if (!name) continue;
-        if (typeof el.checked === "boolean" && !el.checked) continue;
+        if (_isCheckable(el) && !el.checked) continue;
 
         if (el.type === "checkbox" || el.type === "select-multiple") {
             if (!Array.isArray(data[name])) data[name] = [];
@@ -59,14 +59,13 @@ export function setJsonObject(scope, data) {
 
     for (const el of els) {
         const name = el.name || el.getAttribute("name");
-        if (!name || !(name in data)) continue;
+        const val = data[name] ?? "";
 
-        const val = data[name];
         if (el.type === "radio") {
             el.checked = String(el.value) === String(val);
         } else if (el.type === "checkbox") {
             el.checked = Array.isArray(val) ? val.includes(el.value) : String(el.value) === String(val);
-        } else if (typeof el.checked === "boolean") {
+        } else if (_isCheckable(el)) {
             el.checked = !!val;
         } else {
             el.value = val ?? "";
@@ -74,6 +73,14 @@ export function setJsonObject(scope, data) {
     }
 }
 
+function _isCheckable(el) {
+    return (
+        el.type === "checkbox" ||
+        el.type === "radio" ||
+        (typeof el.checked === "boolean" && !(el instanceof HTMLInputElement))
+    );
+}
+
 function _isInput(el) {
-    return el.type !== "radio" && el.type !== "select-one" && typeof el.checked !== "boolean";
+    return !_isCheckable(el) && el.type !== "select-one";
 }
