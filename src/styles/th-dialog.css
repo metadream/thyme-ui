@@ -18,6 +18,7 @@
     background: transparent;
     font-weight: 600;
     font-size: inherit;
+    font-family: inherit;
     color: var(--th-primary, #3730a3);
     cursor: pointer;
     outline: none;
