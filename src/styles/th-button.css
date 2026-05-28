@@ -120,8 +120,13 @@
     background: color-mix(in srgb, var(--th-primary) 16%, transparent);
 }
 
+:host([disabled]),
+:host([loading]) {
+    pointer-events: none;
+}
 .th-button[disabled] {
     opacity: 0.5;
+    cursor: default;
     pointer-events: none;
 }
 

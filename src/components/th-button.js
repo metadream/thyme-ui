@@ -178,14 +178,14 @@ export class ThButton extends Component {
 
     _setupRipple() {
         this._button.addEventListener("click", (e) => {
-            if (this.hasAttribute("loading")) return;
+            if (this.hasAttribute("disabled") || this.hasAttribute("loading")) return;
             ripple(this._button, e);
         });
     }
 
     _setupEvents() {
         this._button.addEventListener("click", (e) => {
-            if (this.hasAttribute("loading")) {
+            if (this.hasAttribute("disabled") || this.hasAttribute("loading")) {
                 e.preventDefault();
                 e.stopPropagation();
                 return;
