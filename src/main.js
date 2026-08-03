@@ -11,7 +11,9 @@ import * as form from "./core/form.js";
 import * as utils from "./core/utils.js";
 
 const sheet = new CSSStyleSheet();
-sheet.replaceSync(`@property --th-primary{syntax:"<color>";inherits:true;initial-value:#3730a3}@property --th-radius{syntax:"<length>";inherits:true;initial-value:8px}@property --th-font-size{syntax:"<length>";inherits:true;initial-value:14px}@property --th-line-height{syntax:"<number>";inherits:true;initial-value:1.5}`);
+sheet.replaceSync(
+    `@property --th-primary{syntax:"<color>";inherits:true;initial-value:#3730a3}@property --th-radius{syntax:"<length>";inherits:true;initial-value:8px}@property --th-font-size{syntax:"<length>";inherits:true;initial-value:14px}@property --th-line-height{syntax:"<number>";inherits:true;initial-value:1.5}`,
+);
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
 customElements.define("th-button", ThButton);
@@ -72,7 +74,7 @@ self.Thyme = {
 };
 
 for (const type of ["info", "warn", "error", "success"]) {
-    self.Thyme[type] = (msg, duration = 10) => {
+    self.Thyme[type] = (msg, duration = 8) => {
         const toast = document.createElement("th-toast");
         toast.setAttribute("type", type);
         toast.setAttribute("duration", String(duration));

@@ -26,7 +26,7 @@ export class ThToast extends Component {
 
     _init() {
         this._toast = this.$(".th-toast");
-        const ms = (parseInt(this.getAttribute("duration"), 10) || 5) * 1000;
+        const ms = (parseInt(this.getAttribute("duration"), 10) || 8) * 1000;
 
         requestAnimationFrame(() => {
             this._toast.style.transform = "translateY(0)";
