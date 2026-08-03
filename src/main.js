@@ -72,10 +72,10 @@ self.Thyme = {
 };
 
 for (const type of ["info", "warn", "error", "success"]) {
-    self.Thyme[type] = (msg, duration) => {
+    self.Thyme[type] = (msg, duration = 10) => {
         const toast = document.createElement("th-toast");
         toast.setAttribute("type", type);
-        if (duration) toast.setAttribute("duration", String(duration));
+        toast.setAttribute("duration", String(duration));
         toast.textContent = msg;
         document.body.appendChild(toast);
     };

@@ -107,7 +107,7 @@ Shadow DOM isolates box-sizing from the global page.
 - `th-check` `type="radio"`: auto-unchecks same-name siblings via `document.querySelectorAll`; `change` event detail: `{ checked, value }`; `type` getter returns `"checkbox"` or `"radio"`
 - `th-select`: reads `<option>` children declaratively (not via properties); keyboard navigation (arrows, enter, escape); `change` event detail: `{ value, text }`; `get type()` returns `"select-one"` for native-like form handling
 - `th-dialog`: prevents body scroll while open (wheel + touchmove capture); Escape respects `closable` attribute; `.open()` and `.close()` methods
-- `th-toast`: module-level `refs[]` array for auto-stacking with 55px gap; each toast is `position: fixed` with no container div; `close()` method dispatches `close` event; auto-removes after `duration` seconds (default 3)
+- `th-toast`: module-level `refs[]` array for auto-stacking with 55px gap; each toast is `position: fixed` with no container div; `close()` method dispatches `close` event; auto-removes after `duration` seconds (default 5); `Thyme.info/warn/error/success` shortcuts default to 10 seconds
 - `locale.translate(key)` (renamed from old `.t()`); `Thyme.http.delete` (renamed from old `del()`)
 - `Thyme.form` and `Thyme.utils` use `import * as` in `main.js`, resolved by `resolveNamespaceImports()` in `build.js`
 - `Thyme.form.getJsonObject(scope)`: returns `null` if any field's `checkValidity()` fails; for user-input elements (`_isInput()` — `type` is not `"radio"`/`"select-one"` and no `checked` property), values are trimmed and written back to the element; `<select multiple>` collected as array alongside checkbox logic; `setJsonObject` is unchanged
