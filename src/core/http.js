@@ -26,8 +26,12 @@ async function request(method, url, data, opts) {
         } else {
             result = await response.blob();
         }
+
         if (!response.ok) {
-            throw new Error(result.message);
+            const err = new Error(result.message);
+            err.status = response.status;
+            if (typeof result.message === "string") Object.assign(err, result);
+            throw err;
         }
         return result;
     } catch (e) {
