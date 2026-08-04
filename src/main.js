@@ -73,13 +73,20 @@ self.Thyme = {
     },
 };
 
+let activeToast = null;
 for (const type of ["info", "warn", "error", "success"]) {
     self.Thyme[type] = (msg, duration = 8) => {
         const toast = document.createElement("th-toast");
         toast.setAttribute("type", type);
         toast.setAttribute("duration", String(duration));
         toast.textContent = msg;
+        if (activeToast) activeToast.close();
+        activeToast = toast;
+
         document.body.appendChild(toast);
+        toast.addEventListener("close", () => {
+            if (activeToast === toast) activeToast = null;
+        });
     };
 }
 
