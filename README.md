@@ -441,14 +441,14 @@ A modal dialog with overlay, title, body, and footer slot.
 
 ### `<th-toast>`
 
-A fixed-position toast notification. Auto-removes after a duration. Multiple toasts stack vertically.
+A fixed-position toast notification. Auto-removes after a duration. Only one toast is shown at a time — a new toast replaces the current one.
 
 #### Attributes
 
 | Attribute  | Type    | Default | Description |
 |------------|---------|---------|-------------|
 | `type`     | string  | `"info"`| One of: `info`, `warn`, `error`, `success` |
-| `duration` | number  | `3`     | Display duration in seconds |
+| `duration` | number  | `8`     | Display duration in seconds |
 
 #### Methods
 
