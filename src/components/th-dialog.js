@@ -75,6 +75,11 @@ export class ThDialog extends Component {
         switch (name) {
             case "open":
                 this._updateOpenState();
+                // 关闭完成（open 属性移除）时派发 close 事件，供外部监听（ESC/遮罩/close() 均会走到此处）。
+                // 注意：attributeChangedCallback 移除属性时 newValue 为 null（而非 undefined）。
+                if (value == null) {
+                    this.dispatchEvent(new CustomEvent("close", { bubbles: true }));
+                }
                 break;
             case "title":
                 this._rerender();
