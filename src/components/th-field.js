@@ -32,6 +32,7 @@ export class ThField extends Component {
         if (!this._input) return;
         if (this._input.tagName === "DIV") {
             this._input.innerText = v ?? "";
+            this._updateCEState();
         } else {
             this._input.value = v ?? "";
         }
@@ -396,6 +397,7 @@ export class ThField extends Component {
             if (name === "value") {
                 const text = value ?? "";
                 if (this._input.innerText !== text) this._input.innerText = text;
+                this._updateCEState();
             } else if (name === "disabled") {
                 this._input.contentEditable = value === null ? "true" : "false";
                 if (value !== null) this._input.setAttribute("disabled", "");
@@ -485,6 +487,8 @@ export class ThField extends Component {
 
     _updateRowHeight() {
         if (this._input?.tagName !== "DIV") return;
+
+        // fill 模式：rows 作为最小高度（初始默认高度），容器更高时仍拉伸填满
         const style = getComputedStyle(this._input);
         const lh = parseFloat(style.lineHeight) || 21;
         const pt = parseFloat(style.paddingTop) || 12;

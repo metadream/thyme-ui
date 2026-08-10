@@ -111,6 +111,7 @@ A form field with label, input/textarea/date picker, built-in validation, and er
 | `minlength`    | number    | —         | Minimum text length |
 | `maxlength`    | number    | —         | Maximum text length |
 | `rows`         | number    | `3`       | Textarea row count (only when `type="textarea"`) |
+| `fill`         | boolean   | —         | Fixed height mode (only when `type="textarea"`): fills the parent container height and scrolls internally when content overflows. Without it the textarea auto-expands with no scrollbar |
 | `min`          | string    | —         | Minimum value (for `number`/`date` types) |
 | `max`          | string    | —         | Maximum value (for `number`/`date` types) |
 | `pattern`      | string    | —         | Regex pattern for validation |

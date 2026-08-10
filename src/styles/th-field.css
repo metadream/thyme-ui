@@ -117,6 +117,28 @@
     outline: none;
 }
 
+/* 固定高度模式：textarea 占满父容器高度，内容超高时在内部滚动。
+   默认（无 fill）仍是自动扩展高度、不出现滚动条。 */
+:host([fill]) {
+    display: flex;
+    flex-direction: column;
+}
+
+:host([fill]) .th-field--textarea {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+:host([fill]) .th-field__input-wrap {
+    min-height: 0;
+}
+
+:host([fill]) .th-field__input[contenteditable] {
+    align-self: stretch;
+    min-height: 0;
+}
+
 .th-field__input[contenteditable][disabled] {
     color: #9ca3af;
     cursor: not-allowed;
